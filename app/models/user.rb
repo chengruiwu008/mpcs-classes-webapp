@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
 
   default_scope { order('users.created_at DESC') }
-  scope :admins, -> { where(admin: true) }
+  scope :admins, -> { where(type: "Admin") }
 
   has_many :projects, foreign_key: "advisor_id", dependent: :destroy
   has_many :submissions, foreign_key: "student_id", dependent: :destroy

@@ -1,0 +1,21 @@
+<p>This information will show up on your project proposals.</p>
+
+<br>
+
+<%= bootstrap_form_for(@user, layout: :horizontal,
+		       control_col: "col-xs-3") do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.text_field :affiliation, label: "Affiliation" %>
+
+  <br \>
+
+  <%= f.text_field :department, label: "Department, institution, etc." %>
+
+  <br \>
+
+  <%= f.form_group do %>
+    <%= f.submit "Update your information",
+      class: "btn btn-primary", data: { confirm: "Are you sure?" } %>
+  <% end %>
+<% end %>

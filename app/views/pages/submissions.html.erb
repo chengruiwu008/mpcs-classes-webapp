@@ -1,0 +1,108 @@
+<h2><%= formatted_current_quarter %> Applications</h2>
+
+<div class="alert alert-<%= alert_type_by_deadline %>">
+  <p>
+    <strong>Suggested decision publishing deadline</strong>:
+    <%= formatted_deadline("admin_publish") %>
+  </p>
+</div>
+
+<% if @current_submitted_submissions.count > 0 %>
+  <%= form_tag update_all_submissions_path, method: :patch do %>
+    <table class="table table-bordered">
+      <tr>
+	<th>Student</th>
+	<th>Advisor</th>
+	<th>Project title</th>
+	<th>Date created</th>
+	<th>Advisor's decision</th>
+	<th>Decision approved?</th>
+	<th>Decision published?</th>
+	<th>Notes</th>
+	<th>Select</th>
+      </tr>
+      <tbody>
+	<% @current_submitted_submissions.each do |submission| %>
+	  <%= fields_for "submissions[]", submission do |f| %>
+	    <%= render 'submission_short', submission: submission, form: f %>
+	  <% end %>
+	<% end %>
+      </tbody>
+    </table>
+
+    <%# Include a message explaining that only the ones that can be updated %>
+    <%# will be updated? (i.e., only if valid.) %>
+
+    <%# Also include a message explaining that these updates will send out %>
+    <%# e-mails to all those involved? %>
+
+    <div class="row">
+      <div class="col-md-3">
+	<%= submit_tag "Approve decisions of all selected",
+	class: "btn btn-success", data: { confirm: "Are you sure?" } %>
+      </div>
+
+      <div class="col-md-3">
+	<%= submit_tag "Reject decisions of all selected",
+	class: "btn btn-danger", data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-3">
+	<%= submit_tag "Accept all selected", class: "btn btn-success",
+	  data: { confirm: "Are you sure?" } %>
+      </div>
+
+      <div class="col-md-3">
+	<%= submit_tag "Reject all selected", class: "btn btn-danger",
+	  data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-3">
+	<%= submit_tag "Publish all selected", class: "btn btn-success",
+	  data: { confirm: "Are you sure?" } %>
+      </div>
+      <div class="col-md-3">
+	<%= submit_tag "Unpublish all selected", class: "btn btn-danger",
+	  data: { confirm: "Are you sure?" } %>
+      </div>
+    </div>
+  <% end %>
+
+  <br />
+
+  <div>
+    <p>
+      Click <%= link_to "here", approve_all_statuses_path, method: :patch,
+      data: { confirm: "Are you sure?" } %>
+      to approve every advisor's decision.
+    </p>
+  </div>
+  <div>
+    <p>
+      Click <%= link_to "here", publish_all_statuses_path, method: :patch,
+      data: { confirm: "Are you sure?" } %>
+      to allow all students to see their application decisions.
+    </p>
+  </div>
+
+<% else %>
+  <p>There are no applications for this quarter.</p>
+<% end %>
+
+<div>
+  <p>
+    Click <%= link_to "here", submission_drafts_path %> to view this quarter's
+    application drafts.
+  </p>
+</div>
+
+<div>
+  <p>
+    Click <%= link_to "here", accepted_submissions_path %> to view all
+    accepted students in the current quarter.
+  </p>
+</div>

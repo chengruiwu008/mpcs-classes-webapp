@@ -1,0 +1,14 @@
+<tr>
+  <td><%= link_to project.name, project %></td>
+  <td><%= project.created_at %></td>
+  <td><%= project.status %></td>
+  <td>
+    <% if project.pending? %>
+      You may edit this proposal
+      <%= link_to "here", edit_project_path(project.id) %>.
+    <% elsif project.accepted? %>
+      You may view students' applications to this project
+      <%= link_to "here", project_submissions_path(project.id) %>.
+    <% end %>
+  </td>
+</tr>

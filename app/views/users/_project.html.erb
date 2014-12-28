@@ -1,0 +1,8 @@
+<tr class="<%= advisor_project_row_class(project) %>">
+  <td><%= q_link_to project.name, project %></td>
+  <td><%= formatted_quarter(project.quarter) %></td>
+  <td><%= project.created_at.to_date %></td>
+  <td><%= formatted_project_status(project) %></td>
+  <td><%= formatted_submission_count(project) %></td>
+  <td><%= project_notes(project) %></td>
+</tr>

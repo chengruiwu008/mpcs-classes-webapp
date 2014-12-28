@@ -1,0 +1,17 @@
+<%= bootstrap_form_for @user do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.form_group :roles do %>
+    <%= f.check_box :student, label: "Student", inline: true %> &nbsp;
+
+    <%= f.check_box :advisor, label: "Advisor", inline: true %> &nbsp;
+
+    <%= f.check_box :admin, label: "Admin", inline: true %>
+  <% end %>
+
+  <span id="roles-form-tooltip" data-toggle="tooltip" data-placement="right"
+	title="<%= user_role_warning %>">
+    <%= f.submit "Change this user's roles",
+    class: "btn btn-primary", data: { confirm: "Are you sure?" } %>
+  </span>
+<% end %>

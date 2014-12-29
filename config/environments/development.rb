@@ -26,4 +26,23 @@ CourseEnrollment::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+
+  # Tell Paperclip where to look for ImageMagick and GhostScript
+  Paperclip.options[:command_path] = "/usr/bin/"
+
+  # Set log level
+  config.log_level = :debug
+
+  # Settings for the mailcatcher gem
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings =
+    { :address => "localhost", :port => 1025 }
+
+  # Set asset host for ActionMailer
+  config.action_mailer.asset_host = "localhost:3000"
+
+  config.serve_static_assets = true
+
 end

@@ -75,14 +75,16 @@ class User < ActiveRecord::Base
       advisor? and projects.any? and createable_exists
   end
 
-  def roles
-    roles = []
+  def admin?
+    type == "Admin"
+  end
 
-    [:admin, :advisor, :student].each do |role|
-      roles << role.to_s if self.send(role)
-    end
+  def faculty?
+    type == "Faculty"
+  end
 
-    roles
+  def student?
+    type == "Student"
   end
 
   def projects_applied_to

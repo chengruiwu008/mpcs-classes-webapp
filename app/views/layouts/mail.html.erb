@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <body style='font-family: Verdana, sans-serif; background-color: #EAE9E1;'>
+    <table width='100%' style='border: none; border-collapse: collapse;'>
+      <tr style='background-color: #800000; height: 96px;'>
+        <td>
+          <div style='float: left; margin-left: 20px; margin-top: 15px;'>
+            <a style='color: white; font-family: Helvetica, sans-serif;
+	       font-size: 24px; font-weight: normal; text-decoration: none;'
+	       href='https://practicum.cs.uchicago.edu'>
+	      University of Chicago CS Masters Program
+	    </a>
+          </div>
+          <div style='float: right; height: 53px; width: 246px;
+	       margin-top: 20px; margin-right: 20px;'>
+            <a style='border: none;' href='http://www.uchicago.edu'>
+              <%= image_tag "logo-small.png" %>
+            </a>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div style='background-color: #F7F6ED; margin: 0px 20px 0px 20px;
+	       padding: 20px;'>
+	    <h2 style='color: #800000;'><%= @title %></h2>
+	    <%= yield %>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

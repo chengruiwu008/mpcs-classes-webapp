@@ -1,14 +1,46 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>CourseEnrollment</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
 
-<%= yield %>
+  <head>
+    <%# Allow mobile scrolling. %>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <title><%= full_site_title %></title>
+    <%= stylesheet_link_tag    "application", media: "all",
+    "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application",
+    "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <%= favicon_link_tag %>
+  </head>
 
-</body>
+  <body>
+  <div id="wrapper">
+
+    <%= render 'layouts/header' %>
+
+    <div class="container" id="content-body">
+      <div id="content">
+
+	<%= render 'site_wide_messages' %>
+
+	<% flash.each do |key, value| %>
+	  <div class="alert alert-<%= flash_class(key) %>">
+	    <%= value %>
+	    <button type="button" class="close" data-dismiss="alert">
+	      &times;
+	    </button>
+	  </div>
+	<% end %>
+
+	<%= yield %>
+      </div>
+    </div>
+
+    <div id="footer-protector"></div>
+  </div>
+
+    <%= render 'layouts/footer' %>
+  </body>
+
 </html>

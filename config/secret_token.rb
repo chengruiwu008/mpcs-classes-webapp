@@ -24,4 +24,4 @@ def secure_token
   end
 end
 
-Practicum::Application.config.secret_key_base = secure_token
+CourseEnrollment::Application.config.secret_key_base = secure_token

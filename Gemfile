@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '1.9.3'
-#ruby-gemset=practicum
+#ruby-gemset=course-enrollment
 
 gem 'rails', '4.1.5'
 gem 'bootstrap-sass', '~> 3.2.0'

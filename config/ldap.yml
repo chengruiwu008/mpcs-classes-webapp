@@ -21,31 +21,22 @@ authorizations: &AUTHORIZATIONS
 ## Environment
 
 development:
-  host: localhost
-  port: 389
-  attribute: cn
-  base: ou=people,dc=test,dc=com
-  admin_user: cn=admin,dc=test,dc=com
-  admin_password: admin_password
-  ssl: false
-  # <<: *AUTHORIZATIONS
+  host: ldap.cs.uchicago.edu
+  port: 636
+  attribute: uid
+  base: dc=uchicago,dc=edu
+  ssl: true
 
 test:
-  host: localhost
-  port: 3389
-  attribute: cn
-  base: ou=people,dc=test,dc=com
-  admin_user: cn=admin,dc=test,dc=com
-  admin_password: admin_password
-  ssl: simple_tls
-  # <<: *AUTHORIZATIONS
+  host: ldap.cs.uchicago.edu
+  port: 636
+  attribute: uid
+  base: dc=uchicago,dc=edu
+  ssl: true
 
 production:
-  host: localhost
+  host: ldap.cs.uchicago.edu
   port: 636
-  attribute: cn
-  base: ou=people,dc=test,dc=com
-  admin_user: cn=admin,dc=test,dc=com
-  admin_password: admin_password
-  ssl: start_tls
-  # <<: *AUTHORIZATIONS
+  attribute: uid
+  base: dc=uchicago,dc=edu
+  ssl: true

@@ -1,5 +1,7 @@
 CourseEnrollment::Application.routes.draw do
 
+  root 'pages#home'
+
   devise_for :users, skip: [:sessions, :registrations]
 
   # For logging in
@@ -16,6 +18,4 @@ CourseEnrollment::Application.routes.draw do
       get :cancel
     end
   end
-
-  root 'pages#home'
 end

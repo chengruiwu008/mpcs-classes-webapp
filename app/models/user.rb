@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: { case_sensitive: false }
 
+  devise :rememberable, :trackable, :validatable,
+         :ldap_authenticatable, authentication_keys: [:cnet]
+
+  before_validation :get_ldap_info
   after_update :send_roles_changed
 
   # Current user, passed in from ApplicationController.
@@ -139,6 +143,22 @@ class User < ActiveRecord::Base
     if this_user != self and
         (student_changed? or advisor_changed? or admin_changed?)
       Notifier.roles_changed(self).deliver
+    end
+  end
+
+  def get_ldap_info
+    if Devise::LDAP::Adapter.get_ldap_param(self.cnet, 'uid')
+      self.email = Devise::LDAP::Adapter.
+        get_ldap_param(self.cnet, "mail").first
+
+      self.first_name = (Devise::LDAP::Adapter.
+                         get_ldap_param(self.cnet,
+                                        "givenName") rescue nil).first
+
+      self.last_name = (Devise::LDAP::Adapter.
+                        get_ldap_param(self.cnet, "sn") rescue nil).first
+
+      self.student = true
     end
   end
 

@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
 
   # Current user, passed in from ApplicationController.
   attr_accessor :this_user
-  attr_accessor :auth_attr
 
   def relevant_quarters
     if admin?
@@ -158,7 +157,7 @@ class User < ActiveRecord::Base
       self.last_name = (Devise::LDAP::Adapter.
                         get_ldap_param(self.cnet, "sn") rescue nil).first
 
-      self.student = true
+      self.type = "Student"
     end
   end
 

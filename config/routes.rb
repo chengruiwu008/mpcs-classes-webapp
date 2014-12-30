@@ -3,9 +3,6 @@ CourseEnrollment::Application.routes.draw do
   root 'pages#home'
 
   devise_for :users, skip: [:sessions, :registrations]
-  # devise_for :students, skip: [:sessions, :registrations]
-  # devise_for :faculties, skip: [:sessions, :registrations]
-  # devise_for :admins, skip: [:sessions, :registrations]
 
   # For logging in
   devise_scope :user do

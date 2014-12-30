@@ -63,7 +63,6 @@ class User < ActiveRecord::Base
   end
 
   def get_ldap_info
-    binding.pry
     if Devise::LDAP::Adapter.get_ldap_param(self.cnet, 'uid')
       self.email = Devise::LDAP::Adapter.
         get_ldap_param(self.cnet, "mail").first
@@ -77,7 +76,6 @@ class User < ActiveRecord::Base
 
       self.type = "Student"
     end
-    binding.pry
   end
 
 end

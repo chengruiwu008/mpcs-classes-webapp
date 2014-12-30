@@ -1,0 +1,32 @@
+<p>Hi <%= @student.first_name || @student.cnet || @student.email %>,</p>
+
+<p>
+  <%= "Congratulations!" if @submission.status == "accepted" %> Your
+  application to <%= @project.name %> has been <%= @submission.status %>.
+</p>
+
+<% if @comments.present? %>
+  <p>
+    <%= display_name(@project.advisor) || @project.advisor.cnet ||
+    @project.advisor.email %> has provided
+    you with the following feedback:
+  </p>
+
+  <p>
+    "<%= @comments %>"
+  </p>
+<% end %>
+
+<% if @submission.status == "accepted" %>
+  <p>
+    You may contact the project advisor,
+    <%= display_name(@project.advisor) || @project.advisor.cnet ||
+    @project.advisor.email %>, at
+    <%= @project.advisor.email %>.
+  </p>
+<% end %>
+
+<p>
+  Click <%= q_link_to "here", @submission, :submission_url %> to view your
+  application.
+</p>

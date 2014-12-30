@@ -1,0 +1,8 @@
+Hi <%= @advisor.first_name || @advisor.cnet || @advisor.email %>,
+
+A student has applied to your project titled <%= @project.name %>.
+
+Student name: <%= display_name(@student) || @student.cnet || @student.email %>
+Application: Click <%= q_url(@submission) %> to view <%= @student.first_name %>'s application.
+
+Visit <%= q_url(@project) %> to view your project information.

@@ -5,17 +5,22 @@ class Ability
     user ||= User.new # If not signed in
     can :read, Quarter
 
+    unless user.new_record? # new_record => not signed in
 
-    if user.admin?
-      can :manage, :all
-    end
-
-    if user.faculty?
+      can :read, User, id: user.id
       can :read, Course
-    end
 
-    if user.student?
-      can :read, Course
+      if user.admin?
+        can :manage, :all
+      end
+
+      if user.faculty?
+      end
+
+      if user.student?
+      end
+
     end
   end
+
 end

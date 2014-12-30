@@ -1,0 +1,12 @@
+<p>Hi <%= @admin.first_name || @admin.cnet %>,</p>
+
+<p>An advisor has submitted an evaluation for a student.</p>
+
+<p>Advisor: <%= display_name(@advisor) || @advisor.cnet || @advisor.email %></p>
+<p>Project: <%= @project.name %></p>
+<p>Student: <%= display_name(@student) || @student.cnet || @advisor.email %></p>
+
+<p>
+  Click <%= q_link_to "here", @evaluation, :evaluation_url %> to view this
+  evaluation.
+</p>

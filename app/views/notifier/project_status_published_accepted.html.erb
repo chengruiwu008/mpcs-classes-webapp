@@ -1,0 +1,12 @@
+<p>Hi <%= @advisor.first_name || @advisor.cnet || @advisor.email %>,</p>
+
+<p>
+  Your project proposal for <%= @project.name %> has been made publicly
+  available, and students may now apply to it. You will be notified when
+  students apply.
+</p>
+
+<p>
+  Click <%= q_link_to "here", @project, :project_url %> to view your project
+  information.
+</p>

@@ -1,0 +1,8 @@
+<p>Hi <%= @user.first_name || @user.cnet || @user.email %>,</p>
+
+<p>
+  An administrator has updated your account: you now have
+  <%= @user.type.downcase %> privileges.
+</p>
+
+<p>Visit <%= user_url(@user) %> to view your account page.</p>

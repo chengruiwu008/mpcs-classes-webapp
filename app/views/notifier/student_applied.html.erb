@@ -1,0 +1,15 @@
+<p>Hi <%= @advisor.first_name || @advisor.cnet || @advisor.email %>,</p>
+
+<p>A student has applied to your project titled <%= @project.name %>.</p>
+
+<p>Student name:
+  <%= display_name(@student) || @student.cnet || @student.email %></p>
+<p>
+  Application: Click <%= q_link_to "here", @submission, :submission_url %> to
+  view <%= @student.first_name %>'s application.
+</p>
+
+<p>
+  Click <%= q_link_to "here", @project, :project_url %> to view your project
+  information.
+</p>

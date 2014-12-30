@@ -1,0 +1,9 @@
+Hi <%= @admin.first_name || @admin.cnet %>,
+
+An advisor has made a decision about an application.
+
+Advisor: <%= display_name(@advisor) || @advisor.cnet || @advisor.email %>
+Student: <%= display_name(@student) || @student.cnet || @student.email %>
+Decision: <%= @submission.status %>
+
+Visit <%= q_url(@submission) %> to view <%= display_name(@student) || @student.cnet || @student.email %>'s application.

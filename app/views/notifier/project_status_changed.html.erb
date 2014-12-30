@@ -1,0 +1,30 @@
+<p>Hi <%= @advisor.first_name || @advisor.cnet || @advisor.email %>,</p>
+
+<% if @status == "accepted" %>
+  <p>
+    Your project proposal for <%= @project.name %> has been accepted. You
+    will be notified when your proposal becomes publicly available and
+    students may apply to it.
+  </p>
+<% elsif @status == "pending" %>
+  <p>
+    Your project proposal for <%= @project.name %> is still pending approval,
+    and we have decided you must make the following changes before it may be
+    approved and before students may apply to it.
+  </p>
+<% elsif @status == "rejected" %>
+  <p>
+    We have decided not to accept your project proposal for
+    <%= @project.name %>.
+  </p>
+<% end %>
+
+<% if @comments.present? %>
+  <p>Administrator feedback:</p>
+  <p>"<%= @comments %>"</p>
+<% end %>
+
+<p>
+  Click <%= q_link_to "here", @project, :project_url %> to view
+  <%= "and edit" unless @status == "rejected" %> your project information.
+</p>

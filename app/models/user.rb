@@ -8,8 +8,8 @@ class User < ActiveRecord::Base
 
   validates :email, uniqueness: { case_sensitive: false }
 
-  devise :rememberable, :trackable, :validatable,
-         :ldap_authenticatable, authentication_keys: [:cnet]
+  devise :trackable, :validatable, :ldap_authenticatable,
+         authentication_keys: [:cnet]
 
   before_validation :get_ldap_info
   after_update :send_roles_changed
@@ -139,8 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def send_roles_changed
-    if this_user != self and
-        (student_changed? or advisor_changed? or admin_changed?)
+    if this_user != self and type_changed?
       Notifier.roles_changed(self).deliver
     end
   end

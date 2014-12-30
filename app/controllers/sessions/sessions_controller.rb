@@ -13,7 +13,16 @@ class Sessions::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
-    self.resource = warden.authenticate!(auth_options)
+    # We need to determine exactly which subclass the signed in user is and put
+    # it in the auth_options hash. Also, we cannot modify auth_options, so we
+    # make a copy of it, alter it, and pass it to warden.autenticate!.
+
+    u = User.where(cnet: request.params[:user][:cnet]).take
+    user_type = u.type.downcase.to_sym
+    ao = auth_options
+    ao[:scope] = user_type
+
+    self.resource = warden.authenticate!(ao)
     set_flash_message(:success, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?

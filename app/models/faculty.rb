@@ -2,7 +2,7 @@ class Faculty < User
   devise :trackable, :validatable, :ldap_authenticatable,
   authentication_keys: [:cnet]
 
-#  before_validation :get_ldap_info
+  before_validation :get_ldap_info
 
   # Fix routes for STI subclass of User so that we can call
   # current_user and generate a path in the view, rather than calling

@@ -17,12 +17,13 @@ class Sessions::SessionsController < Devise::SessionsController
     # it in the auth_options hash. Also, we cannot modify auth_options, so we
     # make a copy of it, alter it, and pass it to warden.autenticate!.
 
-    u = User.where(cnet: request.params[:user][:cnet]).take
-    user_type = u.type.downcase.to_sym
-    ao = auth_options
-    ao[:scope] = user_type
+    # u = User.where(cnet: request.params[:user][:cnet]).take
+    # user_type = u.type.downcase.to_sym
+    # ao = auth_options
+    # ao[:scope] = user_type
 
-    self.resource = warden.authenticate!(ao)
+    #self.resource = warden.authenticate!(ao)
+    self.resource = warden.authenticate!(auth_options)
     set_flash_message(:success, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?

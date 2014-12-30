@@ -3,8 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :configure_permitted_parameters, if: :devise_controller?
-
   rescue_from DeviseLdapAuthenticatable::LdapException do |exception|
     redirect_to root_url, alert: "Access denied: #{exception}"
   end
@@ -19,6 +17,20 @@ class ApplicationController < ActionController::Base
   helper_method :is_admin?
   helper_method :authenticate_user!
   helper_method :current_user
+
+  # def authenticate_user!
+  #   if student_signed_in?
+  #     authenticate_student!
+  #   elsif faculty_signed_in?
+  #     authenticate_faculty!
+  #   elsif admin_signed_in?
+  #     authenticate_admin!
+  #   end
+  # end
+
+  # def current_user
+  #   current_student or current_faculty or current_admin
+  # end
 
   protected
 
@@ -35,10 +47,10 @@ class ApplicationController < ActionController::Base
       user.permit(:cnet, :email, :password)
     end
 
-    devise_parameter_sanitizer.for(:sign_up) do |user|
-      user.permit(:email, :password, :password_confirmation,
-                  :first_name, :last_name, :affiliation, :department)
-    end
+    # devise_parameter_sanitizer.for(:sign_up) do |user|
+    #   user.permit(:email, :password, :password_confirmation,
+    #               :first_name, :last_name, :affiliation, :department)
+    # end
   end
 
   def is_admin?

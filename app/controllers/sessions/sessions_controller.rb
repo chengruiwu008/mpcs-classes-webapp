@@ -17,13 +17,25 @@ class Sessions::SessionsController < Devise::SessionsController
     # it in the auth_options hash. Also, we cannot modify auth_options, so we
     # make a copy of it, alter it, and pass it to warden.autenticate!.
 
-    # u = User.where(cnet: request.params[:user][:cnet]).take
-    # user_type = u.type.downcase.to_sym
-    # ao = auth_options
-    # ao[:scope] = user_type
+    ao = auth_options
+    u = User.where(cnet: request.params[:user][:cnet]).take
+
+    if u # If the user is already in the database, i.e., has signed in before
+      user_type = u.type.downcase.to_sym
+      request.params[user_type] = request.params[:user]
+      ao[:scope] = user_type
+    end # Then specify which type of user we're signing in
+
+    binding.pry
 
     #self.resource = warden.authenticate!(ao)
-    self.resource = warden.authenticate!(auth_options)
+    self.resource = warden.authenticate(ao)
+
+    if self.resource.nil?
+      flash[:error] = "Incorrect CNetID or password."
+      return redirect_to new_user_session_path
+    end
+
     set_flash_message(:success, :signed_in) if is_flashing_format?
     sign_in(resource_name, resource)
     yield resource if block_given?

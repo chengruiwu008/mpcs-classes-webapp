@@ -2,7 +2,15 @@ CourseEnrollment::Application.routes.draw do
 
   root 'pages#home'
 
-  devise_for :users, skip: [:sessions, :registrations]
+  # The :users line is necessary.
+  devise_for :users, skip: [:sessions, :registrations], controllers:
+    { sessions: 'sessions' }
+  devise_for :students, skip: [:sessions, :registrations], controllers:
+    { sessions: 'sessions' }
+  devise_for :faculties, skip: [:sessions, :registrations], controllers:
+    { sessions: 'sessions' }
+  devise_for :admins, skip: [:sessions, :registrations], controllers:
+    { sessions: 'sessions' }
 
   # For logging in
   devise_scope :user do

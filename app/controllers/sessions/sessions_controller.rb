@@ -20,15 +20,14 @@ class Sessions::SessionsController < Devise::SessionsController
     ao = auth_options
     u = User.where(cnet: request.params[:user][:cnet]).take
 
-    if u # If the user is already in the database, i.e., has signed in before
+    if u
+      # If the user is already in the database, i.e., has signed in before,
+      # then specify which type of user we're signing in
       user_type = u.type.downcase.to_sym
       request.params[user_type] = request.params[:user]
       ao[:scope] = user_type
-    end # Then specify which type of user we're signing in
+    end
 
-    binding.pry
-
-    #self.resource = warden.authenticate!(ao)
     self.resource = warden.authenticate(ao)
 
     if self.resource.nil?

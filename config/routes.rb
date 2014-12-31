@@ -20,5 +20,11 @@ CourseEnrollment::Application.routes.draw do
   end
 
   resources :users
+  resources :quarters
+
+  scope "/:year/:season", year: /\d{4}/,
+        season: /spring|summer|autumn|winter/ do
+    resources :courses
+  end
 
 end

@@ -19,12 +19,22 @@ CourseEnrollment::Application.routes.draw do
     delete "/signout" => "sessions/sessions#destroy", as: :destroy_user_session
   end
 
-  resources :users
+  resources :users do
+    collection do
+      get   "faculty"
+      patch "faculty"
+    end
+  end
+
+  get "/my_students" => "users#my_students"
+
   resources :quarters
 
   scope "/:year/:season", year: /\d{4}/,
         season: /spring|summer|autumn|winter/ do
     resources :courses
   end
+
+  get "/courses" => "courses#global_index"
 
 end

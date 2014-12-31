@@ -16,11 +16,11 @@ class UsersController < ApplicationController
   end
 
   def index
-    if params[:approved] == "false"
-      @users = User.where(approved: false).page(params[:page])
-    else
-      @users = User.all.page(params[:page])
-    end
+    @users = User.all.page(params[:page])
+  end
+
+  def faculty
+    @users = User.all.where(type: "Faculty")
   end
 
   def edit

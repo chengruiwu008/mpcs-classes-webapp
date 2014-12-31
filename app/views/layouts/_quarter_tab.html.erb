@@ -9,27 +9,27 @@
   <ul class="dropdown-menu" role="menu">
     <%# Projects %>
     <li>
-      <%= link_to "Projects",
-          projects_path(year: quarter.year, season: quarter.season) %>
+      <%= link_to "Courses",
+          courses_path(year: quarter.year, season: quarter.season) %>
     </li>
-    <% if (can? :view_my_submissions, User) or can? :view_my_projects, User %>
+    <% if can? :view_my_courses, User %>
       <li class="divider"></li>
     <% end %>
 
     <%# Student's applications %>
-    <% if can? :view_my_submissions, User %>
+    <% if can? :view_my_bids, User %>
       <li>
-	<%= link_to "My applications",
-	    users_submissions_path(year: quarter.year,
-				   season: quarter.season) %>
+	<%= link_to "My schedule",
+	    users_bids_path(year: quarter.year,
+			    season: quarter.season) %>
       </li>
     <% end %>
 
     <%# Advisor's projects %>
-    <% if can? :view_my_projects, User %>
+    <% if can? :view_my_courses, User %>
       <%= project_proposal_navbar_link(quarter) %>
       <li>
-	<%= link_to "My projects",
+	<%= link_to "My courses",
 	    users_projects_path(year: quarter.year, season: quarter.season) %>
       </li>
       <li>

@@ -1,0 +1,17 @@
+<%= bootstrap_form_for @user do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.form_group :role do %>
+    <%= f.radio_button :type, :student, label: "Student", inline: true %> &nbsp;
+
+    <%= f.radio_button :type, :faculty, label: "Faculty", inline: true %> &nbsp;
+
+    <%= f.radio_button :type, :admin, label: "Admin", inline: true %>
+  <% end %>
+
+  <span id="roles-form-tooltip" data-toggle="tooltip" data-placement="right"
+	title="<%= user_role_warning %>">
+    <%= f.submit "Change this user's roles",
+    class: "btn btn-primary", data: { confirm: "Are you sure?" } %>
+  </span>
+<% end %>

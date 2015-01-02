@@ -6,6 +6,10 @@ class Quarter < ActiveRecord::Base
     where("start_date <= ? AND ? <= end_date",
           DateTime.now, DateTime.now) }
 
+  scope :active_quarter, -> {
+    where("start_date <= ? AND ? <= end_date",
+          DateTime.now, DateTime.now).take }
+
   has_many :courses
 
   validates :season, presence: true,
@@ -24,6 +28,10 @@ class Quarter < ActiveRecord::Base
   def Quarter.deadlines
     [:start_date, :course_submission_deadline, :student_bidding_deadline,
      :end_date]
+  end
+
+  def deadline(deadline)
+    self.send("#{deadline}_deadline".to_sym)
   end
 
   def active?

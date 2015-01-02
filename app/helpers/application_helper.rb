@@ -23,4 +23,18 @@ module ApplicationHelper
     end
   end
 
+  def course_submission_navbar_link(quarter)
+    if before_deadline?("course_submission") or current_user.admin?
+      content_tag(:li, link_to("Submit a course",
+                               new_course_path(year: quarter.year,
+                                               season: quarter.season)))
+    else
+      content_tag(:li, link_to("Submit a course", '#'), class: "disabled")
+    end
+  end
+
+  def before_deadline?(deadline)
+    DateTime.now <= Quarter.active_quarter.deadline(deadline)
+  end
+
 end

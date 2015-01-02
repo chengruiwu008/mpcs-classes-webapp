@@ -59,4 +59,13 @@ class ApplicationController < ActionController::Base
       current_user.admin?
   end
 
+  # def before_deadline?(d)
+  #   humanized_deadline = d.humanize.downcase
+
+  #   e = Quarter.active_exists?
+  #   b = Quarter.active_quarters.map { |q| DateTime.now <= q.deadline(d) }.all?
+  #   message = "The #{humanized_deadline} deadline for this quarter has passed."
+  #   redirect_to root_url, flash: { error: message } unless (b and e)
+  # end
+
 end

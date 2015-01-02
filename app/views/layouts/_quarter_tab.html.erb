@@ -20,37 +20,27 @@
     <% if can? :view_my_bids, User %>
       <li>
 	<%= link_to "My schedule",
-	    users_bids_path(year: quarter.year,
-			    season: quarter.season) %>
+	    my_schedule_path(year: quarter.year,
+			     season: quarter.season) %>
       </li>
     <% end %>
 
     <%# Advisor's projects %>
     <% if can? :view_my_courses, User %>
-      <%= project_proposal_navbar_link(quarter) %>
+      <%= course_submission_navbar_link(quarter) %>
       <li>
 	<%= link_to "My courses",
-	    users_projects_path(year: quarter.year, season: quarter.season) %>
+	    my_courses_path(year: quarter.year, season: quarter.season) %>
       </li>
       <li>
 	<%= link_to "My students",
-	    users_students_path(year: quarter.year, season: quarter.season) %>
+	    my_students_path(year: quarter.year, season: quarter.season) %>
       </li>
     <% end %>
 
     <%# Administrative pages %>
     <% if can? :manage, :all %>
       <li class="divider"></li>
-      <li><%= link_to "Pending projects",
-              pending_projects_path(year: quarter.year,
-				    season: quarter.season) %></li>
-      <li><%= link_to "Applications",
-      submissions_path(year: quarter.year, season: quarter.season) %></li>
-      <li><%= link_to "Accepted students",
-              accepted_submissions_path(year: quarter.year,
-					season: quarter.season) %></li>
-      <li><%= link_to "Evaluations",
-      evaluations_path(year: quarter.year, season: quarter.season) %></li>
     <% end %>
   </ul>
 </li>

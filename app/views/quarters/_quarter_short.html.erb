@@ -3,6 +3,6 @@
   <td><%= link_to "Edit", edit_quarter_path(quarter.id) %></td>
   <td><%= link_to "Delete", quarter, method: :delete,
   data: { confirm: "Are you sure?" } %></td>
-  <td><%= "Proposals and applications can be submitted in this quarter." if
+  <td><%= "Courses and bids can be submitted in this quarter." if
           quarter.active? %></td>
 </tr>

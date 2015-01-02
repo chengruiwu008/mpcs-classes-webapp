@@ -26,15 +26,16 @@ CourseEnrollment::Application.routes.draw do
     end
   end
 
-  get "/my_students" => "users#my_students"
-
   resources :quarters
 
   scope "/:year/:season", year: /\d{4}/,
         season: /spring|summer|autumn|winter/ do
     resources :courses
+    get "/my_students" => "users#my_students"
+    get "/my_schedule" => "users#my_schedule"
+    get "/my_courses"  => "users#my_courses"
   end
 
-  get "/courses" => "courses#global_index"
+  get "/courses" => "courses#global_index", as: :global_courses
 
 end

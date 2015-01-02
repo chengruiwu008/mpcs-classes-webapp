@@ -10,8 +10,6 @@
 
 <%= render 'new_edit_form', change: "create", form_season: default_season,
   form_year: Time.now.year, form_start_date: start_date,
-  form_project_proposal_deadline: default_deadline("proposal"),
-  form_student_submission_deadline: default_deadline("submission"),
-  form_advisor_decision_deadline: default_deadline("decision"),
-  form_admin_publish_deadline: default_deadline("admin"),
+  form_course_submission_deadline: default_deadline("course"),
+  form_student_bidding_deadline: default_deadline("bid"),
   form_end_date: end_date %>

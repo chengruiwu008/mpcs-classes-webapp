@@ -21,10 +21,8 @@ class QuartersController < ApplicationController
     # fields with dates in a format that Rails likes.
     @deadlines = {
       start:      l(view_context.start_date, format: :twb),
-      proposal:   l(view_context.default_deadline("proposal"), format: :twb),
-      submission: l(view_context.default_deadline("submission"), format: :twb),
-      decision:   l(view_context.default_deadline("decision"), format: :twb),
-      admin:      l(view_context.default_deadline("admin"), format: :twb),
+      course:   l(view_context.default_deadline("course"), format: :twb),
+      bid: l(view_context.default_deadline("bid"), format: :twb),
       end:        l(view_context.end_date, format: :twb) }
     @deadlines.to_json
   end
@@ -67,11 +65,9 @@ class QuartersController < ApplicationController
 
   def quarter_params
     params.require(:quarter).permit(:season, :year, :current,
-                                    :project_proposal_deadline,
-                                    :student_submission_deadline,
-                                    :advisor_decision_deadline,
-                                    :start_date, :end_date,
-                                    :admin_publish_deadline)
+                                    :course_submission_deadline,
+                                    :student_bidding_deadline,
+                                    :start_date, :end_date)
   end
 
   def downcase_season
@@ -88,9 +84,8 @@ class QuartersController < ApplicationController
 
   def all_fields_present?
     unless (@quarter.start_date.present? and
-            @quarter.project_proposal_deadline.present? and
-            @quarter.student_submission_deadline.present? and
-            @quarter.advisor_decision_deadline.present? and
+            @quarter.course_submission_deadline.present? and
+            @quarter.student_bidding_deadline.present? and
             @quarter.end_date.present?)
       flash.now[:error] = "You must enter each date and deadline."
         render 'new'

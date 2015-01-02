@@ -1,0 +1,35 @@
+<h2>Instructors</h2>
+<%# We probably want to add a search bar. %>
+<%# TODO: Refactor this (see index.html.erb). %>
+
+<br />
+
+<% if @users.count > 0 %>
+
+  <%= paginate @users %>
+
+  <br />
+
+  <table class="table table-bordered">
+    <tr>
+      <th>CNetID</th>
+      <th>E-mail address</th>
+      <th>Full name</th>
+      <th>Affiliation</th>
+      <th>Department</th>
+    </tr>
+    <tbody>
+      <% @users.each do |user| %>
+	<tr>
+	  <td><%= user.cnet %></td>
+	  <td><%= user.email %></td>
+	  <td><%= link_to display_name(user), user %></td>
+	  <td><%= user.affiliation %></td>
+	  <td><%= user.department %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>No users found.</p>
+<% end %>

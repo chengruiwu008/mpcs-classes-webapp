@@ -1,0 +1,35 @@
+<h2><%= formatted_quarter_by_params %> Courses</h2>
+
+<% if @courses.present? %>
+  <%= render 'student_bidding_deadline' %>
+<% end %>
+
+<% if @future_quarters.present? %>
+  <% @future_quarters.each do |q| %>
+    <p>
+      Quarter <%= formatted_quarter(q) %> will open for bidding on
+      <%= q.course_submission_deadline.strftime("%A, %B %d, %Y") %>.
+    </p>
+  <% end %>
+<% end %>
+
+<% if @courses.present? %>
+  <table class="table table-bordered">
+    <tr>
+      <th>Title</th>
+      <th>Instructor</th>
+    </tr>
+    <tbody>
+      <% @courses.each do |course| %>
+	<tr>
+	  <td><%= q_link_to course.name, course %></td>
+	  <td><%= display_name(course.faculty) %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+
+<% else %>
+  The bidding period for the MPCS opens on Week 5 of the quarter. The list of
+  courses will be published at that time.
+<% end %>

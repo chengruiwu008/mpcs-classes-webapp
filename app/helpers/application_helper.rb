@@ -37,4 +37,19 @@ module ApplicationHelper
     DateTime.now <= Quarter.active_quarter.deadline(deadline)
   end
 
+  def formatted_quarter_by_params
+    if params[:year] and params[:season]
+      # Specific quarter
+      quarter = Quarter.find_by(year: params[:year], season: params[:season])
+      if quarter
+        [quarter.season.capitalize, quarter.year].join(" ")
+      else
+        "this quarter" # Dummy text -- should never be returned
+      end
+    else
+      # Global page
+      "Recent"
+    end
+  end
+
 end

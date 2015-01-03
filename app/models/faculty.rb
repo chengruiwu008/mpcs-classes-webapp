@@ -4,6 +4,8 @@ class Faculty < User
 
   before_validation :get_ldap_info
 
+  has_many :courses, foreign_key: "instructor_id"
+
   # Fix routes for STI subclass of User so that we can call
   # current_user and generate a path in the view, rather than calling
   # user_path(current_user).

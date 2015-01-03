@@ -1,0 +1,15 @@
+<% if before_deadline?("student_bidding") %>
+  <div class="alert alert-info">
+    <p>
+      <strong>Application deadline</strong>:
+      <%= formatted_deadline("student_bidding") %>
+    </p>
+  </div>
+<% else %>
+  <div class="alert alert-warning">
+    <p>
+      <strong>The course request deadline for this quarter has passed</strong>.
+      The deadline was <%= formatted_deadline("student_bidding") %>.
+    </p>
+  </div>
+<% end %>

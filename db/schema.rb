@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229145508) do
+ActiveRecord::Schema.define(version: 20150103013157) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bids", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.integer  "preference"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "quarter_id"
+  end
 
   create_table "courses", force: true do |t|
     t.string   "title"
@@ -26,6 +35,7 @@ ActiveRecord::Schema.define(version: 20141229145508) do
     t.text     "location"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "quarter_id"
   end
 
   create_table "quarters", force: true do |t|

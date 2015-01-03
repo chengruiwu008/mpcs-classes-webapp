@@ -6,11 +6,20 @@ class Quarter < ActiveRecord::Base
     where("start_date <= ? AND ? <= end_date",
           DateTime.now, DateTime.now) }
 
-  scope :active_quarter, -> {
-    where("start_date <= ? AND ? <= end_date",
-          DateTime.now, DateTime.now).take }
+  scope :active_quarter, -> { Quarter.active_quarters.take }
+
+  scope :future_quarters, -> { where("? < start_date", DateTime.now) }
+
+  scope :can_add_courses, -> {
+    Quarter.active_quarters.where("? <= course_submission_deadline",
+                                  DateTime.now) }
+
+  scope :open_for_bids, -> {
+    Quarter.active_quarters.where("? <= student_bidding_deadline",
+                                  DateTime.now) }
 
   has_many :courses
+  has_many :bids
 
   validates :season, presence: true,
                      uniqueness: { scope:   :year,

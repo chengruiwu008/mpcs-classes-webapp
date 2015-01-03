@@ -1,0 +1,66 @@
+<%= bootstrap_form_for @course, url: url do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <table class="table table-bordered project-form">
+    <tbody>
+
+      <tr>
+	<th>
+	  <%= f.label :title, "Title", class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_field :title, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :syllabus, "Syllabus", class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_area :syllabus, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :prerequisites, "Prerequisites",
+	  class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_area :prerequisites, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :time, "Time",
+	  class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_area :time, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :location, "Location",
+	  class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_area :location, hide_label: true %>
+	</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <%= f.submit "#{change.capitalize} this course", class: "btn btn-success",
+    data: { confirm: "Are you sure?" } %>
+
+  <% if change == "create" or @course.draft? %>
+    <%= f.submit "Save as draft", class: "btn btn-primary",
+      data: { confirm: "Are you sure?" } %>
+  <% end %>
+
+<% end %>

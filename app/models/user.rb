@@ -77,4 +77,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def missing_proposal_info?
+    self.affiliation.blank? or self.department.blank?
+  end
+
 end

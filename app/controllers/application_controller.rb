@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::Base
+
+  # For q_link_to, q_path, and q_url
+  include ApplicationHelper
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -18,20 +22,6 @@ class ApplicationController < ActionController::Base
   helper_method :authenticate_user!
   helper_method :current_user
 
-  # def authenticate_user!
-  #   if student_signed_in?
-  #     authenticate_student!
-  #   elsif faculty_signed_in?
-  #     authenticate_faculty!
-  #   elsif admin_signed_in?
-  #     authenticate_admin!
-  #   end
-  # end
-
-  # def current_user
-  #   current_student or current_faculty or current_admin
-  # end
-
   protected
 
   def configure_permitted_parameters
@@ -46,11 +36,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_in) do |user|
       user.permit(:cnet, :email, :password)
     end
-
-    # devise_parameter_sanitizer.for(:sign_up) do |user|
-    #   user.permit(:email, :password, :password_confirmation,
-    #               :first_name, :last_name, :affiliation, :department)
-    # end
   end
 
   def is_admin?
@@ -58,14 +43,5 @@ class ApplicationController < ActionController::Base
     redirect_to root_url, flash: { error: message } and return unless
       current_user.admin?
   end
-
-  # def before_deadline?(d)
-  #   humanized_deadline = d.humanize.downcase
-
-  #   e = Quarter.active_exists?
-  #   b = Quarter.active_quarters.map { |q| DateTime.now <= q.deadline(d) }.all?
-  #   message = "The #{humanized_deadline} deadline for this quarter has passed."
-  #   redirect_to root_url, flash: { error: message } unless (b and e)
-  # end
 
 end

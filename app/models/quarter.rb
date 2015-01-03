@@ -28,6 +28,10 @@ class Quarter < ActiveRecord::Base
                      inclusion:  { in:      %w(winter spring summer autumn),
                                    message: "Invalid quarter." }
   validates :year, presence: true, numericality: true, length: { is: 4 }
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+  validates :course_submission_deadline, presence: true
+  validates :student_bidding_deadline, presence: true
 
   validate :deadlines_between_start_and_end_dates
 

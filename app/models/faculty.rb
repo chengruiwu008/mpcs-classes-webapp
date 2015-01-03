@@ -1,4 +1,7 @@
 class Faculty < User
+
+  default_scope { order('users.created_at DESC') }
+
   devise :trackable, :validatable, :ldap_authenticatable,
   authentication_keys: [:cnet]
 

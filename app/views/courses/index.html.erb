@@ -23,7 +23,7 @@
       <% @courses.each do |course| %>
 	<tr>
 	  <td><%= q_link_to course.title, course %></td>
-	  <td><%= display_name(course.faculty) %></td>
+	  <td><%= display_name(course.instructor) %></td>
 	</tr>
       <% end %>
     </tbody>

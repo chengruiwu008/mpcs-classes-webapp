@@ -14,4 +14,4 @@
 <% end %>
 
 <%= render 'new_edit_course_form', change: 'create',
-    url: courses_path(year: @year, season: @season) %>
+    url: courses_path(year: params[:year], season: params[:season]) %>

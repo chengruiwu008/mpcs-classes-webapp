@@ -39,11 +39,11 @@ class UsersController < ApplicationController
   end
 
   # Quarter-specific
-  def my_projects
+  def my_courses
   end
 
   # Quarter-specific
-  def my_submissions
+  def my_bids
   end
 
   # Quarter-specific

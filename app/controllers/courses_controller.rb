@@ -13,7 +13,30 @@ class CoursesController < ApplicationController
   def new
   end
 
+  # TODO: Abstract duplicated code out of #create and #update
   def create
+    @course = current_user.courses.build(course_params)
+    @quarter = Quarter.find_by(year: params[:year], season: params[:season])
+    @course.assign_attributes(quarter_id: @quarter.id)
+
+    if params[:commit] == "Create this course"
+      if @course.save
+        flash[:success] = "Course submitted."
+        redirect_to my_courses_path(year: @year, season: @season)
+      else
+        render 'new'
+      end
+    elsif params[:commit] == "Save as draft"
+      @course.assign_attributes(draft: true)
+      if @course.save(validate: false)
+        flash[:success] = "Course information saved. You may edit it " +
+          "by navigating to your \"my courses\" page."
+        redirect_to my_courses_path(year: @year, season: @season)
+      else
+        render 'new'
+      end
+    end
+
   end
 
   def edit
@@ -56,8 +79,8 @@ class CoursesController < ApplicationController
   end
 
   def get_year_and_season
-    @year   = @course.quarter.year
-    @season = @course.quarter.season
+    @year   = params[:year]
+    @season = params[:season]
   end
 
 end

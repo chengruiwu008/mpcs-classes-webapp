@@ -15,6 +15,8 @@ class Ability
       end
 
       if user.faculty?
+        can :view_my_courses, User, id: user.id
+        can :create, Course
       end
 
       if user.student?

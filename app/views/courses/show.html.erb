@@ -1,0 +1,15 @@
+<h2><%= @course.title %></h2>
+
+<% if can? :update, @course %>
+  <div>
+    <p>
+      Click <%= q_link_to "here", @course, :edit_course %>
+      to edit this course's information.
+    </p>
+  </div>
+  <br>
+<% end %>
+
+<%= render 'student_bidding_deadline' if signed_in? %>
+
+<%= render 'course_long', object: @course %>

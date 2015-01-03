@@ -1,0 +1,49 @@
+<table class="table table-bordered project-form-show">
+  <tbody>
+    <tr>
+      <th>Title</th>
+      <td><%= @course.title %> (<%= @course.number %>)</td>
+    </tr>
+
+    <tr>
+      <th>Quarter</th>
+      <td><%= formatted_quarter(@course.quarter) %></td>
+    </tr>
+
+    <% if can? :manage, @course %>
+      <tr>
+	<th>Date created</th>
+	<td><%= @course.created_at.to_date %></td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <th>Instructor</th>
+      <td>
+	<%= formatted_info(@course.instructor) %>
+	(<%= formatted_email(@course.instructor) %>)
+      </td>
+    </tr>
+
+    <tr>
+      <th>Syllabus</th>
+      <td><%= simple_format(@course.syllabus) %></td>
+    </tr>
+
+    <tr>
+      <th>Prerequisites</th>
+      <td><%= simple_format(@course.prerequisites) %></td>
+    </tr>
+
+    <tr>
+      <th>Time</th>
+      <td><%= simple_format(@course.time) %></td>
+    </tr>
+
+    <tr>
+      <th>Location</th>
+      <td><%= simple_format(@course.location) %></td>
+    </tr>
+
+  </tbody>
+</table>

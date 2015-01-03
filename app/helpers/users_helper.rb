@@ -13,4 +13,15 @@ module UsersHelper
     "will be sent to them."
   end
 
+  def formatted_info(user)
+    info = display_name(user)
+    info << ", #{user.department}"  if user.department.present?
+    info << ", #{user.affiliation}" if user.affiliation.present?
+    info
+  end
+
+  def formatted_email(user)
+    user.email
+  end
+
 end

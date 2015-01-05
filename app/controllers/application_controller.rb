@@ -44,4 +44,8 @@ class ApplicationController < ActionController::Base
       current_user.admin?
   end
 
+  def get_this_user_for_object(obj)
+    obj.this_user = current_user
+  end
+
 end

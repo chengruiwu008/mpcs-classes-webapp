@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   devise :trackable, :validatable, :ldap_authenticatable,
          authentication_keys: [:cnet]
 
-  before_validation :get_ldap_info
+  before_create :get_ldap_info
   after_update :send_roles_changed
 
   # Current user, passed in from ApplicationController.
@@ -72,8 +72,6 @@ class User < ActiveRecord::Base
 
       self.last_name = (Devise::LDAP::Adapter.
                         get_ldap_param(self.cnet, "sn") rescue nil).first
-
-      self.type = "Student"
     end
   end
 

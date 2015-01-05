@@ -5,7 +5,7 @@ class Faculty < User
   devise :trackable, :validatable, :ldap_authenticatable,
   authentication_keys: [:cnet]
 
-  before_validation :get_ldap_info
+  #before_validation :get_ldap_info
 
   has_many :courses, foreign_key: "instructor_id"
 

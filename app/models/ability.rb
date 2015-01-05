@@ -17,6 +17,9 @@ class Ability
       if user.faculty?
         can :view_my_courses, User, id: user.id
         can :create, Course
+        can :update_affiliation_of, User, id: user.id
+        can :read, User, id: user.id
+        can :update, User, id: user.id
       end
 
       if user.student?

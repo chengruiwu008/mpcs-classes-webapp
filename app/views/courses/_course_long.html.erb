@@ -27,7 +27,7 @@
 
     <tr>
       <th>Syllabus</th>
-      <td><%= simple_format(@course.syllabus) %></td>
+      <td><%= simple_format(@course.syllabus, {}, sanitize: false) %></td>
     </tr>
 
     <tr>

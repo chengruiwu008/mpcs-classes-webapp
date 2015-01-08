@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
 
   default_scope { order('users.created_at DESC') }
-  scope :admins, -> { where(type: "Admin") }
+  # scope :admins, -> { where(type: "Admin") } # unnecessary
 
-  validates :email, uniqueness: { case_sensitive: false }
+  # validates :email, uniqueness: { case_sensitive: false }
 
   devise :trackable, :validatable, :ldap_authenticatable,
          authentication_keys: [:cnet]
@@ -13,6 +13,10 @@ class User < ActiveRecord::Base
 
   # Current user, passed in from ApplicationController.
   attr_accessor :this_user
+
+  def email_required?
+    false
+  end
 
   def relevant_quarters
     if admin?

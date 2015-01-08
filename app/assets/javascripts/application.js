@@ -18,4 +18,5 @@
 //= require bootstrap
 //= require bootstrap-datetimepicker
 //= require turbolinks
+//= require tinymce-jquery
 //= require_tree .

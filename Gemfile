@@ -29,6 +29,7 @@ gem 'parsley-rails', '2.0.4.0'
 gem 'pg', '~> 0.17.1'
 gem 'autoprefixer-rails', '~> 3.0.1'
 gem 'jquery-turbolinks', '2.1.0'
+gem 'tinymce-rails', '4.1.6'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.0'

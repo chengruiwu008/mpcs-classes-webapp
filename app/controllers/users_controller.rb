@@ -2,14 +2,14 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :is_admin?,                only: :index
-  before_action :prevent_self_demotion,    only: :update
-  before_action :get_user,                 only: [:my_projects, :my_submissions,
-                                                 :my_students]
-  before_action :get_my_projects,          only: :my_projects
-  before_action :get_all_my_projects,      only: :my_projects_all
-  before_action :get_my_submissions,       only: :my_submissions
-  before_action :get_all_my_submissions,   only: :my_submissions_all
+  before_action :is_admin?,             only: :index
+  before_action :prevent_self_demotion, only: :update
+  before_action :get_user,              only: [:my_courses, :my_bids,
+                                               :my_students]
+  before_action :get_my_courses,        only: :my_courses
+  before_action :get_all_my_courses,    only: :my_courses_all
+  before_action :get_my_bids,           only: :my_bids
+  before_action :get_all_my_bids,       only: :my_bids_all
   before_action(only: :update) { |c| c.get_this_user_for_object(@user) }
 
   def show
@@ -82,22 +82,22 @@ class UsersController < ApplicationController
     @user = current_user
   end
 
-  def get_my_projects
+  def get_my_courses
     q = Quarter.where(year: params[:year], season: params[:season]).take
-    @projects = Project.where(advisor_id: @user.id, quarter_id: q.id)
+    @courses = Course.where(instructor_id: @user.id, quarter_id: q.id)
   end
 
-  def get_all_my_projects
-    @projects = Project.where(advisor_id: @user.id)
+  def get_all_my_courses
+    @courses = Course.where(instructor_id: @user.id)
   end
 
-  def get_my_submissions
+  def get_my_bids
     q = Quarter.where(year: params[:year], season: params[:season]).take
-    @submissions = Submission.quarter_submissions(q).where(student_id: @user.id)
+    @bids = Bid.quarter_bids(q).where(student_id: @user.id)
   end
 
-  def get_all_my_submissions
-    @submissions = Submission.where(student_id: @user.id)
+  def get_all_my_bids
+    @bids = Bid.where(student_id: @user.id)
   end
 
 end

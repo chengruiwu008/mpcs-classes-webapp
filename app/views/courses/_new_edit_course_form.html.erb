@@ -15,10 +15,20 @@
 
       <tr>
 	<th>
+	  <%= f.label :number, "Course Number", class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_field :number, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
 	  <%= f.label :syllabus, "Syllabus", class: "table-col-name" %>
 	</th>
 	<td>
-	  <%= f.text_area :syllabus, hide_label: true %>
+	  <%= f.text_area :syllabus, class: "tinymce", hide_label: true %>
+	  <%= tinymce %>
 	</td>
       </tr>
 

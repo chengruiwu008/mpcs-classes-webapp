@@ -1,0 +1,27 @@
+<h2>
+  <%= display_name(@user) %>'s <%= quarter %> Courses
+</h2>
+
+<% if can? :create, Course %>
+
+  <% if @courses.present? %>
+    <table class="table table-bordered">
+      <tr>
+	<th>Title</th>
+	<th>Course number</th>
+	<th>Quarter</th>
+	<th>Date created</th>
+	<th>Maximum number of students</th>
+	<th>Notes</th>
+      </tr>
+      <tbody>
+	<% @courses.each do |course| %>
+	  <%= render 'course', course: course %>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>You have not submitted any courses yet.</p>
+  <% end %>
+
+<% end %>

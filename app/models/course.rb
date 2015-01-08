@@ -5,9 +5,11 @@ class Course < ActiveRecord::Base
   belongs_to :quarter
   belongs_to :instructor, class_name: "Faculty", foreign_key: "instructor_id"
 
-  validates :title, presence: true, uniqueness: { scope: :quarter_id,
-                                                  case_sensitive: false }
-  validates :number, presence: true
+  validates :title, uniqueness: { scope: :quarter_id,
+                                  case_sensitive: false }
+  validates :number, uniqueness: { scope: :quarter_id },
+                     format: { with: /\A\d{5}\Z/,
+                               message: "must be a five-digit number" }
   validates :syllabus, presence: true
   validates :instructor, presence: true
   validates :quarter, presence: true

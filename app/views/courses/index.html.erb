@@ -16,12 +16,14 @@
 <% if @courses.present? %>
   <table class="table table-bordered">
     <tr>
+      <th>Number</th>
       <th>Title</th>
       <th>Instructor</th>
     </tr>
     <tbody>
       <% @courses.each do |course| %>
 	<tr>
+	  <td><%= course.number %></td>
 	  <td><%= q_link_to course.title, course %></td>
 	  <td><%= display_name(course.instructor) %></td>
 	</tr>

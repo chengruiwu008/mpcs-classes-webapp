@@ -14,4 +14,8 @@ class Course < ActiveRecord::Base
   validates :instructor, presence: true
   validates :quarter, presence: true
 
+  def to_param
+    number
+  end
+
 end

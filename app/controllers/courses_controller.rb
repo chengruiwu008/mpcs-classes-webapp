@@ -1,8 +1,9 @@
 class CoursesController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource find_by: :number
 
   before_action :get_year_and_season, only: [:create, :update]
+  before_action :get_courses_in_qrtr, only: :index
 
   def show
   end
@@ -81,6 +82,11 @@ class CoursesController < ApplicationController
   def get_year_and_season
     @year   = params[:year]
     @season = params[:season]
+  end
+
+  def get_courses_in_qrtr
+    q = Quarter.find_by(year: params[:year], season: params[:season])
+    @courses = Course.where(quarter_id: q.id)
   end
 
 end

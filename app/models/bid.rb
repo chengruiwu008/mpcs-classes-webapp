@@ -11,6 +11,6 @@ class Bid < ActiveRecord::Base
   validates :quarter,    presence: true
   validates :preference, presence: true
 
-
+  scope :quarter_bids, ->(quarter) { where(quarter_id: quarter.id) }
 
 end

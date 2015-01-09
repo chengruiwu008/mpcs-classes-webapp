@@ -12,12 +12,17 @@
       <%= link_to "Courses",
           courses_path(year: quarter.year, season: quarter.season) %>
     </li>
-    <% if can? :view_my_courses, User %>
+    <% if (can? :view_my_courses, User) or can? :view_my_bids, User %>
       <li class="divider"></li>
     <% end %>
 
     <%# Student's applications %>
     <% if can? :view_my_bids, User %>
+      <li>
+	<%= link_to "My requests",
+	    my_requests_path(year: quarter.year,
+			     season: quarter.season) %>
+      </li>
       <li>
 	<%= link_to "My schedule",
 	    my_schedule_path(year: quarter.year,

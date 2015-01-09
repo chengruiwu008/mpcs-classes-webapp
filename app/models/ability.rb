@@ -24,6 +24,9 @@ class Ability
       end
 
       if user.student?
+        can :view_my_bids, User, id: user.id
+        can :my_requests, User, id: user.id
+        can :my_schedule, User, id: user.id
       end
 
     end

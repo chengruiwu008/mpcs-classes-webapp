@@ -5,11 +5,11 @@ class UsersController < ApplicationController
   before_action :is_admin?,             only: :index
   before_action :prevent_self_demotion, only: :update
   before_action :get_user,              only: [:my_courses, :my_bids,
-                                               :my_students]
+                                               :my_students, :my_requests]
   before_action :get_my_courses,        only: :my_courses
   before_action :get_all_my_courses,    only: :my_courses_all
-  before_action :get_my_bids,           only: :my_bids
-  before_action :get_all_my_bids,       only: :my_bids_all
+  before_action :get_my_bids,           only: :my_requests
+  before_action :get_all_my_bids,       only: :my_requests_all
   before_action(only: :update) { |c| c.get_this_user_for_object(@user) }
 
   def show
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   end
 
   # Quarter-specific
-  def my_bids
+  def my_requests
   end
 
   # Quarter-specific

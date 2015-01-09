@@ -76,6 +76,7 @@ class User < ActiveRecord::Base
 
       self.last_name = (Devise::LDAP::Adapter.
                         get_ldap_param(self.cnet, "sn") rescue nil).first
+      self.type = "Student" if self.type.blank?
     end
   end
 

@@ -25,6 +25,7 @@ class Ability
 
       if user.student?
         can :view_my_bids, User, id: user.id
+        can :create_bid, Course # TODO: add restrictions
         can :my_requests, User, id: user.id
         can :my_schedule, User, id: user.id
       end

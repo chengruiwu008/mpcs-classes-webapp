@@ -2,10 +2,12 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
+  before_action :get_quarter,         only: [:show, :create_bid, :index]
   before_action :get_year_and_season, only: [:create, :update]
   before_action :get_courses_in_qrtr, only: :index
   before_action :get_num_courses_arr, only: :show
-  before_action :get_bid,             only: :show
+  before_action :get_bid,             only: [:show, :create_bid]
+
 
   def show
   end
@@ -74,11 +76,23 @@ class CoursesController < ApplicationController
     end
   end
 
+  def create_bid
+    if @bid.new_record? # Save the record only if it's new
+      @bid.update_attributes(bid_params.merge(quarter_id: @quarter.id,
+                                              course_id: @course.id))
+    end
+    redirect_to q_path(@course) and return
+  end
+
   private
 
   def course_params
     params.require(:course).permit(:title, :syllabus, :number,
                                     :prerequisites, :time, :location)
+  end
+
+  def bid_params
+    params.require(:bid).permit(:preference)
   end
 
   def get_year_and_season
@@ -87,19 +101,21 @@ class CoursesController < ApplicationController
   end
 
   def get_courses_in_qrtr
-    q = Quarter.find_by(year: params[:year], season: params[:season])
-    @courses = Course.where(quarter_id: q.id)
+    @courses = Course.where(quarter_id: @quarter.id)
   end
 
   def get_num_courses_arr
-    q = Quarter.find_by(year: params[:year], season: params[:season])
     @num_courses_arr = ["No preference"]
-    @num_courses_arr += [1..Course.where(quarter_id: q.id).count].to_a
+    @num_courses_arr += (1..Course.where(quarter_id: @quarter.id).count).to_a
   end
 
   def get_bid
     @bid = Bid.find_by(course_id: @course.id,
-                       student_id: current_user.id) || Bid.new
+                       student_id: current_user.id) || current_user.bids.new
+  end
+
+  def get_quarter
+    @quarter = Quarter.find_by(year: params[:year], season: params[:season])
   end
 
 end

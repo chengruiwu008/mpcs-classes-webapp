@@ -37,8 +37,7 @@ class User < ActiveRecord::Base
     elsif student?
       # Same rule as for advisors, except that it applies to submissions.
       qs = Quarter.open_for_bids.to_set
-
-      bids.each { |b| qs.add(b.quarter) if b.quarter.active? }
+      bids.each { |b| qs.add(b.quarter) if b.quarter.try(:active?) }
 
       qs.to_a
     else # The user is not logged in.

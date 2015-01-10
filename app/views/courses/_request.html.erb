@@ -1,0 +1,12 @@
+<%= bootstrap_form_for(@bid, url: q_url(@course), layout: :horizontal,
+                             control_col: "col-sm-2",
+                             label_col: "col-sm-3") do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.select :preference, @num_courses_arr,
+               selected: form_preference %>
+
+  <%= f.form_group do %>
+    <%= f.submit "Save request", data: { confirm: "Are you sure?" } %>
+  <% end %>
+<% end %>

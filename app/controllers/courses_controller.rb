@@ -4,6 +4,8 @@ class CoursesController < ApplicationController
 
   before_action :get_year_and_season, only: [:create, :update]
   before_action :get_courses_in_qrtr, only: :index
+  before_action :get_num_courses_arr, only: :show
+  before_action :get_bid,             only: :show
 
   def show
   end
@@ -87,6 +89,17 @@ class CoursesController < ApplicationController
   def get_courses_in_qrtr
     q = Quarter.find_by(year: params[:year], season: params[:season])
     @courses = Course.where(quarter_id: q.id)
+  end
+
+  def get_num_courses_arr
+    q = Quarter.find_by(year: params[:year], season: params[:season])
+    @num_courses_arr = ["No preference"]
+    @num_courses_arr += [1..Course.where(quarter_id: q.id).count].to_a
+  end
+
+  def get_bid
+    @bid = Bid.find_by(course_id: @course.id,
+                       student_id: current_user.id) || Bid.new
   end
 
 end

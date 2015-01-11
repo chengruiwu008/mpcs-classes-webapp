@@ -1,7 +1,10 @@
 <h2>My <%= formatted_quarter_by_params %> Course Requests</h2>
 
-  <ul>
-<% @courses.each do |course| %>
-  <li><%= course.title %></li>
+<ul>
+<% @courses_ranks.each do |c, r| %>
+  <li>
+    <%= c.number %> (<%= c.title %>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= r.try(:preference) || "No preference" %>
+  </li>
 <% end %>
-  </ul>
+</ul>

@@ -31,6 +31,7 @@ CourseEnrollment::Application.routes.draw do
   scope "/:year/:season", year: /\d{4}/,
         season: /spring|summer|autumn|winter/ do
     resources :courses
+
     post "/courses/:id" => "courses#save_bid"
     get "/my_students"  => "users#my_students"
     get "/my_schedule"  => "users#my_schedule"

@@ -63,12 +63,17 @@ class UsersController < ApplicationController
   private
 
   def user_params
+    as = []
+
     if current_user.admin?
-      params.require(:user).permit(:student, :advisor, :admin,
-                                   :affiliation, :department, :approved)
+      as = [:type, :affiliation, :department, :number_of_courses]
     elsif current_user.faculty?
-      params.require(:user).permit(:affiliation, :department)
+      as = [:affiliation, :department]
+    elsif current_user.student?
+      as = [:number_of_courses]
     end
+
+    params.require(:user).permit(as)
   end
 
   def prevent_self_demotion

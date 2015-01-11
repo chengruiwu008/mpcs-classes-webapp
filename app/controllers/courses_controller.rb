@@ -2,11 +2,11 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
-  before_action :get_quarter,         only: [:show, :create_bid, :index]
+  before_action :get_quarter,         only: [:show, :save_bid, :index]
   before_action :get_year_and_season, only: [:create, :update]
   before_action :get_courses_in_qrtr, only: :index
   before_action :get_num_courses_arr, only: :show
-  before_action :get_bid,             only: [:show, :create_bid]
+  before_action :get_bid,             only: [:show, :save_bid]
 
 
   def show
@@ -76,12 +76,20 @@ class CoursesController < ApplicationController
     end
   end
 
-  def create_bid
-    if @bid.new_record? # Save the record only if it's new
-      @bid.update_attributes(bid_params.merge(quarter_id: @quarter.id,
-                                              course_id: @course.id))
+  def save_bid
+    bps = bid_params
+
+    if @bid.new_record?
+      bps.merge!(quarter_id: @quarter.id, course_id: @course.id)
     end
-    redirect_to q_path(@course) and return
+
+    if @bid.update_attributes(bps)
+      flash[:success] = "Successfully updated course preference."
+      redirect_to q_path(@course) and return
+    else
+      flash[:error].now = "Unable to update course request."
+      render 'show' and return
+    end
   end
 
   private

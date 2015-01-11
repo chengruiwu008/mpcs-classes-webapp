@@ -1,1 +1,7 @@
 <h2>My <%= formatted_quarter_by_params %> Course Requests</h2>
+
+  <ul>
+<% @courses.each do |course| %>
+  <li><%= course.title %></li>
+<% end %>
+  </ul>

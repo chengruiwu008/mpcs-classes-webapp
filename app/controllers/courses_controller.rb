@@ -8,7 +8,6 @@ class CoursesController < ApplicationController
   before_action :get_num_courses_arr, only: :show
   before_action :get_bid,             only: [:show, :save_bid]
 
-
   def show
   end
 
@@ -79,16 +78,26 @@ class CoursesController < ApplicationController
   def save_bid
     bps = bid_params
 
-    if @bid.new_record?
-      bps.merge!(quarter_id: @quarter.id, course_id: @course.id)
-    end
+    if bps[:preference] == "No preference" # Destroy the bid
 
-    if @bid.update_attributes(bps)
-      flash[:success] = "Successfully updated course preference."
-      redirect_to q_path(@course) and return
-    else
-      flash[:error].now = "Unable to update course request."
-      render 'show' and return
+      if @bid.destroy
+        flash[:success] = "Successfully updated course preference."
+        redirect_to q_path(@course) and return
+      end
+
+    else # Create or update the bid
+
+      if @bid.new_record?
+        bps.merge!(quarter_id: @quarter.id, course_id: @course.id)
+      end
+
+      if @bid.update_attributes(bps)
+        flash[:success] = "Successfully updated course preference."
+        redirect_to q_path(@course) and return
+      else
+        flash[:error].now = "Unable to update course request."
+        render 'show' and return
+      end
     end
   end
 
@@ -120,10 +129,6 @@ class CoursesController < ApplicationController
   def get_bid
     @bid = Bid.find_by(course_id: @course.id,
                        student_id: current_user.id) || current_user.bids.new
-  end
-
-  def get_quarter
-    @quarter = Quarter.find_by(year: params[:year], season: params[:season])
   end
 
 end

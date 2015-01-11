@@ -48,4 +48,8 @@ class ApplicationController < ActionController::Base
     obj.this_user = current_user
   end
 
+  def get_quarter
+    @quarter = Quarter.find_by(year: params[:year], season: params[:season])
+  end
+
 end

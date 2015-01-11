@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource
 
+  before_action :get_quarter,           only: [:my_courses, :my_requests]
   before_action :is_admin?,             only: :index
   before_action :prevent_self_demotion, only: :update
   before_action :get_user,              only: [:my_courses, :my_bids,
@@ -10,6 +11,7 @@ class UsersController < ApplicationController
   before_action :get_all_my_courses,    only: :my_courses_all
   before_action :get_my_bids,           only: :my_requests
   before_action :get_all_my_bids,       only: :my_requests_all
+  before_action :get_courses,           only: :my_requests
   before_action(only: :update) { |c| c.get_this_user_for_object(@user) }
 
   def show
@@ -83,8 +85,7 @@ class UsersController < ApplicationController
   end
 
   def get_my_courses
-    q = Quarter.where(year: params[:year], season: params[:season]).take
-    @courses = Course.where(instructor_id: @user.id, quarter_id: q.id)
+    @courses = Course.where(instructor_id: @user.id, quarter_id: @quarter.id)
   end
 
   def get_all_my_courses
@@ -98,6 +99,10 @@ class UsersController < ApplicationController
 
   def get_all_my_bids
     @bids = Bid.where(student_id: @user.id)
+  end
+
+  def get_courses
+    @courses = Course.where(quarter_id: @quarter.id)
   end
 
 end

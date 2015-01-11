@@ -1,5 +1,7 @@
 class User < ActiveRecord::Base
 
+  MAX_COURSES = 4
+
   default_scope { order('users.created_at DESC') }
 
   validates :email, uniqueness: { case_sensitive: false }

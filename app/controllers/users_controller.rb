@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   before_action :get_all_my_courses,    only: :my_courses_all
   before_action :get_my_bids,           only: :my_requests
   before_action :get_all_my_bids,       only: :my_requests_all
-  before_action :get_courses_ranks,     only: :my_requests
+  before_action :get_courses_bids,      only: :my_requests
+  before_action :get_number_of_courses, only: :my_requests
   before_action(only: :update) { |c| c.get_this_user_for_object(@user) }
 
   def show
@@ -100,16 +101,20 @@ class UsersController < ApplicationController
     @bids = Bid.where(student_id: @user.id)
   end
 
-  def get_courses_ranks
+  def get_courses_bids
     cs = Course.where(quarter_id: @quarter.id)
-    @courses_ranks = {}
+    @courses_bids = {}
 
     cs.each do |c|
-      @courses_ranks[c] = Bid.find_by(student_id: @user.id, course_id: c.id)
+      @courses_bids[c] = Bid.find_by(student_id: @user.id, course_id: c.id)
     end
 
     # TOOD: pass a user_id param if an admin is viewing this user's page,
     # instead of using @user.id?
+  end
+
+  def get_number_of_courses
+    @possible_num_courses = (1..User::MAX_COURSES)
   end
 
 end

@@ -1,10 +1,16 @@
 <h2>My <%= formatted_quarter_by_params %> Course Requests</h2>
 
+<br />
+
+<%= render 'num_courses' %>
+
+<br />
+
 <ul>
-<% @courses_ranks.each do |c, r| %>
+<% @courses_bids.each do |c, b| %>
   <li>
     <%= c.number %> (<%= c.title %>)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    <%= r.try(:preference) || "No preference" %>
+    <%= preference(b) %>
   </li>
 <% end %>
 </ul>

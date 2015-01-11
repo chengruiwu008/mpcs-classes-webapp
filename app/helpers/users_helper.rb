@@ -24,4 +24,8 @@ module UsersHelper
     user.email
   end
 
+  def preference(bid)
+    bid.try(:preference) || "No preference"
+  end
+
 end

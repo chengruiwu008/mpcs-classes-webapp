@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   before_action :get_all_my_bids,       only: :my_requests_all
   before_action :get_courses_bids,      only: :my_requests
   before_action :get_number_of_courses, only: :my_requests
+  before_action :get_num_courses_arr,   only: [:my_requests, :update_requests]
   before_action(only: :update) { |c| c.get_this_user_for_object(@user) }
 
   def show

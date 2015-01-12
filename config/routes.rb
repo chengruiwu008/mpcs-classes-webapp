@@ -34,6 +34,7 @@ CourseEnrollment::Application.routes.draw do
 
     post  "/courses/:id" => "courses#save_bid"
     patch "/my_requests" => "users#update_number_of_courses"
+    post  "/my_requests" => "users#update_requests"
     get   "/my_students" => "users#my_students"
     get   "/my_schedule" => "users#my_schedule"
     get   "/my_requests" => "users#my_requests"

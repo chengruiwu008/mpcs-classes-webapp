@@ -121,11 +121,6 @@ class CoursesController < ApplicationController
     @courses = Course.where(quarter_id: @quarter.id)
   end
 
-  def get_num_courses_arr
-    @num_courses_arr = ["No preference"]
-    @num_courses_arr += (1..Course.where(quarter_id: @quarter.id).count).to_a
-  end
-
   def get_bid
     @bid = Bid.find_by(course_id: @course.id,
                        student_id: current_user.id) || current_user.bids.new

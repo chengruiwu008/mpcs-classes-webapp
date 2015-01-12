@@ -1,7 +1,7 @@
 <p>How many courses would you like to take this quarter?</p>
 
-<%= bootstrap_form_for(@user, layout: :horizontal,
-		       control_col: "col-xs-3") do |f| %>
+<%= bootstrap_form_for(@user, url: { action: :update_number_of_courses },
+		       layout: :horizontal, control_col: "col-xs-3") do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.select :number_of_courses, @possible_num_courses,

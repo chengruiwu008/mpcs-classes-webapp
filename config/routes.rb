@@ -14,8 +14,8 @@ CourseEnrollment::Application.routes.draw do
 
   # For logging in
   devise_scope :user do
-    get "/signin" => "sessions/sessions#new", as: :new_user_session
-    post "/signin" => "sessions/sessions#create", as: :user_session
+    get    "/signin"  => "sessions/sessions#new", as: :new_user_session
+    post   "/signin"  => "sessions/sessions#create", as: :user_session
     delete "/signout" => "sessions/sessions#destroy", as: :destroy_user_session
   end
 
@@ -32,11 +32,12 @@ CourseEnrollment::Application.routes.draw do
         season: /spring|summer|autumn|winter/ do
     resources :courses
 
-    post "/courses/:id" => "courses#save_bid"
-    get "/my_students"  => "users#my_students"
-    get "/my_schedule"  => "users#my_schedule"
-    get "/my_requests"  => "users#my_requests"
-    get "/my_courses"   => "users#my_courses"
+    post  "/courses/:id" => "courses#save_bid"
+    patch "/my_requests" => "users#update_number_of_courses"
+    get   "/my_students" => "users#my_students"
+    get   "/my_schedule" => "users#my_schedule"
+    get   "/my_requests" => "users#my_requests"
+    get   "/my_courses"  => "users#my_courses"
   end
 
   get "/courses" => "courses#global_index", as: :global_courses

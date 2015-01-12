@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   before_action :is_admin?,             only: :index
   before_action :prevent_self_demotion, only: :update
   before_action :get_user,              only: [:my_courses, :my_bids,
-                                               :my_students, :my_requests]
+                                               :my_students, :my_requests,
+                                               :update_number_of_courses]
   before_action :get_my_courses,        only: :my_courses
   before_action :get_all_my_courses,    only: :my_courses_all
   before_action :get_my_bids,           only: :my_requests
@@ -27,6 +28,16 @@ class UsersController < ApplicationController
   end
 
   def edit
+  end
+
+  def update_number_of_courses
+    if @user.update_attributes(user_params)
+      flash[:success] = "Changed desired number of courses."
+      redirect_to my_requests_path(year: params[:year],
+                                   season: params[:season])
+    else
+      render 'my_requests'
+    end
   end
 
   def update

@@ -30,6 +30,7 @@ class Ability
         can :update_number_of_courses, User, id: user.id
         can :my_requests, User, id: user.id
         can :my_schedule, User, id: user.id
+        can :update_requests, User, id: user.id
       end
 
     end

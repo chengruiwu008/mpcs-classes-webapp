@@ -72,6 +72,10 @@ class UsersController < ApplicationController
   def my_submissions_all
   end
 
+  def update_requests
+    binding.pry
+  end
+
   private
 
   def user_params

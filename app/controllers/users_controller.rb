@@ -75,28 +75,28 @@ class UsersController < ApplicationController
   end
 
   def update_requests
-    # TODO: Move logic to model?
-    # TODO: Add failing case
+    # TODO: Move logic to a different model?
 
-    params[:preferences].each do |course_id, pref|
-      bid = Bid.find_by(course_id: course_id, student_id: @user.id)
-      if bid
-        bid.update_attributes(preference: pref)
-      elsif pref != "No preference"
-        @user.bids.create(course_id: course_id,
-                          preference: pref,
-                          quarter_id: @quarter.id)
+    @prefs = params[:preferences].values.reject { |p| p == "No preference" }
+
+    if @prefs == @prefs.uniq
+      params[:preferences].each do |course_id, pref|
+        bid = Bid.find_by(course_id: course_id, student_id: @user.id)
+        if bid
+          bid.update_attributes(preference: pref)
+        elsif pref != "No preference"
+          @user.bids.create(course_id: course_id,
+                            preference: pref,
+                            quarter_id: @quarter.id)
+        end
       end
+      flash[:success] = "Updated preferences."
+    else
+      flash[:error] = "Each course must have a unique rank."
     end
 
-    flash[:success] = "Updated preferences."
     redirect_to my_requests_path(year: params[:year],
                                  season: params[:season]) and return
-
-    # (save checking for identical prefs later, or use JS code from
-    # practicum webapp)
-
-    #   * really, the user being viewed (this distinction matters for admins)
   end
 
   private
@@ -149,12 +149,11 @@ class UsersController < ApplicationController
     cs = Course.where(quarter_id: @quarter.id)
     @courses_bids = {}
 
+    # TODO: Sort the course_bids by preference, using something like
+    # @course_bids = @course_bids.sort_by { |k, v| v.try(:preference) || 0 }
     cs.each do |c|
       @courses_bids[c] = Bid.find_by(student_id: @user.id, course_id: c.id)
     end
-
-    # TOOD: pass a user_id param if an admin is viewing this user's page,
-    # instead of using @user.id?
   end
 
   def get_number_of_courses

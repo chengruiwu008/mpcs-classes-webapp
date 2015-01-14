@@ -1,15 +1,11 @@
 <%= bootstrap_form_tag(url: { action: 'update_requests' },
 		       method: :post, layout: :horizontal,
 		       control_col: "col-xs-2") do |f| %>
-  <ul>
   <% @courses_bids.each do |c, b| %>
-    <li>
-      <%= f.select "preferences[#{c.id}]", @num_courses_arr,
-          selected: preference(b), label: "#{c.number} (#{c.title})",
-	  inline: true %>
-    </li>
+    <%= f.select "preferences[#{c.id}]", @num_courses_arr,
+        selected: preference(b), label: "#{c.number} (#{c.title})",
+        inline: true %>
   <% end %>
-  </ul>
 
   <%= submit_tag "Change preferences", class: "btn btn-primary",
       data: { confirm: "Are you sure?" } %>

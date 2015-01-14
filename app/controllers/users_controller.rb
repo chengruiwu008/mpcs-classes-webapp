@@ -2,12 +2,14 @@ class UsersController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :get_quarter,           only: [:my_courses, :my_requests]
+  before_action :get_quarter,           only: [:my_courses, :my_requests,
+                                               :update_requests]
   before_action :is_admin?,             only: :index
   before_action :prevent_self_demotion, only: :update
   before_action :get_user,              only: [:my_courses, :my_bids,
                                                :my_students, :my_requests,
-                                               :update_number_of_courses]
+                                               :update_number_of_courses,
+                                               :update_requests]
   before_action :get_my_courses,        only: :my_courses
   before_action :get_all_my_courses,    only: :my_courses_all
   before_action :get_my_bids,           only: :my_requests
@@ -73,7 +75,28 @@ class UsersController < ApplicationController
   end
 
   def update_requests
-    binding.pry
+    # TODO: Move logic to model?
+    # TODO: Add failing case
+
+    params[:preferences].each do |course_id, pref|
+      bid = Bid.find_by(course_id: course_id, student_id: @user.id)
+      if bid
+        bid.update_attributes(preference: pref)
+      elsif pref != "No preference"
+        @user.bids.create(course_id: course_id,
+                          preference: pref,
+                          quarter_id: @quarter.id)
+      end
+    end
+
+    flash[:success] = "Updated preferences."
+    redirect_to my_requests_path(year: params[:year],
+                                 season: params[:season]) and return
+
+    # (save checking for identical prefs later, or use JS code from
+    # practicum webapp)
+
+    #   * really, the user being viewed (this distinction matters for admins)
   end
 
   private

@@ -92,6 +92,7 @@ class CoursesController < ApplicationController
       end
 
       if @bid.update_attributes(bps)
+        Bid.update_preferences(@bid)
         flash[:success] = "Successfully updated course preference."
         redirect_to q_path(@course) and return
       else

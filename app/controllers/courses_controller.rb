@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
     @course = current_user.courses.build(course_params)
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
     @course.assign_attributes(quarter_id: @quarter.id)
-
+    binding.pry
     if params[:commit] == "Create this course"
       if @course.save
         flash[:success] = "Course submitted."
@@ -123,8 +123,10 @@ class CoursesController < ApplicationController
   end
 
   def get_bid
-    @bid = Bid.find_by(course_id: @course.id,
-                       student_id: current_user.id) || current_user.bids.new
+    if current_user.student?
+      @bid = Bid.find_by(course_id: @course.id,
+                         student_id: current_user.id) || current_user.bids.new
+    end
   end
 
 end

@@ -49,7 +49,7 @@ class CoursesController < ApplicationController
   def update
     if @course.draft?
       @course.assign_attributes(course_params)
-
+      binding.pry
       if params[:commit] == "Create this course"
         @course.assign_attributes(draft: false)
         if @course.save
@@ -64,6 +64,8 @@ class CoursesController < ApplicationController
           flash[:success] = "Course information saved. You may edit it " +
             "by navigating to your \"my courses\" page."
           redirect_to my_courses_path(year: @year, season: @season)
+        else
+          render 'edit'
         end
       end
 

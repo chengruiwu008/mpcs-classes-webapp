@@ -1,6 +1,5 @@
 toolbar:
-  - stylesheet | bold italic | undo redo
-  - image | link
+  - stylesheet | image | link | bold italic underline | bullist numlist | undo redo
 plugins:
   - image
   - link

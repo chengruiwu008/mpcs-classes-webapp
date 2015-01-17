@@ -22,7 +22,7 @@ class CoursesController < ApplicationController
     @course = current_user.courses.build(course_params)
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
     @course.assign_attributes(quarter_id: @quarter.id)
-    binding.pry
+
     if params[:commit] == "Create this course"
       if @course.save
         flash[:success] = "Course submitted."
@@ -32,7 +32,7 @@ class CoursesController < ApplicationController
       end
     elsif params[:commit] == "Save as draft"
       @course.assign_attributes(draft: true)
-      if @course.save(validate: false)
+      if @course.save
         flash[:success] = "Course information saved. You may edit it " +
           "by navigating to your \"my courses\" page."
         redirect_to my_courses_path(year: @year, season: @season)
@@ -60,7 +60,7 @@ class CoursesController < ApplicationController
         end
 
       elsif params[:commit] == "Save as draft"
-        if @course.save(validate: false)
+        if @course.save
           flash[:success] = "Course information saved. You may edit it " +
             "by navigating to your \"my courses\" page."
           redirect_to my_courses_path(year: @year, season: @season)

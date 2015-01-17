@@ -1,4 +1,4 @@
-<h2><%= @course.title %></h2>
+<h2><%= formatted_title(@course) %></h2>
 
 <% if can? :update, @course %>
   <div>

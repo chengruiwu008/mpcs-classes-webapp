@@ -17,6 +17,13 @@
       </tr>
     <% end %>
 
+    <% if can? :change, @course %>
+      <tr>
+	<th>Status (TODO: Put into helper) </th>
+	<td><%= @course.draft? ? "Draft" : "Published" %></td>
+      </tr>
+    <% end %>
+
     <tr>
       <th>Instructor</th>
       <td>

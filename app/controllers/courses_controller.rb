@@ -12,6 +12,7 @@ class CoursesController < ApplicationController
   end
 
   def index
+    @courses = @courses.where(draft: false)
   end
 
   def new
@@ -49,7 +50,7 @@ class CoursesController < ApplicationController
   def update
     if @course.draft?
       @course.assign_attributes(course_params)
-      binding.pry
+
       if params[:commit] == "Create this course"
         @course.assign_attributes(draft: false)
         if @course.save

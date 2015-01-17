@@ -6,4 +6,8 @@ module CoursesHelper
   def form_preference
     @bid.new_record? ? "No preference" : @bid.preference
   end
+
+  def formatted_title(course)
+    @course.title + (@course.draft? ? " (Draft)" : "")
+  end
 end

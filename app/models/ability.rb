@@ -10,7 +10,7 @@ class Ability
     unless user.new_record? # new_record => not signed in
 
       can :read, User, id: user.id
-      can :read, Course
+      can :read, Course, draft: false
 
       if user.admin?
         can :manage, :all
@@ -24,6 +24,7 @@ class Ability
         can :update,                User, id: user.id
 
         can :create, Course
+        can :read,   Course, instructor_id: user.id
         can :change, Course, instructor_id: user.id
       end
 

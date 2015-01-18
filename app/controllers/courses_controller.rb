@@ -9,6 +9,9 @@ class CoursesController < ApplicationController
   before_action :get_bid,             only: [:show, :save_bid]
   before_action :get_db_course,       only: [:edit, :update]
 
+  before_action(only: [:show, :edit]) { |c|
+    c.redirect_if_wrong_quarter_params(@course) }
+
   def show
   end
 

@@ -4,6 +4,8 @@ plugins:
   - image
   - link
 
+# To remove extra newlines added by <p></p> tags
+# (as per http://stackoverflow.com/a/6924616/3723769):
 force_p_newlines:        false
 force_br_newlines:       false
 forced_root_block:       false

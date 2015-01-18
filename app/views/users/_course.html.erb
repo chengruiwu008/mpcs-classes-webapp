@@ -5,5 +5,8 @@
   <td><%= course.created_at.to_date %></td>
   <td><%= formatted_status(course) %></td>
   <td>TODO</td>
-  <td>TODO</td>
+  <td>
+    Click <%= q_link_to "here", course, :edit_course %> to edit this course's
+    information.
+  </td>
 </tr>

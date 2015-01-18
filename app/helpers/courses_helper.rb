@@ -8,6 +8,10 @@ module CoursesHelper
   end
 
   def formatted_title(course)
-    @course.title + (@course.draft? ? " (Draft)" : "")
+    course.title + (course.draft? ? " (Draft)" : "")
+  end
+
+  def formatted_status(course)
+    course.draft? ? "Draft" : "Published"
   end
 end

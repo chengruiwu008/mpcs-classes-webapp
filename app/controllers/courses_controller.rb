@@ -7,6 +7,7 @@ class CoursesController < ApplicationController
   before_action :get_courses_in_qrtr, only: :index
   before_action :get_num_courses_arr, only: :show
   before_action :get_bid,             only: [:show, :save_bid]
+  before_action :get_db_course,       only: [:edit, :update]
 
   def show
   end
@@ -48,7 +49,6 @@ class CoursesController < ApplicationController
   end
 
   def update
-    binding.pry
     if @course.draft?
       @course.assign_attributes(course_params)
 
@@ -133,6 +133,14 @@ class CoursesController < ApplicationController
       @bid = Bid.find_by(course_id: @course.id,
                          student_id: current_user.id) || current_user.bids.new
     end
+  end
+
+  def get_db_course
+    # We use the course from the database so that we don't try to update the
+    # wrong course if the instructor first tries to save an invalid course
+    # (e.g., by changing the number or title to another course's) and then
+    # corrects their mistake.
+    @db_course = Course.find(@course.id)
   end
 
 end

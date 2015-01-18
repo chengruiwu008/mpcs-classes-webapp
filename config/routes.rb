@@ -32,7 +32,7 @@ CourseEnrollment::Application.routes.draw do
         season: /spring|summer|autumn|winter/ do
     resources :courses
 
-    post  "/courses/:id" => "courses#save_bid"
+    post  "/courses/:number" => "courses#save_bid"
     patch "/my_requests" => "users#update_number_of_courses"
     post  "/my_requests" => "users#update_requests"
     get   "/my_students" => "users#my_students"

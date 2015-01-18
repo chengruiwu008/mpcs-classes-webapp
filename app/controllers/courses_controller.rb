@@ -48,6 +48,7 @@ class CoursesController < ApplicationController
   end
 
   def update
+    binding.pry
     if @course.draft?
       @course.assign_attributes(course_params)
 
@@ -74,6 +75,8 @@ class CoursesController < ApplicationController
       if @course.update_attributes(course_params)
         flash[:success] = "Course information successfully updated."
         redirect_to q_path(@course)
+      else
+        render 'edit'
       end
     end
   end

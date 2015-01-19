@@ -21,4 +21,26 @@ module CoursePatterns
     end
   end
 
+  def destroy_bid
+    if @bid.destroy
+      flash[:success] = "Successfully updated course preference."
+      redirect_to q_path(@course) and return
+    end
+  end
+
+  def create_or_update_bid(bid_params)
+    if @bid.new_record?
+      bid_params.merge!(quarter_id: @quarter.id, course_id: @course.id)
+    end
+
+    if @bid.update_attributes(bid_params)
+      Bid.update_preferences(@bid)
+      flash[:success] = "Successfully updated course preference."
+      redirect_to q_path(@course) and return
+    else
+      flash[:error].now = "Unable to update course request."
+      render 'show' and return
+    end
+  end
+
 end

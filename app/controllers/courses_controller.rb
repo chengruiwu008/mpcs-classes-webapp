@@ -51,29 +51,10 @@ class CoursesController < ApplicationController
   end
 
   def save_bid
-    bps = bid_params
-
-    if bps[:preference] == "No preference" # Destroy the bid
-
-      if @bid.destroy
-        flash[:success] = "Successfully updated course preference."
-        redirect_to q_path(@course) and return
-      end
-
-    else # Create or update the bid
-
-      if @bid.new_record?
-        bps.merge!(quarter_id: @quarter.id, course_id: @course.id)
-      end
-
-      if @bid.update_attributes(bps)
-        Bid.update_preferences(@bid)
-        flash[:success] = "Successfully updated course preference."
-        redirect_to q_path(@course) and return
-      else
-        flash[:error].now = "Unable to update course request."
-        render 'show' and return
-      end
+    if bid_params[:preference] == "No preference"
+      destroy_bid
+    else
+      create_or_update_bid(bid_params)
     end
   end
 

@@ -1,5 +1,7 @@
 class CoursesController < ApplicationController
 
+  include CoursePatterns
+
   load_and_authorize_resource find_by: :number
 
   before_action :get_quarter,         only: [:show, :save_bid, :index]
@@ -28,23 +30,25 @@ class CoursesController < ApplicationController
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
     @course.assign_attributes(quarter_id: @quarter.id)
 
-    if params[:commit] == "Create this course"
-      if @course.save
-        flash[:success] = "Course submitted."
-        redirect_to my_courses_path(year: @year, season: @season)
-      else
-        render 'new'
-      end
-    elsif params[:commit] == "Save as draft"
-      @course.assign_attributes(draft: true)
-      if @course.save
-        flash[:success] = "Course information saved. You may edit it " +
-          "by navigating to your \"my courses\" page."
-        redirect_to my_courses_path(year: @year, season: @season)
-      else
-        render 'new'
-      end
-    end
+    save(params, @course, @year, @season, 'new')
+
+    # if params[:commit] == "Create this course"
+    #   if @course.save
+    #     flash[:success] = "Course submitted."
+    #     redirect_to my_courses_path(year: @year, season: @season)
+    #   else
+    #     render 'new'
+    #   end
+    # elsif params[:commit] == "Save as draft"
+    #   @course.assign_attributes(draft: true)
+    #   if @course.save
+    #     flash[:success] = "Course information saved. You may edit it " +
+    #       "by navigating to your \"my courses\" page."
+    #     redirect_to my_courses_path(year: @year, season: @season)
+    #   else
+    #     render 'new'
+    #   end
+    # end
 
   end
 

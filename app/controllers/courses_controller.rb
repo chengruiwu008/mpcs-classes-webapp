@@ -24,32 +24,12 @@ class CoursesController < ApplicationController
   def new
   end
 
-  # TODO: Abstract duplicated code out of #create and #update
   def create
     @course = current_user.courses.build(course_params)
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
     @course.assign_attributes(quarter_id: @quarter.id)
 
-    save(params, @course, @year, @season, 'new')
-
-    # if params[:commit] == "Create this course"
-    #   if @course.save
-    #     flash[:success] = "Course submitted."
-    #     redirect_to my_courses_path(year: @year, season: @season)
-    #   else
-    #     render 'new'
-    #   end
-    # elsif params[:commit] == "Save as draft"
-    #   @course.assign_attributes(draft: true)
-    #   if @course.save
-    #     flash[:success] = "Course information saved. You may edit it " +
-    #       "by navigating to your \"my courses\" page."
-    #     redirect_to my_courses_path(year: @year, season: @season)
-    #   else
-    #     render 'new'
-    #   end
-    # end
-
+    save 'new'
   end
 
   def edit
@@ -59,25 +39,7 @@ class CoursesController < ApplicationController
     if @course.draft?
       @course.assign_attributes(course_params)
 
-      if params[:commit] == "Create this course"
-        @course.assign_attributes(draft: false)
-        if @course.save
-          flash[:success] = "Course submitted."
-          redirect_to my_courses_path(year: @year, season: @season)
-        else
-          render 'edit'
-        end
-
-      elsif params[:commit] == "Save as draft"
-        if @course.save
-          flash[:success] = "Course information saved. You may edit it " +
-            "by navigating to your \"my courses\" page."
-          redirect_to my_courses_path(year: @year, season: @season)
-        else
-          render 'edit'
-        end
-      end
-
+      save 'edit'
     else
       if @course.update_attributes(course_params)
         flash[:success] = "Course information successfully updated."

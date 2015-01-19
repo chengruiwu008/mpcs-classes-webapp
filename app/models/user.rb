@@ -19,6 +19,19 @@ class User < ActiveRecord::Base
     false
   end
 
+  def update_bids(pref_params, quarter)
+    pref_params.each do |course_id, pref|
+      bid = Bid.find_by(course_id: course_id, student_id: self.id)
+      if bid
+        bid.update_attributes(preference: pref)
+      elsif pref != "No preference"
+        self.bids.create(course_id: course_id,
+                         preference: pref,
+                         quarter_id: quarter.id)
+      end
+    end
+  end
+
   def relevant_quarters
     if admin?
       # See all active quarters.

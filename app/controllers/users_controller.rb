@@ -75,21 +75,10 @@ class UsersController < ApplicationController
   end
 
   def update_requests
-    # TODO: Move logic to a different model?
-
     @prefs = params[:preferences].values.reject { |p| p == "No preference" }
 
-    if @prefs == @prefs.uniq
-      params[:preferences].each do |course_id, pref|
-        bid = Bid.find_by(course_id: course_id, student_id: @user.id)
-        if bid
-          bid.update_attributes(preference: pref)
-        elsif pref != "No preference"
-          @user.bids.create(course_id: course_id,
-                            preference: pref,
-                            quarter_id: @quarter.id)
-        end
-      end
+    if @prefs == @prefs.uniq # No duplicate ranks
+      @user.update_bids(params[:preferences], @quarter)
       flash[:success] = "Updated preferences."
     else
       flash[:error] = "Each course must have a unique rank."

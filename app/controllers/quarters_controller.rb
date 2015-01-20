@@ -41,14 +41,7 @@ class QuartersController < ApplicationController
   end
 
   def destroy
-    redirect_to quarters_path and return if @quarter.current?
-    if @quarter.destroy
-      flash[:success] = "Quarter successfully deleted."
-      redirect_to quarters_path and return
-    else
-      flash.now[:error] = "Failed to delete the quarter."
-      render 'index'
-    end
+    @quarter.active? ? (redirect_to quarters_path and return) : (save :index)
   end
 
   private

@@ -2,7 +2,7 @@ CourseEnrollment::Application.routes.draw do
 
   root 'pages#home'
 
-  patch "/users/faculty" => "users#add_faculty", as: :add_faculty
+  patch "/users/faculty" => "users#update_faculty", as: :update_faculty
   get "/courses" => "courses#global_index", as: :global_courses
 
   # The :users line is necessary.

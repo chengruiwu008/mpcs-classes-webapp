@@ -30,20 +30,26 @@ class UsersController < ApplicationController
     @users = User.all.where(type: "Faculty").page(params[:page])
   end
 
-  def add_faculty
-    @faculty = User.find_by(cnet: params[:faculty_cnet])
+  def update_faculty
+    if params[:faculty_cnet].length > 0
+      @faculty = User.find_by(cnet: params[:faculty_cnet])
 
-    if @faculty
-      saved = @faculty.update_attributes(type: "Faculty")
+      if @faculty
+        saved = @faculty.update_attributes(type: "Faculty")
+      else
+        saved = User.create(cnet: params[:faculty_cnet], type: "Faculty")
+      end
     else
-      saved = User.create(cnet: params[:faculty_cnet], type: "Faculty")
+      saved = true
     end
+    # TODO: Make `saved` depend on the success of faculty_to_students (?)
+    User.faculty_to_students(params[:remove]) if params[:remove]
 
     if saved
-      flash[:success] = "Successfully added faculty member."
+      flash[:success] = "Successfully updated the list of instructors.."
       redirect_to faculty_users_path
     else
-      flash[:error] = "Unable to add faculty member."
+      flash[:error] = "Unable to update the list of instructors."
       render 'faculty'
     end
   end

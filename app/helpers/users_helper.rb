@@ -5,7 +5,11 @@ module UsersHelper
   end
 
   def display_name(user)
-    user.first_name + " " + user.last_name
+    if user.first_name and user.last_name
+      user.first_name + " " + user.last_name
+    else
+      ""
+    end
   end
 
   def user_role_warning

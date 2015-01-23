@@ -4,49 +4,54 @@
 
 <br />
 
-<% if @users.count > 0 %>
+<%= bootstrap_form_tag(url: { action: :update_faculty }, method: :patch,
+		       layout: :horizontal, control_col: "col-md-3") do |f| %>
+  <% if @users.count > 0 %>
 
-  <%= paginate @users %>
+    <%= paginate @users %>
+
+    <br />
+
+    <table class="table table-bordered">
+      <tr>
+	<th>CNetID</th>
+	<th>E-mail address</th>
+	<th>Full name</th>
+	<th>Affiliation</th>
+	<th>Department</th>
+	<th>Remove?</th>
+      </tr>
+      <tbody>
+	<% @users.each do |user| %>
+	  <tr>
+	    <td><%= user.cnet %></td>
+	    <td><%= user.email %></td>
+	    <td><%= link_to display_name(user), user %></td>
+	    <td><%= user.affiliation %></td>
+	    <td><%= user.department %></td>
+	    <td>
+	      <%= f.check_box "remove[#{user.id}]", label: "", inline: true %>
+	    </td>
+	  </tr>
+	<% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p>No instructors found.</p>
+  <% end %>
 
   <br />
 
-  <table class="table table-bordered">
-    <tr>
-      <th>CNetID</th>
-      <th>E-mail address</th>
-      <th>Full name</th>
-      <th>Affiliation</th>
-      <th>Department</th>
-    </tr>
-    <tbody>
-      <% @users.each do |user| %>
-	<tr>
-	  <td><%= user.cnet %></td>
-	  <td><%= user.email %></td>
-	  <td><%= link_to display_name(user), user %></td>
-	  <td><%= user.affiliation %></td>
-	  <td><%= user.department %></td>
-	</tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No users found.</p>
-<% end %>
+  <p>
+    To add an instructor, submit the user's CNetID below. The user does not need
+    to already exist.
+  </p>
 
-<br />
-
-<p>
-  To add an instructor, submit the user's CNetID below. The user does not need
-  to already exist.
-</p>
-
-<%= bootstrap_form_tag(url: { action: :add_faculty }, method: :patch,
-		       layout: :horizontal, control_col: "col-md-3") do |f| %>
   <%= f.text_field :faculty_cnet, label: "CNetID" %>
 
   <%= f.form_group do %>
-    <%= f.submit "Add instructor", class: "btn btn-primary",
-      data: { confirm: "Are you sure?" } %>
-    <% end %>
+    <%= f.submit "Update list of instructors", class: "btn btn-primary",
+	data: { confirm: "Are you sure?" } %>
+  <% end %>
+
 <% end %>

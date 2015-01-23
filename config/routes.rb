@@ -2,6 +2,9 @@ CourseEnrollment::Application.routes.draw do
 
   root 'pages#home'
 
+  patch "/users/faculty" => "users#add_faculty", as: :add_faculty
+  get "/courses" => "courses#global_index", as: :global_courses
+
   # The :users line is necessary.
   devise_for :users, skip: [:sessions, :registrations], controllers:
     { sessions: 'sessions' }
@@ -39,8 +42,5 @@ CourseEnrollment::Application.routes.draw do
     get   "/my_requests" => "users#my_requests"
     get   "/my_courses"  => "users#my_courses"
   end
-
-  patch "/users/faculty" => "faculty#add_faculty", as: :add_faculty
-  get "/courses" => "courses#global_index", as: :global_courses
 
 end

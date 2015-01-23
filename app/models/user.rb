@@ -19,6 +19,10 @@ class User < ActiveRecord::Base
     false
   end
 
+  def password_required?
+    false
+  end
+
   def update_bids(pref_params, quarter)
     pref_params.each do |course_id, pref|
       bid = Bid.find_by(course_id: course_id, student_id: self.id)

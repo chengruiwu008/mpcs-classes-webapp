@@ -41,7 +41,7 @@
   to already exist.
 </p>
 
-<%= bootstrap_form_tag(url: add_faculty_url, method: :patch,
+<%= bootstrap_form_tag(url: { action: :add_faculty }, method: :patch,
 		       layout: :horizontal, control_col: "col-md-3") do |f| %>
   <%= f.text_field :faculty_cnet, label: "CNetID" %>
 

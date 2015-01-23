@@ -31,14 +31,21 @@ class UsersController < ApplicationController
   end
 
   def add_faculty
-    # If a user with the given CNetID does not exist, create the user.
-    # If one with the CNetID does exist, update the user's type to "Faculty".
+    @faculty = User.find_by(cnet: params[:faculty_cnet])
 
-    if !User.find_by(cnet: params[:faculty_cnet])
-      User.create(cnet: params[:faculty_cnet], type: "Faculty")
+    if @faculty
+      saved = @faculty.update_attributes(type: "Faculty")
+    else
+      saved = User.create(cnet: params[:faculty_cnet], type: "Faculty")
     end
 
-    render 'faculty'
+    if saved
+      flash[:success] = "Successfully added faculty member."
+      redirect_to faculty_users_path
+    else
+      flash[:error] = "Unable to add faculty member."
+      render 'faculty'
+    end
   end
 
   def edit

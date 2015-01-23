@@ -22,7 +22,6 @@ CourseEnrollment::Application.routes.draw do
   resources :users do
     collection do
       get   "faculty"
-      patch "faculty"
     end
   end
 
@@ -41,6 +40,7 @@ CourseEnrollment::Application.routes.draw do
     get   "/my_courses"  => "users#my_courses"
   end
 
+  patch "/users/faculty" => "faculty#add_faculty", as: :add_faculty
   get "/courses" => "courses#global_index", as: :global_courses
 
 end

@@ -33,3 +33,20 @@
 <% else %>
   <p>No users found.</p>
 <% end %>
+
+<br />
+
+<p>
+  To add an instructor, submit the user's CNetID below. The user does not need
+  to already exist.
+</p>
+
+<%= bootstrap_form_tag(url: add_faculty_url, method: :patch,
+		       layout: :horizontal, control_col: "col-md-3") do |f| %>
+  <%= f.text_field :faculty_cnet, label: "CNetID" %>
+
+  <%= f.form_group do %>
+    <%= f.submit "Add instructor", class: "btn btn-primary",
+      data: { confirm: "Are you sure?" } %>
+    <% end %>
+<% end %>

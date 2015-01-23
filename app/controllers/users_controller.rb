@@ -27,7 +27,18 @@ class UsersController < ApplicationController
   end
 
   def faculty
-    @users = User.all.where(type: "Faculty")
+    @users = User.all.where(type: "Faculty").page(params[:page])
+  end
+
+  def add_faculty
+    # If a user with the given CNetID does not exist, create the user.
+    # If one with the CNetID does exist, update the user's type to "Faculty".
+
+    if !User.find_by(cnet: params[:faculty_cnet])
+      User.create(cnet: params[:faculty_cnet], type: "Faculty")
+    end
+
+    render 'faculty'
   end
 
   def edit
@@ -94,7 +105,7 @@ class UsersController < ApplicationController
     as = []
 
     if current_user.admin?
-      as = [:type, :affiliation, :department, :number_of_courses]
+      as = [:type, :affiliation, :department, :number_of_courses, :faculty_cnet]
     elsif current_user.faculty?
       as = [:affiliation, :department]
     elsif current_user.student?

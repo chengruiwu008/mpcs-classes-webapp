@@ -13,27 +13,25 @@ FactoryGirl.define do
 
     trait :student do
       sequence(:email) { |n| "student_#{n}@university.edu" }
-      student true
+      type "Student"
     end
 
-    trait :advisor do
-      sequence(:email) { |n| "advisor_#{n}@university.edu" }
-      student false
-      advisor true
+    trait :faculty do
+      sequence(:email) { |n| "instructor_#{n}@university.edu" }
+      type "Faculty"
     end
 
     trait :admin do
       sequence(:email) { |n| "admin_#{n}@university.edu" }
-      student false
-      admin   true
+      type "Admin"
     end
 
     trait :guest do
-      student false
+
     end
 
     factory :student, traits: [:student]
-    factory :advisor, traits: [:advisor]
+    factory :faculty, traits: [:faculty]
     factory :admin,   traits: [:admin]
     factory :guest,   traits: [:guest]
   end
@@ -51,38 +49,25 @@ FactoryGirl.define do
     season { %w(spring summer autumn winter)[((Time.now.month - 1) / 3)-1] }
     start_date { Chronic.parse(season_dates[season.downcase],
                  now: Time.local(year, 1, 1, 12, 0, 0)).to_datetime }
-    project_proposal_deadline { start_date +
-      deadline_weeks["proposal"].weeks + 4.days + 5.hours }
-    student_submission_deadline { start_date +
-      deadline_weeks["submission"].weeks + 4.days + 5.hours }
-    advisor_decision_deadline { start_date +
-      deadline_weeks["decision"].weeks + 4.days + 5.hours }
-    admin_publish_deadline { start_date +
-      deadline_weeks["admin"].weeks + 4.days + 5.hours }
-    end_date { start_date + 9.weeks + 5.days }
+    course_submission_deadline { start_date +
+      deadline_weeks["course"].weeks + 4.days + 5.hours }
+    student_bidding_deadline { start_date +
+      deadline_weeks["bid"].weeks + 4.days + 5.hours }
 
-    trait :can_create_submission do
-      student_submission_deadline { DateTime.tomorrow }
+    trait :can_create_course do
+      course_submission_deadline { DateTime.tomorrow }
     end
 
-    trait :can_create_project do
-      project_proposal_deadline { DateTime.tomorrow }
-    end
-
-    trait :advisor_can_decide do
-      advisor_decision_deadline { DateTime.tomorrow }
-    end
-
-    trait :cannot_create_submission do
-      student_submission_deadline { DateTime.yesterday }
+    trait :can_create_bid do
+      student_bidding_deadline { DateTime.tomorrow }
     end
 
     trait :cannot_create_project do
-      project_proposal_deadline { DateTime.yesterday }
+      course_submission_deadline { DateTime.yesterday }
     end
 
-    trait :advisor_cannot_decide do
-      advisor_decision_deadline { DateTime.yesterday }
+    trait :cannot_create_bid do
+      student_bidding_deadline { DateTime.yesterday }
     end
 
     trait :later_end_date do
@@ -94,9 +79,8 @@ FactoryGirl.define do
     end
 
     trait :no_deadlines_passed do
-      can_create_submission
-      can_create_project
-      advisor_can_decide
+      can_create_course
+
       later_end_date
     end
 

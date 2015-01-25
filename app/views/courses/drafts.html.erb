@@ -1,0 +1,7 @@
+<h2><%= formatted_quarter_by_params %> Courses</h2>
+
+<% if @courses.present? %>
+  <%= render 'courses' %>
+<% else %>
+  <p>There are currently no course drafts in this quarter.</p>
+<% end %>

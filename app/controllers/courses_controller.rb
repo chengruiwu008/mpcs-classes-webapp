@@ -4,9 +4,9 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
-  before_action :get_quarter,         only: [:show, :save_bid, :index]
+  before_action :get_quarter,         only: [:show, :save_bid, :index, :drafts]
   before_action :get_year_and_season, only: [:create, :update]
-  before_action :get_courses_in_qrtr, only: :index
+  before_action :get_courses_in_qrtr, only: [:index, :drafts]
   before_action :get_num_courses_arr, only: :show
   before_action :get_bid,             only: [:show, :save_bid]
   before_action :get_db_course,       only: [:edit, :update]
@@ -19,6 +19,10 @@ class CoursesController < ApplicationController
 
   def index
     @courses = @courses.where(draft: false)
+  end
+
+  def drafts
+    @courses = @courses.where(draft: true)
   end
 
   def new

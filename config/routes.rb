@@ -22,25 +22,27 @@ CourseEnrollment::Application.routes.draw do
     delete "/signout" => "sessions/sessions#destroy", as: :destroy_user_session
   end
 
-  resources :users do
-    collection do
-      get   "faculty"
-    end
+  scope "/:year/:season", year: /\d{4}/,
+        season: /spring|summer|autumn|winter/ do
+
+    post  "/courses/:id"    => "courses#save_bid"
+    get   "/courses/drafts" => "courses#drafts"
+    patch "/my_requests"    => "users#update_number_of_courses"
+    post  "/my_requests"    => "users#update_requests"
+    get   "/my_students"    => "users#my_students"
+    get   "/my_schedule"    => "users#my_schedule"
+    get   "/my_requests"    => "users#my_requests"
+    get   "/my_courses"     => "users#my_courses"
+
+    resources :courses
   end
 
   resources :quarters
 
-  scope "/:year/:season", year: /\d{4}/,
-        season: /spring|summer|autumn|winter/ do
-    resources :courses
-
-    post  "/courses/:id" => "courses#save_bid"
-    patch "/my_requests" => "users#update_number_of_courses"
-    post  "/my_requests" => "users#update_requests"
-    get   "/my_students" => "users#my_students"
-    get   "/my_schedule" => "users#my_schedule"
-    get   "/my_requests" => "users#my_requests"
-    get   "/my_courses"  => "users#my_courses"
+  resources :users do
+    collection do
+      get   "faculty"
+    end
   end
 
 end

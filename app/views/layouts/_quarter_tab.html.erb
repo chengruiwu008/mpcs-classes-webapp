@@ -46,6 +46,10 @@
     <%# Administrative pages %>
     <% if can? :manage, :all %>
       <li class="divider"></li>
+      <li>
+	<%= link_to "Course drafts",
+	    courses_drafts_path(year: quarter.year, season: quarter.season) %>
+      </li>
     <% end %>
   </ul>
 </li>

@@ -5,7 +5,7 @@
 <br />
 
 <%= bootstrap_form_tag(url: { action: :update_faculty }, method: :patch,
-		       layout: :horizontal, control_col: "col-md-3") do |f| %>
+		       layout: :inline) do |f| %>
   <% if @users.count > 0 %>
 
     <%= paginate @users %>
@@ -30,7 +30,7 @@
 	    <td><%= user.affiliation %></td>
 	    <td><%= user.department %></td>
 	    <td>
-	      <%= f.check_box "remove[#{user.id}]", label: "", inline: true %>
+	      <%= f.check_box "remove[#{user.id}]", label: "" %>
 	    </td>
 	  </tr>
 	<% end %>
@@ -47,11 +47,13 @@
     to already exist.
   </p>
 
-  <%= f.text_field :faculty_cnet, label: "CNetID" %>
+<%#= f.form_group :faculty_cnet, layout: :default do %>
+  <%= f.text_field :faculty_cnet, layout: :horizontal, label_col: "col-sm-3", control_col: "col-sm-3", label: "CNetID" %>
 
-  <%= f.form_group do %>
+  <%= f.form_group layout: :horizontal do %>
     <%= f.submit "Update list of instructors", class: "btn btn-primary",
 	data: { confirm: "Are you sure?" } %>
   <% end %>
-
 <% end %>
+
+<%# end %>

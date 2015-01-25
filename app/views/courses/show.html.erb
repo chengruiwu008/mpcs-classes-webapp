@@ -14,4 +14,4 @@
 
 <%= render 'course_long', object: @course %>
 
-<%= render 'request' if can? :view_my_bids, User %>
+<%= render 'request' if can? :create_bids, User %>

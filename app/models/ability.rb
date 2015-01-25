@@ -13,7 +13,8 @@ class Ability
       can :read, Course, draft: false
 
       if user.admin?
-        can :manage, :all
+        can    :manage,      :all
+        cannot :create_bids, User
       end
 
       if user.faculty?
@@ -30,6 +31,7 @@ class Ability
 
       if user.student?
         can :view_my_bids,             User, id: user.id
+        can :create_bids,              User, id: user.id
         can :update,                   User, id: user.id
         can :update_number_of_courses, User, id: user.id
         can :my_requests,              User, id: user.id

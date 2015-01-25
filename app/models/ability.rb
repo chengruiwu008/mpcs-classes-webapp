@@ -13,8 +13,10 @@ class Ability
       can :read, Course, draft: false
 
       if user.admin?
-        can    :manage,      :all
-        cannot :create_bids, User
+        can    :manage,          :all
+        cannot :create_bids,     User
+        cannot :view_my_bids,    User
+        cannot :view_my_courses, User
       end
 
       if user.faculty?

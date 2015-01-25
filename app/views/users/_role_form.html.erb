@@ -1,12 +1,15 @@
 <%= bootstrap_form_for @user do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.form_group :role do %>
-    <%= f.radio_button :type, :student, label: "Student", inline: true %> &nbsp;
+  <%= f.form_group :type, layout: :inline do %>
+    <%= f.radio_button :type, :student, label: "Student", inline: true,
+        checked: @user.type == "Student" %> &nbsp;
 
-    <%= f.radio_button :type, :faculty, label: "Faculty", inline: true %> &nbsp;
+    <%= f.radio_button :type, :faculty, label: "Faculty", inline: true,
+        checked: @user.type == "Faculty" %> &nbsp;
 
-    <%= f.radio_button :type, :admin, label: "Admin", inline: true %>
+    <%= f.radio_button :type, :admin, label: "Admin", inline: true,
+        checked: @user.type == "Admin" %>
   <% end %>
 
   <span id="roles-form-tooltip" data-toggle="tooltip" data-placement="right"

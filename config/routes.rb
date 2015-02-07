@@ -25,7 +25,6 @@ CourseEnrollment::Application.routes.draw do
   scope "/:year/:season", year: /\d{4}/,
         season: /spring|summer|autumn|winter/ do
 
-    post  "/courses/:id"    => "courses#save_bid"
     get   "/courses/drafts" => "courses#drafts"
     patch "/my_requests"    => "users#update_number_of_courses"
     post  "/my_requests"    => "users#update_requests"

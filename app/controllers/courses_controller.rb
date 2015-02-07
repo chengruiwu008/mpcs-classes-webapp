@@ -4,11 +4,11 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
-  before_action :get_quarter,         only: [:show, :save_bid, :index, :drafts]
+  before_action :get_quarter,         only: [:show, :index, :drafts]
   before_action :get_year_and_season, only: [:create, :update]
   before_action :get_courses_in_qrtr, only: [:index, :drafts]
   before_action :get_num_courses_arr, only: :show
-  before_action :get_bid,             only: [:show, :save_bid]
+  before_action :get_bid,             only: :show
   before_action :get_db_course,       only: [:edit, :update]
 
   before_action(only: [:show, :edit]) { |c|
@@ -54,23 +54,11 @@ class CoursesController < ApplicationController
     end
   end
 
-  def save_bid
-    if bid_params[:preference] == "No preference"
-      destroy_bid
-    else
-      create_or_update_bid(bid_params)
-    end
-  end
-
   private
 
   def course_params
     params.require(:course).permit(:title, :syllabus, :number,
                                     :prerequisites, :time, :location)
-  end
-
-  def bid_params
-    params.require(:bid).permit(:preference)
   end
 
   def get_year_and_season

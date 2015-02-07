@@ -13,5 +13,3 @@
 <%= render 'student_bidding_deadline' if signed_in? %>
 
 <%= render 'course_long', object: @course %>
-
-<%= render 'request' if can? :create_bids, User %>

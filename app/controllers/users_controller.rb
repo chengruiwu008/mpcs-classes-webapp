@@ -90,14 +90,6 @@ class UsersController < ApplicationController
     @students = @user.students_and_submissions_in_quarter(q)
   end
 
-  # All of this user's projects
-  def my_projects_all
-  end
-
-  # All of this user's applications
-  def my_submissions_all
-  end
-
   def update_requests
     @prefs = params[:preferences].values.reject { |p| p == "No preference" }
 

@@ -133,6 +133,10 @@ table {
     font-weight: normal;
 }
 
+#ranks {
+    list-style-type: none;
+}
+
 .project-form, .submission-form, .evaluation-form {
     th {
 	width: 300px;

@@ -13,7 +13,4 @@ $(document).ready(function(event){
     $(window).resize(function(event) {
 	resizeContentBody();
     });
-
-    var el = document.getElementById('ranks');
-    var sortable = Sortable.create(el);
 });

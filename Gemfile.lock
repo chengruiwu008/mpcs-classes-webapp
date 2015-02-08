@@ -172,6 +172,8 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
+    jquery-ui-rails (5.0.3)
+      railties (>= 3.2.16)
     json (1.8.2)
     launchy (2.4.2)
       addressable (~> 2.3)
@@ -383,6 +385,7 @@ DEPENDENCIES
   jbuilder (= 1.0.2)
   jquery-rails (= 3.0.4)
   jquery-turbolinks (= 2.1.0)
+  jquery-ui-rails (= 5.0.3)
   kaminari!
   launchy (= 2.4.2)
   libnotify (= 0.8.0)

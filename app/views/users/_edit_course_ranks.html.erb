@@ -1,8 +1,20 @@
 <%= bootstrap_form_tag(url: { action: 'update_requests' },
 		       method: :post, layout: :horizontal,
 		       control_col: "col-xs-2") do |f| %>
-  <ul id="ranks">
-    <% @courses_bids.each do |c, b| %>
+  <ul id="ranked" class="connected-sortable">
+    <% @ranked_courses_bids.each do |c, b| %>
+      <li>
+      <%= f.select "preferences[#{c.id}]", @num_courses_arr,
+	  selected: preference(b), label: "#{c.number} (#{c.title})",
+	  inline: true %>
+      </li>
+    <% end %>
+  </ul>
+
+  <br /><br />
+
+  <ul id="unranked" class="connected-sortable">
+    <% @unranked_courses_bids.each do |c, b| %>
       <li>
       <%= f.select "preferences[#{c.id}]", @num_courses_arr,
 	  selected: preference(b), label: "#{c.number} (#{c.title})",

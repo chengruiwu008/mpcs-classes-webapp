@@ -3,4 +3,8 @@ $(document).ready(function(event) {
 	container: 'body',
 	trigger: 'hover'
     });
+
+    $("#ranked, #unranked").sortable({
+	connectWith: ".connected-sortable"
+    }).disableSelection();
 });

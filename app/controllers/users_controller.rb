@@ -152,12 +152,16 @@ class UsersController < ApplicationController
 
   def get_courses_bids
     cs = Course.where(quarter_id: @quarter.id)
-    @courses_bids = {}
+    @unranked_courses_bids = {}
+    @ranked_courses_bids = {}
 
     # TODO: Sort the course_bids by preference, using something like
     # @course_bids = @course_bids.sort_by { |k, v| v.try(:preference) || 0 }
+    # TODO: Move logic to a model
     cs.each do |c|
-      @courses_bids[c] = Bid.find_by(student_id: @user.id, course_id: c.id)
+      bid = Bid.find_by(student_id: @user.id, course_id: c.id)
+      @unranked_courses_bids[c] = bid unless bid
+      @ranked_courses_bids[c]   = bid if bid
     end
   end
 

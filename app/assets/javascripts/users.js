@@ -8,18 +8,22 @@ $(document).ready(function(event) {
 	connectWith: ".connected-sortable"
     }).disableSelection();
 
+    function sort_ranks() {
+	$("#ranked").find("li").each(function(index, elt) {
+	    $(this).find("select").val(index + 1);
+	});
+    }
+
+    // Change rank by dragging and dropping into ranked or unranked list
     $("#ranked, #unranked").sortable({
 	stop: function(e, ui) {
 	    var dragged = $(ui.item.get());
 
-	    // Change rank by dragging and dropping
 	    if (dragged.parent().attr("id") == "unranked") {
 		dragged.find("select").val("No preference");
 	    }
 
-	    $("#ranked").find("li").each(function(index, elt) {
-		$(this).find("select").val(index + 1);
-	    });
+	    sort_ranks();
 
 	    // In the controller, update _all_ items (in both lists). We'll
 	    // need to ensure that the right ones end up in the right @lists,
@@ -27,6 +31,7 @@ $(document).ready(function(event) {
 	}
     });
 
+    // Change rank by selecting a value from the dropdown
     $("#ranked li, #unranked li").change(function () {
 	var val = $(this).find("select").val();
 
@@ -40,9 +45,6 @@ $(document).ready(function(event) {
 	    }
 	}
 
-	// TODO: Put this into its own function
-	$("#ranked").find("li").each(function(index, elt) {
-	    $(this).find("select").val(index + 1);
-	});
+	sort_ranks();
     });
 });

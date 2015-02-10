@@ -36,7 +36,13 @@ class User < ActiveRecord::Base
     pref_params.each do |course_id, pref|
       bid = Bid.find_by(course_id: course_id, student_id: self.id)
       if bid
-        bid.update_attributes(preference: pref)
+
+        if pref != "No preference"
+          bid.update_attributes(preference: pref)
+        else
+          bid.destroy
+        end
+
       elsif pref != "No preference"
         self.bids.create(course_id: course_id,
                          preference: pref,

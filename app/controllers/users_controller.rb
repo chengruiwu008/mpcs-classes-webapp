@@ -86,7 +86,7 @@ class UsersController < ApplicationController
 
   # Quarter-specific
   def my_students
-    q  = Quarter.where(year: params[:year], season: params[:season]).take
+    q = Quarter.where(year: params[:year], season: params[:season]).take
     @students = @user.students_and_submissions_in_quarter(q)
   end
 
@@ -155,14 +155,14 @@ class UsersController < ApplicationController
     @unranked_courses_bids = {}
     @ranked_courses_bids = {}
 
-    # TODO: Sort the course_bids by preference, using something like
-    # @course_bids = @course_bids.sort_by { |k, v| v.try(:preference) || 0 }
     # TODO: Move logic to a model
     cs.each do |c|
       bid = Bid.find_by(student_id: @user.id, course_id: c.id)
       @unranked_courses_bids[c] = bid unless bid
       @ranked_courses_bids[c]   = bid if bid
     end
+
+    @ranked_courses_bids = @ranked_courses_bids.sort_by { |k, v| v.preference }
   end
 
   def get_number_of_courses

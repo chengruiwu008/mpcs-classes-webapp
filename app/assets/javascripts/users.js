@@ -27,7 +27,22 @@ $(document).ready(function(event) {
 	}
     });
 
-    //$("#ranked, #unranked").something({
-	// Change rank via the dropdown select
-    //});
+    $("#ranked li, #unranked li").change(function () {
+	var val = $(this).find("select").val();
+
+	if (val == "No preference") {
+	    $(this).insertBefore("#unranked li:first-child");
+	} else {
+	    if (val > $("#ranked li").length) {
+		$(this).insertAfter("#ranked li:last-child");
+	    } else {
+		$(this).insertBefore("#ranked li:nth-child("+val+")");
+	    }
+	}
+
+	// TODO: Put this into its own function
+	$("#ranked").find("li").each(function(index, elt) {
+	    $(this).find("select").val(index + 1);
+	});
+    });
 });

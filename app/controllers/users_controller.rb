@@ -158,6 +158,7 @@ class UsersController < ApplicationController
     # TODO: Move logic to a model
     cs.each do |c|
       bid = Bid.find_by(student_id: @user.id, course_id: c.id)
+      # Note: courses in @unranked_courses_bids are mapped to nil.
       @unranked_courses_bids[c] = bid unless bid
       @ranked_courses_bids[c]   = bid if bid
     end

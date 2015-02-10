@@ -37,10 +37,10 @@ class User < ActiveRecord::Base
       bid = Bid.find_by(course_id: course_id, student_id: self.id)
       if bid
 
-        if pref != "No preference"
-          bid.update_attributes(preference: pref)
-        else
+        if pref == "No preference"
           bid.destroy
+        else
+          bid.update_attributes(preference: pref)
         end
 
       elsif pref != "No preference"

@@ -24,10 +24,6 @@ $(document).ready(function(event) {
 	    }
 
 	    sort_ranks();
-
-	    // In the controller, update _all_ items (in both lists). We'll
-	    // need to ensure that the right ones end up in the right @lists,
-	    // and inspect the params a bit...
 	}
     });
 
@@ -46,5 +42,10 @@ $(document).ready(function(event) {
 	}
 
 	sort_ranks();
+    });
+
+    $("#ranked").find("li").each(function(index, elt) {
+	var star = "<span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>"
+	$(this).find(".form-group").append(star);
     });
 });

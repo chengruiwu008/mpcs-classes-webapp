@@ -4,9 +4,9 @@
   <ul id="ranked" class="connected-sortable">
     <% @ranked_courses_bids.each do |c, b| %>
       <li>
-      <%= f.select "preferences[#{c.id}]", @num_courses_arr,
-	  selected: preference(b), label: "#{c.number} (#{c.title})",
-	  inline: true %>
+	<%= f.select "preferences[#{c.id}]", @num_courses_arr,
+	    selected: preference(b), label: "#{c.number} (#{c.title})",
+	    inline: true %>
       </li>
     <% end %>
   </ul>
@@ -16,9 +16,9 @@
   <ul id="unranked" class="connected-sortable">
     <% @unranked_courses_bids.each do |c, b| %>
       <li>
-      <%= f.select "preferences[#{c.id}]", @num_courses_arr,
-	  selected: preference(b), label: "#{c.number} (#{c.title})",
-	  inline: true %>
+	<%= f.select "preferences[#{c.id}]", @num_courses_arr,
+	    selected: preference(b), label: "#{c.number} (#{c.title})",
+	    inline: true %>
       </li>
     <% end %>
   </ul>

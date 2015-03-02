@@ -68,6 +68,9 @@ class UsersController < ApplicationController
   end
 
   def update
+    # The user types must be capitalized for the STI to work
+    user_params[:type].capitalize! if user_params[:type].present?
+
     if @user.update_attributes(user_params)
       flash[:success] = "Settings successfully updated."
       redirect_to @user

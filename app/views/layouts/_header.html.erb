@@ -32,7 +32,7 @@
 	<% end %>
 
 	<% if can? :global_index, Course %>
-	  <li><%= link_to "Past Courses", global_courses_path %></li>
+	  <li><%= link_to "Courses", global_courses_path %></li>
 	<% end %>
 
 	<% if current_user and (can? :read, Course) %>

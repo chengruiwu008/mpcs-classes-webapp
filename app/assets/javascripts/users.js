@@ -6,7 +6,7 @@ $(document).ready(function(event) {
 
     $("#ranked, #unranked").sortable({
 	connectWith: ".connected-sortable"
-    }).disableSelection();
+    });
 
     function sort_ranks() {
 	$("#ranked").find("li").each(function(index, elt) {
@@ -16,7 +16,7 @@ $(document).ready(function(event) {
 
     // Change rank by dragging and dropping into ranked or unranked list
     $("#ranked, #unranked").sortable({
-	stop: function(e, ui) {
+	stop: function(event, ui) {
 	    var dragged = $(ui.item.get());
 
 	    if (dragged.parent().attr("id") == "unranked") {
@@ -28,7 +28,7 @@ $(document).ready(function(event) {
     });
 
     // Change rank by selecting a value from the dropdown
-    $("#ranked li, #unranked li").change(function () {
+    $("#ranked li, #unranked li").change(function (event) {
 	var val = $(this).find("select").val();
 
 	if (val == "No preference") {
@@ -40,9 +40,12 @@ $(document).ready(function(event) {
 		$(this).insertBefore("#ranked li:nth-child("+val+")");
 	    }
 	}
-
+	$("#ranked").find("li").each(function(index, elt) {
+	    $(this).find("select").val(index + 1);
+	});
 	sort_ranks();
     });
+
 
     $("#ranked").find("li").each(function(index, elt) {
 	var star = "<span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>"

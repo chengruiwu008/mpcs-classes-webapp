@@ -1,4 +1,10 @@
 $(document).ready(function(event) {
+    var star = "<i class=\"fa fa-star\"></i>";
+    var select = document.getElementById("user_number_of_courses");
+    var num_courses = parseInt(select.options[select.selectedIndex].text);
+
+    $("#ranked li .form-group").slice(0,num_courses).append(star);
+
     $('#roles-form-tooltip').tooltip({
 	container: 'body',
 	trigger: 'hover'
@@ -12,6 +18,10 @@ $(document).ready(function(event) {
 	$("#ranked").find("li").each(function(index, elt) {
 	    $(this).find("select").val(index + 1);
 	});
+
+	$("#ranked li .form-group").find('i').remove();
+	$("#unranked li .form-group").find('i').remove();
+	$("#ranked li .form-group").slice(0,num_courses).append(star);
     }
 
     // Change rank by dragging and dropping into ranked or unranked list
@@ -40,15 +50,12 @@ $(document).ready(function(event) {
 		$(this).insertBefore("#ranked li:nth-child("+val+")");
 	    }
 	}
+
 	$("#ranked").find("li").each(function(index, elt) {
 	    $(this).find("select").val(index + 1);
 	});
+
 	sort_ranks();
     });
 
-
-    $("#ranked").find("li").each(function(index, elt) {
-	var star = "<i class=\"fa fa-star\"></i></span>"
-	$(this).find(".form-group").append(star);
-    });
 });

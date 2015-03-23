@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
-  before_action :authenticate_user!, except: :global_index
+  before_action :authenticate_user!, except: [:global_index, :show]
 
   before_action :get_quarter,         only: [:show, :index, :drafts]
   before_action :get_year_and_season, only: [:create, :update]
@@ -86,7 +86,7 @@ class CoursesController < ApplicationController
   end
 
   def get_bid
-    if current_user.student?
+    if current_user.try(:student?)
       @bid = Bid.find_by(course_id: @course.id,
                          student_id: current_user.id) || current_user.bids.new
     end

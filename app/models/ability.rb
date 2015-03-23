@@ -4,8 +4,8 @@ class Ability
   def initialize(user)
     user ||= User.new # If not signed in
     can :read, Quarter
-    can :global_index, Course # Can look at the list of courses
-    can :update_global_index, Course
+    can :global_index, Course
+    can :read, Course, draft: false
 
     alias_action :edit, :update, to: :change
 

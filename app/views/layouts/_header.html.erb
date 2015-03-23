@@ -17,7 +17,7 @@
 	  <li><%= link_to "Sign in", new_user_session_path %></li>
 	<% end %>
 
-	<% if can? :read, Course %>
+	<% if current_user and (can? :read, Course) %>
 	  <li class="dropdown" id="dropdown-personal">
 	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	      <%= cnet_display_name(current_user) %>
@@ -35,7 +35,7 @@
 	  <li><%= link_to "Past Courses", global_courses_path %></li>
 	<% end %>
 
-	<% if can? :read, Course %>
+	<% if current_user and (can? :read, Course) %>
 	  <%# For each quarter relevant to the user, show a tab with links
 	      to pages about that users' resources within that quarter.
 	      Limit it to the first two or three quarters? %>

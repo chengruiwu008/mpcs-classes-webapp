@@ -4,6 +4,8 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
+  before_action :authenticate_user!, except: :global_index
+
   before_action :get_quarter,         only: [:show, :index, :drafts]
   before_action :get_year_and_season, only: [:create, :update]
   before_action :get_courses_in_qrtr, only: [:index, :drafts]
@@ -18,8 +20,16 @@ class CoursesController < ApplicationController
   end
 
   def global_index
-    @quarter = Quarter.active_quarter
-    @courses = []
+    y = params[:year]
+    s = params[:season].try(:downcase)
+    active = Quarter.active_quarter
+    @quarter = y && s ? Quarter.find_by(year: y, season: s) : active
+    @courses = @quarter ? @quarter.courses : []
+  end
+
+  # View courses from a quarter specified in the params
+  def global_index_update
+
   end
 
   def index

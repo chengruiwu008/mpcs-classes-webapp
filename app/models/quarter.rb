@@ -37,6 +37,13 @@ class Quarter < ActiveRecord::Base
 
   before_validation :downcase_season
 
+  def Quarter.years
+    Course.all.map{ |c| c.quarter.year }.uniq
+  end
+
+  def Quarter.seasons
+    Quarter.all.map{ |q| q.season.capitalize }.uniq
+  end
 
   def Quarter.deadlines
     [:start_date, :course_submission_deadline, :student_bidding_deadline,

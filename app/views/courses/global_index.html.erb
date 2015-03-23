@@ -1,23 +1,24 @@
-<h2>Courses</h2>
+<h2>Past Courses</h2>
 
 <% if Quarter.count > 0 %>
 
-  <%= bootstrap_form_for(@quarter, layout: :inline,
-			 control_col: "col-xs-3") do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+  <%= bootstrap_form_tag(url: { action: :global_index },
+			 layout: :inline, control_col: "col-xs-3") do |f| %>
 
-    <%= f.select :season, %w(Spring Summer Autumn Winter),
-    selected: "Spring" %>
+    <%= f.select :season, Quarter.seasons, selected: "Spring" %>
 
-    <%= f.select :year, (Time.now.year - 5..Time.now.year),
-    selected: 2015 %>
+    <%= f.select :year, Quarter.years, selected: 2015 %>
+
+    <%= f.form_group do %>
+      <%= submit_tag "View courses", class: "btn btn-primary" %>
+    <% end %>
 
   <% end %>
 
   <br/>
 
   <% if @courses.present? %>
-    <%# Show the courses %>
+    <%= render 'courses' %>
   <% else %>
     <p>
       There are no courses in this quarter.

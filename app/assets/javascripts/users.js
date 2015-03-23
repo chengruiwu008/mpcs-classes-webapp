@@ -48,7 +48,7 @@ $(document).ready(function(event) {
 
 
     $("#ranked").find("li").each(function(index, elt) {
-	var star = "<span class='glyphicon glyphicon-align-left' aria-hidden='true'></span>"
+	var star = "<i class=\"fa fa-star\"></i></span>"
 	$(this).find(".form-group").append(star);
     });
 });

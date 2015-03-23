@@ -1,0 +1,31 @@
+<h2>Courses</h2>
+
+<% if Quarter.count > 0 %>
+
+  <%= bootstrap_form_for(@quarter, layout: :inline,
+			 control_col: "col-xs-3") do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
+
+    <%= f.select :season, %w(Spring Summer Autumn Winter),
+    selected: "Spring" %>
+
+    <%= f.select :year, (Time.now.year - 5..Time.now.year),
+    selected: 2015 %>
+
+  <% end %>
+
+  <br/>
+
+  <% if @courses.present? %>
+    <%# Show the courses %>
+  <% else %>
+    <p>
+      There are no courses in this quarter.
+    </p>
+  <% end %>
+
+<% else %>
+  <p>
+    There are no quarters in the system.
+  </p>
+<% end %>

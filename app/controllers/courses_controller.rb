@@ -17,6 +17,11 @@ class CoursesController < ApplicationController
   def show
   end
 
+  def global_index
+    @quarter = Quarter.active_quarter
+    @courses = []
+  end
+
   def index
     @courses = @courses.where(draft: false)
   end

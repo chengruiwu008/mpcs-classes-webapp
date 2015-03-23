@@ -6,9 +6,9 @@
 			 layout: :inline, control_col: "col-xs-3") do |f| %>
 
     <%= f.select :season, Quarter.seasons, selected: form_season %>
-
+    &nbsp;&nbsp;
     <%= f.select :year, Quarter.years, selected: form_year %>
-
+    &nbsp;&nbsp;
     <%= f.form_group do %>
       <%= submit_tag "View courses", class: "btn btn-primary" %>
     <% end %>

@@ -1,4 +1,13 @@
 module CoursesHelper
+  def form_season
+    params[:season].try(:capitalize) || Quarter.active_quarter.
+     try(:season).capitalize
+  end
+
+  def form_year
+    params[:year] || Quarter.active_quarter.try(:year)
+  end
+
   def edit_change_type
     @course.draft? ? "create" : "edit"
   end

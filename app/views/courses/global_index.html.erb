@@ -5,9 +5,9 @@
   <%= bootstrap_form_tag(url: { action: :global_index },
 			 layout: :inline, control_col: "col-xs-3") do |f| %>
 
-    <%= f.select :season, Quarter.seasons, selected: "Spring" %>
+    <%= f.select :season, Quarter.seasons, selected: form_season %>
 
-    <%= f.select :year, Quarter.years, selected: 2015 %>
+    <%= f.select :year, Quarter.years, selected: form_year %>
 
     <%= f.form_group do %>
       <%= submit_tag "View courses", class: "btn btn-primary" %>

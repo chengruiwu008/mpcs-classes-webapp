@@ -2,12 +2,14 @@
 
 <% if Quarter.count > 0 %>
 
-  <%= bootstrap_form_tag(url: { action: :global_index },
+  <%= bootstrap_form_tag(url: { action: :global_index }, html: { method: :get },
 			 layout: :inline, control_col: "col-xs-3") do |f| %>
 
-    <%= f.select :season, Quarter.seasons, selected: form_season %>
+    <%= f.select :season, Quarter.seasons, selected: form_season,
+        hide_label: true %>
     &nbsp;&nbsp;
-    <%= f.select :year, Quarter.years, selected: form_year %>
+    <%= f.select :year, Quarter.years, selected: form_year,
+        hide_label: true %>
     &nbsp;&nbsp;
     <%= f.form_group do %>
       <%= submit_tag "View courses", class: "btn btn-primary" %>

@@ -3,8 +3,8 @@ CourseEnrollment::Application.routes.draw do
   root 'pages#home'
 
   patch "/users/faculty" => "users#update_faculty", as: :update_faculty
-  get "/courses" => "courses#global_index", as: :global_courses
-  post "/courses" => "courses#global_index"#, as: :global
+  get "/past_courses" => "courses#global_index", as: :global_courses
+  #post "/courses" => "courses#global_index"#, as: :global
 
   # The :users line is necessary.
   devise_for :users, skip: [:sessions, :registrations], controllers:

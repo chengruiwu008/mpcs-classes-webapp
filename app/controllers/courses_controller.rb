@@ -27,11 +27,6 @@ class CoursesController < ApplicationController
     @courses = @quarter ? @quarter.courses : []
   end
 
-  # View courses from a quarter specified in the params
-  def global_index_update
-
-  end
-
   def index
     @courses = @courses.where(draft: false)
   end

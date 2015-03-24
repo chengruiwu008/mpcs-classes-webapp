@@ -14,7 +14,7 @@ class QuartersController < ApplicationController
   end
 
   def show
-    @quarter_projects = Project.quarter_accepted_projects(@quarter)
+
   end
 
   def new

@@ -42,12 +42,12 @@ $(document).ready(function(event) {
 	var val = $(this).find("select").val();
 
 	if (val == "No preference") {
-	    $(this).insertBefore("#unranked li:first-child");
+	    $(this).prependTo("#unranked");
 	} else {
 	    if (val > $("#ranked li").length) {
-		$(this).insertAfter("#ranked li:last-child");
+		$(this).appendTo("#ranked");
 	    } else {
-		$(this).insertBefore("#ranked li:nth-child("+val+")");
+		$(this).prependTo("#ranked");
 	    }
 	}
 

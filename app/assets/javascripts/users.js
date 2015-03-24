@@ -58,4 +58,10 @@ $(document).ready(function(event) {
 	sort_ranks();
     });
 
+    // Change the number of courses from the dropdown
+    $("#user_number_of_courses").change(function (event) {
+	num_courses = parseInt($(this).find("option:selected").text());
+	sort_ranks();
+    });
+
 });

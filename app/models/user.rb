@@ -26,10 +26,19 @@ class User < ActiveRecord::Base
   def User.faculty_to_students(id_list)
     # Takes a hash where keys are user IDs and values are booleans determining
     # whether each user's type should be changed to "Student".
+    success = true
 
     id_list.each do |user_id, remove|
-      User.find(user_id).update_attributes(type: "Student") if remove == "1"
+      u = User.find(user_id)
+
+      if remove == "1"
+        success &= u.courses.any? ? false : u.update_attributes(type: "Student")
+      end
+
+      break unless success
     end
+
+    success
   end
 
   def update_bids(pref_params, quarter)

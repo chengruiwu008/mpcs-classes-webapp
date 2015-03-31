@@ -31,6 +31,8 @@ class UsersController < ApplicationController
   end
 
   def update_faculty
+    saved = true
+
     if params[:faculty_cnet].length > 0
       @faculty = User.find_by(cnet: params[:faculty_cnet])
 
@@ -39,14 +41,12 @@ class UsersController < ApplicationController
       else
         saved = User.create(cnet: params[:faculty_cnet], type: "Faculty")
       end
-    else
-      saved = true
     end
-    # TODO: Make `saved` depend on the success of faculty_to_students (?)
-    User.faculty_to_students(params[:remove]) if params[:remove]
+
+    saved &= User.faculty_to_students(params[:remove]) if params[:remove]
 
     if saved
-      flash[:success] = "Successfully updated the list of instructors.."
+      flash[:success] = "Successfully updated the list of instructors."
       redirect_to faculty_users_path
     else
       flash[:error] = "Unable to update the list of instructors."

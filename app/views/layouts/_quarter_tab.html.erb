@@ -32,7 +32,6 @@
 
     <%# Advisor's projects %>
     <% if can? :view_my_courses, User %>
-      <%= course_submission_navbar_link(quarter) %>
       <li>
 	<%= link_to "My courses",
 	    my_courses_path(year: quarter.year, season: quarter.season) %>
@@ -49,6 +48,7 @@
 	<%= link_to "Course drafts",
 	    courses_drafts_path(year: quarter.year, season: quarter.season) %>
       </li>
+      <%= course_submission_navbar_link(quarter) %>
     <% end %>
   </ul>
 </li>

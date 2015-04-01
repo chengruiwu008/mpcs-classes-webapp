@@ -15,6 +15,15 @@
 
       <tr>
 	<th>
+	  <%= f.label :instructor, "Instructor", class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.select :instructor, @instructors, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
 	  <%= f.label :number, "Course Number", class: "table-col-name" %>
 	</th>
 	<td>

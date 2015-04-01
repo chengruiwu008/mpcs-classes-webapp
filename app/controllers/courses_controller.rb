@@ -36,12 +36,16 @@ class CoursesController < ApplicationController
   end
 
   def new
+    @instructors = Faculty.all.map(&:cnet)
   end
 
   def create
-    @course = current_user.courses.build(course_params)
+    binding.pry
+    @instructor = Faculty.find_by(cnet: params[:course][:instructor])
+    @course = @instructor.courses.build(course_params)
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
-    @course.assign_attributes(quarter_id: @quarter.id)
+    @course.assign_attributes(quarter_id: @quarter.id,
+                              instructor_id: @instructor.id)
 
     save 'new'
   end
@@ -67,8 +71,8 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:title, :syllabus, :number,
-                                    :prerequisites, :time, :location)
+    params.require(:course).permit(:title, :instructor_cnet, :syllabus,
+                                   :number, :prerequisites, :time, :location)
   end
 
   def get_year_and_season

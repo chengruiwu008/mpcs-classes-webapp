@@ -13,8 +13,8 @@ module CoursePatterns
       @course.assign_attributes(draft: true) if render_type == 'new'
       if @course.save
         flash[:success] = "Course information saved. You may edit it " +
-          "by navigating to your \"my courses\" page."
-        redirect_to my_courses_path(year: @year, season: @season)
+          "by navigating to the \"courses\" page."
+        redirect_to courses_path(year: @year, season: @season)
       else
         render render_type
       end

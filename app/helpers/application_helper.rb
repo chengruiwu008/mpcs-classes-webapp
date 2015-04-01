@@ -95,7 +95,7 @@ module ApplicationHelper
       end
     else
       # Global page
-      "Recent"
+      ""
     end
   end
 

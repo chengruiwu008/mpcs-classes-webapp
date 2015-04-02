@@ -12,6 +12,8 @@ class CoursesController < ApplicationController
   before_action :get_num_courses_arr, only: :show
   before_action :get_bid,             only: :show
   before_action :get_db_course,       only: [:edit, :update]
+  before_action :get_instructors,     only: [:new, :create, :edit, :update]
+  before_action :get_instructor,      only: [:create, :update]
 
   before_action(only: [:show, :edit]) { |c|
     c.redirect_if_wrong_quarter_params(@course) }
@@ -36,12 +38,11 @@ class CoursesController < ApplicationController
   end
 
   def new
-    @instructors = Faculty.all.map(&:cnet)
   end
 
   def create
-    binding.pry
-    @instructor = Faculty.find_by(cnet: params[:course][:instructor])
+    # TODO: Use a symbol other than :instructor_id here and in #update?
+    params[:course][:instructor_id] = @instructor.id
     @course = @instructor.courses.build(course_params)
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
     @course.assign_attributes(quarter_id: @quarter.id,
@@ -55,6 +56,7 @@ class CoursesController < ApplicationController
 
   def update
     if @course.draft?
+      params[:course][:instructor_id] = @instructor.id
       @course.assign_attributes(course_params)
 
       save 'edit'
@@ -71,7 +73,7 @@ class CoursesController < ApplicationController
   private
 
   def course_params
-    params.require(:course).permit(:title, :instructor_cnet, :syllabus,
+    params.require(:course).permit(:title, :instructor_id, :syllabus,
                                    :number, :prerequisites, :time, :location)
   end
 
@@ -97,6 +99,14 @@ class CoursesController < ApplicationController
     # (e.g., by changing the number or title to another course's) and then
     # corrects their mistake.
     @db_course = Course.find(@course.id)
+  end
+
+  def get_instructors
+    @instructors = Faculty.all.map(&:cnet)
+  end
+
+  def get_instructor
+    @instructor = Faculty.find_by(cnet: params[:course][:instructor_id])
   end
 
 end

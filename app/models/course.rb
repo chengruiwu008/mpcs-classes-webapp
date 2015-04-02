@@ -11,7 +11,8 @@ class Course < ActiveRecord::Base
                                   case_sensitive: false }
   validates :number, uniqueness: { scope: :quarter_id },
                      format: { with: /\A\d{5}\Z/,
-                               message: "must be a five-digit number" }
+                              message: "must be a five-digit number not " \
+                               "beginning with 0" }
   validates :syllabus, presence: true
   validates :instructor, presence: true
   validates :quarter, presence: true

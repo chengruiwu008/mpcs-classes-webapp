@@ -5,7 +5,7 @@ module CoursePatterns
       @course.assign_attributes(draft: false) if render_type == 'edit'
       if @course.save
         flash[:success] = "Course submitted."
-        redirect_to my_courses_path(year: @year, season: @season)
+        redirect_to courses_path(year: @year, season: @season)
       else
         render render_type
       end

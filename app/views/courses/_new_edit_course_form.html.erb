@@ -13,6 +13,7 @@
 	</td>
       </tr>
 
+      <% if can? :manage, :all %>
       <tr>
 	<th>
 	  <%= f.label :instructor_id, "Instructor", class: "table-col-name" %>
@@ -22,6 +23,7 @@
 	      selected: @db_instructor_cnet, hide_label: true %>
 	</td>
       </tr>
+      <% end %>
 
       <tr>
 	<th>

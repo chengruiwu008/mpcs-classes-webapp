@@ -56,7 +56,7 @@ class CoursesController < ApplicationController
   end
 
   def update
-    params[:course][:instructor_id] = @instructor.id
+    params[:course][:instructor_id] = @instructor.id if @instructor
 
     if @course.draft?
       @course.assign_attributes(course_params)
@@ -111,6 +111,7 @@ class CoursesController < ApplicationController
   end
 
   def get_instructor
+    # @instructor is nil if a faculty member is editing their course
     @instructor = Faculty.find_by(cnet: params[:course][:instructor_id])
   end
 

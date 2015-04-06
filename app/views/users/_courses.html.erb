@@ -2,7 +2,7 @@
   <%= display_name(@user) %>'s <%= quarter %> Courses
 </h2>
 
-<% if can? :create, Course %>
+<% if can? :change, Course %>
 
   <% if @courses.present? %>
     <table class="table table-bordered">

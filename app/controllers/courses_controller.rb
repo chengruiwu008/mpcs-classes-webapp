@@ -6,14 +6,15 @@ class CoursesController < ApplicationController
 
   before_action :authenticate_user!, except: [:global_index, :show]
 
-  before_action :get_quarter,         only: [:show, :index, :drafts]
-  before_action :get_year_and_season, only: [:create, :update]
-  before_action :get_courses_in_qrtr, only: [:index, :drafts]
-  before_action :get_num_courses_arr, only: :show
-  before_action :get_bid,             only: :show
-  before_action :get_db_course,       only: [:edit, :update]
-  before_action :get_instructors,     only: [:new, :create, :edit, :update]
-  before_action :get_instructor,      only: [:create, :update]
+  before_action :get_quarter,            only: [:show, :index, :drafts]
+  before_action :get_year_and_season,    only: [:create, :update]
+  before_action :get_courses_in_qrtr,    only: [:index, :drafts]
+  before_action :get_num_courses_arr,    only: :show
+  before_action :get_bid,                only: :show
+  before_action :get_db_course,          only: [:edit, :update]
+  before_action :get_db_instructor_cnet, only: [:edit, :update]
+  before_action :get_instructors,        only: [:new, :create, :edit, :update]
+  before_action :get_instructor,         only: [:create, :update]
 
   before_action(only: [:show, :edit]) { |c|
     c.redirect_if_wrong_quarter_params(@course) }
@@ -99,6 +100,10 @@ class CoursesController < ApplicationController
     # (e.g., by changing the number or title to another course's) and then
     # corrects their mistake.
     @db_course = Course.find(@course.id)
+  end
+
+  def get_db_instructor_cnet
+    @db_instructor_cnet = Faculty.find(@course.instructor_id).cnet
   end
 
   def get_instructors

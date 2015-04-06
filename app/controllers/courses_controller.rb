@@ -55,10 +55,10 @@ class CoursesController < ApplicationController
   end
 
   def update
-    if @course.draft?
-      params[:course][:instructor_id] = @instructor.id
-      @course.assign_attributes(course_params)
+    params[:course][:instructor_id] = @instructor.id
 
+    if @course.draft?
+      @course.assign_attributes(course_params)
       save 'edit'
     else
       if @course.update_attributes(course_params)

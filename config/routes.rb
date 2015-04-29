@@ -45,4 +45,6 @@ CourseEnrollment::Application.routes.draw do
     end
   end
 
+  get "/students" => "users#students"
+
 end

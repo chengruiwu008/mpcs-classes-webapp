@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  #respond_to :html, :csv
+
   load_and_authorize_resource
 
   before_action :get_quarter,           only: [:my_courses, :my_requests,
@@ -24,6 +26,12 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.page(params[:page])
+  end
+
+  def students
+    respond_to do |format|
+      format.csv { render text: Student.to_csv }
+    end
   end
 
   def faculty

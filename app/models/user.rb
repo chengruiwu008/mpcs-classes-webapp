@@ -15,17 +15,6 @@ class User < ActiveRecord::Base
   # Current user, passed in from ApplicationController.
   attr_accessor :this_user
 
-  def self.as_csv
-    CSV.generate do |csv|
-      csv << "hello"
-      #csv << column_names
-      #csv << column_names
-      #all.each do |item|
-        #csv << item.attributes.values_at(*column_names)
-      #end
-    end
-  end
-
   def email_required?
     false
   end

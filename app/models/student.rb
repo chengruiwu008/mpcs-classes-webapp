@@ -29,7 +29,7 @@ class Student < User
 
     # grab data for each student
     all.each do |s|
-      student_data = [s.first_name, s.last_name, s.cnet, s.bids.count]
+      student_data = [s.first_name, s.last_name, s.cnet, s.number_of_courses]
 
       active_courses.each { |ac| student_data << s.course_rank(ac).to_s }
 

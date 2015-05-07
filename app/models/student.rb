@@ -29,7 +29,7 @@ class Student < User
 
     # grab data for each student
     all.each do |s|
-      student_data = [s.first_name, s.last_name, s.cnet, s.number_of_courses]
+      student_data = [s.first_name, s.last_name, s.cnet, s.csv_num_courses]
 
       active_courses.each { |ac| student_data << s.course_rank(ac).to_s }
 
@@ -43,6 +43,12 @@ class Student < User
   def course_rank(course)
     bids.each { |b| return b.preference if b.course_id == course.id }
     nil
+  end
+
+  def csv_num_courses
+    # Ensures that the numcourses column contains 0 for users who have logged
+    # in but have not ranked any courses
+    (bids.count > 0) ? number_of_courses : 0
   end
 
 end

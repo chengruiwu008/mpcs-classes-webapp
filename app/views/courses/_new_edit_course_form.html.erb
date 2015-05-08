@@ -36,6 +36,15 @@
 
       <tr>
 	<th>
+	  <%= f.label :website, "Website", class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_field :website, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
 	  <%= f.label :syllabus, "Syllabus", class: "table-col-name" %>
 	</th>
 	<td>
@@ -51,6 +60,16 @@
 	</th>
 	<td>
 	  <%= f.text_area :prerequisites, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :satisfies, "Satisfies",
+	  class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_area :satisfies, hide_label: true %>
 	</td>
       </tr>
 

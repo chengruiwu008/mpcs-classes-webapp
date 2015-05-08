@@ -33,6 +33,11 @@
     </tr>
 
     <tr>
+      <th>Website</th>
+      <td><%= simple_format(@course.website) %></td>
+    </tr>
+
+    <tr>
       <th>Syllabus</th>
       <td><%= simple_format(@course.syllabus, {}, sanitize: false) %></td>
     </tr>
@@ -41,6 +46,11 @@
       <tr>
 	<th>Prerequisites</th>
 	<td><%= simple_format(@course.prerequisites) %></td>
+      </tr>
+
+      <tr>
+	<th>Satisfies</th>
+	<td><%= simple_format(@course.satisfies) %></td>
       </tr>
 
       <tr>

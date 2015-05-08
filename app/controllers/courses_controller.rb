@@ -75,7 +75,8 @@ class CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:title, :instructor_id, :syllabus,
-                                   :number, :prerequisites, :time, :location)
+                                   :number, :prerequisites, :time, :location,
+                                   :website, :satisfies)
   end
 
   def get_year_and_season

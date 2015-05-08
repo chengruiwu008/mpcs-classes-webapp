@@ -33,8 +33,6 @@ class Quarter < ActiveRecord::Base
   validates :course_submission_deadline, presence: true
   validates :student_bidding_deadline, presence: true
 
-  validate :deadlines_between_start_and_end_dates
-
   before_validation :downcase_season
 
   def Quarter.years
@@ -60,16 +58,6 @@ class Quarter < ActiveRecord::Base
 
   def downcase_season
     self.season.downcase!
-  end
-
-  def deadlines_between_start_and_end_dates
-    message = "Deadlines must be between the quarter's start and end dates."
-    if course_submission_deadline <= start_date or
-      student_bidding_deadline <= start_date or
-      end_date < course_submission_deadline or
-      end_date < student_bidding_deadline
-        errors.add(:base, message)
-    end
   end
 
 end

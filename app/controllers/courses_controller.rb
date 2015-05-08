@@ -107,7 +107,7 @@ class CoursesController < ApplicationController
   end
 
   def get_instructors
-    @instructors = Faculty.all.map(&:cnet)
+    @instructors = Faculty.all.map { |f| [f.full_name, f.cnet] }
   end
 
   def get_instructor

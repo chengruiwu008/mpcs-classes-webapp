@@ -15,6 +15,10 @@ class User < ActiveRecord::Base
   # Current user, passed in from ApplicationController.
   attr_accessor :this_user
 
+  def full_name
+    first_name + " " + last_name
+  end
+
   def email_required?
     false
   end

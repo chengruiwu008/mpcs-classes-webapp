@@ -5,6 +5,7 @@ class Ability
     user ||= User.new # If not signed in
     can :read, Quarter
     can :global_index, Course
+    can :index, Course
     can :read, Course, draft: false
 
     alias_action :edit, :update, to: :change

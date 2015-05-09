@@ -4,7 +4,7 @@ class CoursesController < ApplicationController
 
   load_and_authorize_resource find_by: :number
 
-  before_action :authenticate_user!, except: [:global_index, :show]
+  before_action :authenticate_user!, except: [:global_index, :index, :show]
 
   before_action :get_quarter,            only: [:show, :index, :drafts]
   before_action :get_year_and_season,    only: [:create, :update]

@@ -7,7 +7,7 @@
   </a>
 
   <ul class="dropdown-menu" role="menu">
-    <%# Projects %>
+    <%# Courses %>
     <li>
       <%= link_to "Courses",
           courses_path(year: quarter.year, season: quarter.season) %>
@@ -16,7 +16,7 @@
       <li class="divider"></li>
     <% end %>
 
-    <%# Student's applications %>
+    <%# Student's bids %>
     <% if can? :view_my_bids, User %>
       <li>
 	<%= link_to "My requests",
@@ -25,7 +25,7 @@
       </li>
     <% end %>
 
-    <%# Advisor's projects %>
+    <%# Advisor's courses %>
     <% if can? :view_my_courses, User %>
       <li>
 	<%= link_to "My courses",

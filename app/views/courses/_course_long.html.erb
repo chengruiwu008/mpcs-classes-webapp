@@ -39,7 +39,8 @@
 
     <tr>
       <th>Syllabus</th>
-      <td><%= simple_format(@course.syllabus, {}, sanitize: false) %></td>
+      <td><%= render_syllabus(@course.syllabus) %></td>
+      <%#= simple_format(@course.syllabus, {}, sanitize: false) %>
     </tr>
 
     <% if current_user %>

@@ -1,13 +1,8 @@
+forced_root_block : ""
+force_br_newlines : false
+convert_newlines_to_brs : false
 toolbar:
   - stylesheet | image | link | bold italic underline | bullist numlist | undo redo
 plugins:
   - image
   - link
-
-# To remove extra newlines added by <p></p> tags
-# (as per http://stackoverflow.com/a/6924616/3723769):
-force_p_newlines:        false
-force_br_newlines:       false
-forced_root_block:       false
-convert_newlines_to_brs: false
-remove_linebreaks:       true

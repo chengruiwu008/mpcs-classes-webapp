@@ -27,11 +27,12 @@ class CoursesController < ApplicationController
     s = params[:season].try(:downcase)
     active = Quarter.active_quarter
     @quarter = y && s ? Quarter.find_by(year: y, season: s) : active
-    @courses = @quarter ? @quarter.courses : []
+    @courses = @quarter ? @quarter.published_courses : []
   end
 
   def index
     @courses = @courses.where(draft: false)
+    @published_courses = @courses.where(published: true)
   end
 
   def drafts
@@ -76,7 +77,7 @@ class CoursesController < ApplicationController
   def course_params
     params.require(:course).permit(:title, :instructor_id, :syllabus,
                                    :number, :prerequisites, :time, :location,
-                                   :website, :satisfies)
+                                   :website, :satisfies, :published)
   end
 
   def get_year_and_season

@@ -48,6 +48,10 @@ class Quarter < ActiveRecord::Base
      :end_date]
   end
 
+  def published_courses
+    self.courses.where(published: true)
+  end
+
   def deadline(deadline)
     self.send("#{deadline}_deadline".to_sym)
   end

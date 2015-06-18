@@ -6,8 +6,6 @@ class Quarter < ActiveRecord::Base
     where("start_date <= ? AND ? <= end_date",
           DateTime.now, DateTime.now) }
 
-  scope :active_quarter, -> { Quarter.active_quarters.take }
-
   scope :future_quarters, -> { where("? < start_date", DateTime.now) }
 
   scope :can_add_courses, -> {
@@ -46,6 +44,10 @@ class Quarter < ActiveRecord::Base
   def Quarter.deadlines
     [:start_date, :course_submission_deadline, :student_bidding_deadline,
      :end_date]
+  end
+
+  def Quarter.active_quarter
+    Quarter.active_quarters.take
   end
 
   def deadline(deadline)

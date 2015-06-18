@@ -50,7 +50,7 @@ class QuartersController < ApplicationController
     params.require(:quarter).permit(:season, :year, :current,
                                     :course_submission_deadline,
                                     :student_bidding_deadline,
-                                    :start_date, :end_date)
+                                    :start_date, :end_date, :published)
   end
 
   def downcase_season

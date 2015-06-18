@@ -1,9 +1,15 @@
 <tr>
+
   <td><%= link_to formatted_quarter(quarter),
     courses_path({ year: quarter.year, season: quarter.season }) %></td>
+
+  <td><%= quarter.published? ? "Yes" : "No" %></td>
+
+  <td><%= quarter.active? ? "Yes" : "No" %></td>
+
   <td><%= link_to "Edit", edit_quarter_path(quarter.id) %></td>
+
   <td><%= link_to "Delete", quarter, method: :delete,
   data: { confirm: "Are you sure?" } %></td>
-  <td><%= "Courses and bids can be submitted in this quarter." if
-          quarter.active? %></td>
+
 </tr>

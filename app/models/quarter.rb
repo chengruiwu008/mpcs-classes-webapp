@@ -18,8 +18,9 @@ class Quarter < ActiveRecord::Base
     Quarter.active_quarters.where("? <= student_bidding_deadline",
                                   DateTime.now) }
 
-  has_many :courses
-  has_many :bids
+  belongs_to :academic_year
+  has_many   :courses
+  has_many   :bids
 
   validates :season, presence: true,
                      uniqueness: { scope:   :year,

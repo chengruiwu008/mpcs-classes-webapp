@@ -1,22 +1,24 @@
-<table class="table table-bordered">
-  <tr>
-    <th>Number</th>
-    <th>Title</th>
-    <th>Instructor</th>
-    <% if can? :manage, :all %> <th>Published?</th> <% end %>
-  </tr>
-  <tbody>
-    <% @courses.each do |course| %>
-      <% if course.published? or (can? :manage, :all) %>
-      <tr>
-	<td><%= course.number %></td>
-	<td><%= q_link_to course.title, course %></td>
-	<td><%= display_name(course.instructor) %></td>
-	<% if can? :manage, :all %>
-	  <td><%= course.published? ? "Yes" : "No" %></td>
-        <% end %>
-      </tr>
+<% if @published_courses.present? or can? :manage, :all %>
+  <table class="table table-bordered">
+    <tr>
+      <th>Number</th>
+      <th>Title</th>
+      <th>Instructor</th>
+      <% if can? :manage, :all %> <th>Published?</th> <% end %>
+    </tr>
+    <tbody>
+      <% @courses.each do |course| %>
+	<% if course.published? or (can? :manage, :all) %>
+	<tr>
+	  <td><%= course.number %></td>
+	  <td><%= q_link_to course.title, course %></td>
+	  <td><%= display_name(course.instructor) %></td>
+	  <% if can? :manage, :all %>
+	    <td><%= course.published? ? "Yes" : "No" %></td>
+	  <% end %>
+	</tr>
+	<% end %>
       <% end %>
-    <% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
+<% end %>

@@ -1,5 +1,19 @@
 CourseEnrollment::Application.routes.draw do
 
+  get 'academic_years/index'
+
+  get 'academic_years/show'
+
+  get 'academic_years/new'
+
+  get 'academic_years/create'
+
+  get 'academic_years/edit'
+
+  get 'academic_years/update'
+
+  get 'academic_years/destroy'
+
   root 'pages#home'
 
   patch "/users/faculty" => "users#update_faculty", as: :update_faculty

@@ -75,6 +75,7 @@ module ApplicationHelper
   end
 
   def before_deadline?(deadline)
+    # TODO: change in new quarter workflow
     DateTime.now <= Quarter.active_quarter.deadline(deadline)
   end
 

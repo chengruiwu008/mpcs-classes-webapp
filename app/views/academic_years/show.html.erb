@@ -1,2 +1,8 @@
-<h1>AcademicYears#show</h1>
-<p>Find me in app/views/academic_years/show.html.erb</p>
+<h2><%= @academic_year.year %></h2>
+
+<% if @academic_year.quarters.present? %>
+  <%= render 'shared/quarter_year_table', items: @academic_year.quarters,
+             show_year: false %>
+<% else %>
+  This year has no quarters.
+<% end %>

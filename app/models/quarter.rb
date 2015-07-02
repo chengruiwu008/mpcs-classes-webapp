@@ -6,8 +6,6 @@ class Quarter < ActiveRecord::Base
     where("start_date <= ? AND ? <= end_date",
           DateTime.now, DateTime.now) }
 
-  scope :active_quarter, -> { Quarter.active_quarters.take }
-
   scope :future_quarters, -> { where("? < start_date", DateTime.now) }
 
   scope :can_add_courses, -> {
@@ -18,7 +16,7 @@ class Quarter < ActiveRecord::Base
     Quarter.active_quarters.where("? <= student_bidding_deadline",
                                   DateTime.now) }
 
-  belongs_to :academic_year
+  belongs_to :academic_year, primary_key: "year", foreign_key: "year"
   has_many   :courses
   has_many   :bids
 
@@ -51,6 +49,10 @@ class Quarter < ActiveRecord::Base
 
   def published_courses
     self.courses.where(published: true)
+  end
+
+  def Quarter.active_quarter
+    Quarter.active_quarters.take
   end
 
   def deadline(deadline)

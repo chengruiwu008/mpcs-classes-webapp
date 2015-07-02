@@ -1,0 +1,14 @@
+<%= bootstrap_form_for(@academic_year, layout: :horizontal,
+		       control_col: "col-sm-2",
+		       label_col: "col-sm-3") do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.select :year, AcademicYear.form_select_hash_possible,
+               selected: form_year %>
+  <br />
+
+  <%= f.form_group do %>
+    <%= f.submit "#{change.capitalize} year",
+    class: new_year_btn_class(change), data: { confirm: "Are you sure?" } %>
+  <% end %>
+<% end %>

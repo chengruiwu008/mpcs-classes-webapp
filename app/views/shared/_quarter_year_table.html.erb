@@ -1,0 +1,21 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Quarter</th>
+      <% if show_year %>
+	<th>Year</th>
+      <% end %>
+      <th>Published?</th>
+      <th>Active?</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% items.each do |quarter| %>
+      <%= render 'shared/quarter_short', quarter: quarter,
+                 show_year: show_year %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,13 @@
+<tr>
+
+  <td><%= link_to formatted_year(year),
+    academic_year_path(year.id) %></td>
+
+  <td><%= year.current? ? "Yes" : "No" %></td>
+
+  <td><%= link_to "Edit", edit_academic_year_path(year.id) %></td>
+
+  <td><%= link_to "Delete", year, method: :delete,
+  data: { confirm: "Are you sure?" } %></td>
+
+</tr>

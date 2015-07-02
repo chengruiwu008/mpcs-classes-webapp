@@ -1,21 +1,46 @@
 class AcademicYear < ActiveRecord::Base
 
-  # Has at most four quarters
-  has_many :quarters
+  validates_uniqueness_of :year
+  validates_presence_of :year
 
-  # An academic year has a start_year, which is stored internally, and for
-  # presentation purposes, it has a display_year.
+  # Has at most four quarters (TODO: enforce this)
+  # Careful when deleting years!
+  has_many :quarters, dependent: :destroy, foreign_key: "year",
+           primary_key: "year"
 
-  # e.g., the year might be 2015, in which case the display_year would be
-  # "2015-2016".
+  # self.form_select_hash: for the Quarter's new_edit_form.
+  # Contains the years corresponding to the existing academic_year records.
+  def self.form_select_hash
+    h = Hash.new
 
-  # This can be put into a helper.
+    AcademicYear.all.each do |y|
+      h[ApplicationController.helpers.formatted_year(y)] = y.year
+    end
 
-  # create_table "academic_years", force: true do |t|
-  #   t.string   "start_year"
-  #   t.integer  "year"
-  #   t.datetime "created_at"
-  #   t.datetime "updated_at"
-  # end
+    h
+  end
+
+  # self.form_select_hash_possible: for creating a new academic_year.
+  # Contains all possible years an academic_year could exhibit.
+  def self.form_select_hash_possible
+    h = Hash.new
+
+    (Time.now.year - 5..Time.now.year + 5).each do |y|
+      h[ApplicationController.helpers.formatted_year_from_int(y)] = y
+    end
+
+    h
+  end
+
+  # current?: an academic_year is current if the current date is between
+  # its start date (the beginning of summer quarter during the first year)
+  # and its end date (the end of spring quarter during the second year).
+  def current?
+    start_date = DateTime.new(self.year, 6, 21)
+    # end_date should be one year after the start_date
+    end_date   = DateTime.new(self.year + 1, 6, 20) # 21?
+
+    start_date <= DateTime.now and DateTime.now <= end_date
+  end
 
 end

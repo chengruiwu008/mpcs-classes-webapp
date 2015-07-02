@@ -3,6 +3,13 @@
   <td><%= link_to formatted_quarter(quarter),
     courses_path({ year: quarter.year, season: quarter.season }) %></td>
 
+  <% if show_year %>
+    <td>
+      <%= link_to formatted_year(quarter.academic_year),
+          academic_year_path(quarter.academic_year) %>
+    </td>
+  <% end %>
+
   <td><%= quarter.published? ? "Yes" : "No" %></td>
 
   <td><%= quarter.active? ? "Yes" : "No" %></td>

@@ -55,40 +55,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def visible_quarters
-    # All published quarters in the current academic year.
-    Quarter.where(published: true).
-     where(year: AcademicYear.current_year.year).to_a
-  end
-
-  def relevant_quarters
-    if admin?
-      # See all active quarters.
-      Quarter.active_quarters.to_a
-
-    elsif faculty?
-      # See 1. quarters for which the proposal period is open, and
-      # 2. quarters with passed proposal periods but for which the advisor
-      # has submitted a proposal and which are not yet over.
-      qs = Quarter.can_add_courses.to_set
-
-      # Loop through this user's projects. For each project, check if the
-      # quarter is active. If so, add it to the set.
-      courses.each { |c| qs.add(c.quarter) if c.quarter.active? }
-
-      qs.to_a
-
-    elsif student?
-      # Same rule as for advisors, except that it applies to submissions.
-      qs = Quarter.open_for_bids.to_set
-      bids.each { |b| qs.add(b.quarter) if b.quarter.try(:active?) }
-
-      qs.to_a
-    else # The user is not logged in.
-      Quarter.active_quarters.to_a
-    end
-  end
-
   def admin?
     type == "Admin"
   end

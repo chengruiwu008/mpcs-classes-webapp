@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508203925) do
+ActiveRecord::Schema.define(version: 20150703172715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "academic_years", force: true do |t|
+    t.integer  "year",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "academic_years", ["year"], name: "index_academic_years_on_year", unique: true, using: :btree
 
   create_table "bids", force: true do |t|
     t.integer  "student_id"
@@ -43,13 +51,14 @@ ActiveRecord::Schema.define(version: 20150508203925) do
     t.boolean  "draft",         default: false, null: false
     t.string   "website"
     t.string   "satisfies"
+    t.boolean  "published",     default: false, null: false
   end
 
   add_index "courses", ["instructor_id"], name: "index_courses_on_instructor_id", using: :btree
   add_index "courses", ["quarter_id"], name: "index_courses_on_quarter_id", using: :btree
 
   create_table "quarters", force: true do |t|
-    t.integer  "year"
+    t.integer  "year",                                       null: false
     t.string   "season"
     t.datetime "start_date"
     t.datetime "end_date"
@@ -57,6 +66,7 @@ ActiveRecord::Schema.define(version: 20150508203925) do
     t.datetime "student_bidding_deadline"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "published",                  default: false, null: false
   end
 
   create_table "users", force: true do |t|

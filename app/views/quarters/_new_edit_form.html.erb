@@ -7,26 +7,31 @@
                selected: form_season  %>
   <br />
 
-  <%= f.select :year, (Time.now.year - 5..Time.now.year + 5),
-               selected: form_year %>
+  <%= f.select :year, AcademicYear.form_select_hash,
+               selected: formatted_year_from_int(form_year) %>
   <br />
 
-    <%= f.text_field :start_date, class: "datetimepicker",
+  <%= f.text_field :start_date, class: "datetimepicker",
     placeholder: l(form_start_date, format: :twb), as: :string %>
   <br />
 
-    <%= f.text_field :course_submission_deadline,
+  <%= f.text_field :course_submission_deadline,
     placeholder: l(form_course_submission_deadline, format: :twb),
       as: :string, class: "datetimepicker" %>
   <br />
 
-    <%= f.text_field :student_bidding_deadline,
+  <%= f.text_field :student_bidding_deadline,
     placeholder: l(form_student_bidding_deadline, format: :twb),
       as: :string, class: "datetimepicker" %>
   <br />
 
-    <%= f.text_field :end_date, class: "datetimepicker",
+  <%= f.text_field :end_date, class: "datetimepicker",
     placeholder: l(form_end_date, format: :twb), as: :string %>
+  <br />
+
+  <%= f.form_group do %>
+    <%= f.check_box :published %>
+  <% end %>
   <br />
 
   <%= f.form_group do %>

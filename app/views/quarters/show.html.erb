@@ -5,7 +5,7 @@
     <tr>
       <th>Title</th>
       <th>Advisor</th>
-      <!-- Summary column? -->
+      <%# Summary column? %>
     </tr>
     <tbody>
   <% @quarter_projects.each do |project| %>
@@ -20,4 +20,4 @@
   There are no projects to show for this quarter.
 <% end %>
 
-<!-- DRY up; almost identical to projects/index.html.erb -->
+<%# DRY up; almost identical to projects/index.html.erb %>

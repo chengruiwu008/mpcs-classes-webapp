@@ -1,0 +1,33 @@
+<h2>Academic Years</h2>
+
+<br />
+<br />
+
+<%= link_to("Create a year",
+	     new_academic_year_path,
+	     { class: "btn btn-primary" }) %>
+
+<br />
+<br />
+
+<% if AcademicYear.all.present? %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+	<th>Year</th>
+	<th>Current?</th>
+	<th>Edit</th>
+	<th>Delete</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @academic_years.each do |year| %>
+	<%= render 'year_short', year: year %>
+      <% end %>
+    </tbody>
+  </table>
+
+<% else %>
+  <p>There are currently no academic years.</p>
+<% end %>

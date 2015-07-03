@@ -2,23 +2,7 @@
 
 <% if Quarter.all.present? %>
   <% if can? :manage, Quarter %>
-    <table class="table table-bordered">
-      <thead>
-	<tr>
-	  <th>Quarter</th>
-	  <th>Edit</th>
-	  <th>Delete</th>
-	  <th>Notes</th>
-	</tr>
-      </thead>
-
-      <tbody>
-	<% @quarters.each do |quarter| %>
-	  <%= render 'quarter_short', quarter: quarter %>
-	<% end %>
-      </tbody>
-    </table>
-
+    <%= render 'shared/quarter_year_table', items: @quarters, show_year: true %>
   <% else %>
 
     <% @quarters.each do |quarter| %>

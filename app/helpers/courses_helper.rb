@@ -21,7 +21,7 @@ module CoursesHelper
   end
 
   def formatted_status(course)
-    course.draft? ? "Draft" : "Published"
+    course.draft? ? "Draft" : (course.published? ? "Published" : "Unpublished")
   end
 
   def render_syllabus(syllabus_html)

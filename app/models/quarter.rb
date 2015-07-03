@@ -16,8 +16,9 @@ class Quarter < ActiveRecord::Base
     Quarter.active_quarters.where("? <= student_bidding_deadline",
                                   DateTime.now) }
 
-  has_many :courses
-  has_many :bids
+  belongs_to :academic_year, primary_key: "year", foreign_key: "year"
+  has_many   :courses
+  has_many   :bids
 
   validates :season, presence: true,
                      uniqueness: { scope:   :year,
@@ -44,6 +45,10 @@ class Quarter < ActiveRecord::Base
   def Quarter.deadlines
     [:start_date, :course_submission_deadline, :student_bidding_deadline,
      :end_date]
+  end
+
+  def published_courses
+    self.courses.where(published: true)
   end
 
   def Quarter.active_quarter

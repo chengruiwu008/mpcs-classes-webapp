@@ -37,6 +37,8 @@ CourseEnrollment::Application.routes.draw do
     resources :courses
   end
 
+  resources :academic_years
+
   resources :quarters
 
   resources :users do

@@ -23,6 +23,16 @@
 	      selected: @db_instructor_cnet, hide_label: true %>
 	</td>
       </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :published, "Published", class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.select :published,
+	  [['Published', true], ['Unpublished', false]], hide_label: true %>
+	</td>
+      </tr>
       <% end %>
 
       <tr>

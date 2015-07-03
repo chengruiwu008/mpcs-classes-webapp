@@ -1,0 +1,8 @@
+<h2><%= @academic_year.year %></h2>
+
+<% if @academic_year.quarters.present? %>
+  <%= render 'shared/quarter_year_table', items: @academic_year.quarters,
+             show_year: false %>
+<% else %>
+  This year has no quarters.
+<% end %>

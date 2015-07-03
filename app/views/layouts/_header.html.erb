@@ -39,7 +39,7 @@
 	  <%# For each quarter relevant to the user, show a tab with links
 	      to pages about that users' resources within that quarter.
 	      Limit it to the first two or three quarters? %>
-	  <% current_user.relevant_quarters.each do |q| %>
+	  <% current_user.visible_quarters.each do |q| %>
 	    <%= render 'layouts/quarter_tab', quarter: q %>
           <% end %>
 	<% end %>

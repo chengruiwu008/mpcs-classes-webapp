@@ -55,6 +55,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  def visible_quarters
+    # All published quarters in the current academic year.
+    Quarter.where(published: true).
+     where(year: AcademicYear.current_year.year).to_a
+  end
+
   def relevant_quarters
     if admin?
       # See all active quarters.

@@ -8,6 +8,10 @@ class AcademicYear < ActiveRecord::Base
   has_many :quarters, dependent: :destroy, foreign_key: "year",
            primary_key: "year"
 
+  def self.current_year
+    (AcademicYear.select { |ay| ay.current? }).first
+  end
+
   # self.form_select_hash: for the Quarter's new_edit_form.
   # Contains the years corresponding to the existing academic_year records.
   def self.form_select_hash

@@ -34,6 +34,12 @@ class Quarter < ActiveRecord::Base
 
   before_validation :downcase_season
 
+  # visible_quarters: All published quarters in the current academic year.
+  def self.visible_quarters
+    Quarter.where(published: true).
+     where(year: AcademicYear.current_year.year).to_a
+  end
+
   def Quarter.years
     Course.all.map{ |c| c.quarter.year }.uniq
   end

@@ -6,6 +6,22 @@ describe "Interacting with quarters", type: :feature do
 
   subject { page }
 
+  after(:each) { Warden.test_reset! }
+
+  before do
+    @year          = FactoryGirl.create(:academic_year, :current)
+    # FIXME: need to specify deadlines for these quarters?
+    @active_q      = FactoryGirl.create(:quarter, :active, published: true,
+                                        year: @year.year, season: "winter")
+    @inactive_q    = FactoryGirl.create(:quarter, :inactive, published: false,
+                                        year: @year.year + 5)
+    @admin         = FactoryGirl.create(:admin)
+    @faculty       = FactoryGirl.create(:faculty)
+    @other_faculty = FactoryGirl.create(:faculty)
+    @student       = FactoryGirl.create(:student)
+    @other_student = FactoryGirl.create(:student)
+  end
+
   context "that are published" do
 
     # All users, including guests, can view published quarters.
@@ -14,15 +30,15 @@ describe "Interacting with quarters", type: :feature do
     end
 
     context "as a student" do
-
+      before { ldap_sign_in(@student) }
     end
 
     context "as an instructor" do
-
+      before { ldap_sign_in(@faculty) }
     end
 
     context "as an admin" do
-
+      before { ldap_sign_in(@admin) }
     end
   end
 

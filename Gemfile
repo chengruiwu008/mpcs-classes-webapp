@@ -34,8 +34,7 @@ gem 'tinymce-rails', '4.1.6'
 gem 'font-awesome-rails', '~> 4.3.0'
 
 group :development, :test do
-  gem 'rspec-rails', '3.0.0'
-  gem 'guard-rspec', '4.2.10'
+  gem 'rspec-rails', '~> 3.0.0'
   gem 'childprocess', '0.5.0'
   gem 'webrat', '0.7.3'
   gem 'database_cleaner', github: 'DatabaseCleaner/database_cleaner', tag: 'v1.3.0'
@@ -45,7 +44,6 @@ group :development, :test do
   gem 'spring-commands-rspec', '1.0.2'
   gem 'debugger', '1.6.8'
   gem 'rails_best_practices', '1.15.4'
-  gem 'rspec-its', '1.0.1'
   gem 'pry', '0.10.1'
   gem 'fivemat', '1.3.1'
 end

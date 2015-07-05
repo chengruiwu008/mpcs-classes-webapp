@@ -6,6 +6,8 @@ describe "Viewing the homepage", type: :feature do
 
   subject { page }
 
+  after(:each) { Warden.test_reset! }
+
   context "when no quarters exist" do
     it "does not produce an error" do
 

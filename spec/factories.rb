@@ -3,6 +3,18 @@ FactoryGirl.define do
   # has_many:   Use FactoryGirl's callbacks.
   # belongs_to: Write `thing_this_belong_to` in the belonging model.
 
+  factory :academic_year, class: AcademicYear do
+    year { Date.today.year }
+
+    trait :current do
+      year { current_academic_year }
+    end
+
+    trait :not_current do
+      year { current_academic_year + 20 }
+    end
+  end
+
   factory :user, class: User do
     sequence(:email)      { |n| "user_#{n}@university.edu" }
     sequence(:first_name) { |n| "User" }
@@ -27,7 +39,7 @@ FactoryGirl.define do
     end
 
     trait :guest do
-
+      # Nothing, since they're not logged in
     end
 
     factory :student, traits: [:student]
@@ -78,9 +90,19 @@ FactoryGirl.define do
       start_date { DateTime.now - 11.weeks }
     end
 
+    trait :active do
+      # Start date is before today and end date is after today
+      earlier_start_date
+      later_end_date
+    end
+
+    trait :inactive do
+      start_date { DateTime.now + 11.weeks }
+      end_date   { DateTime.now + 22.weeks }
+    end
+
     trait :no_deadlines_passed do
       can_create_course
-
       later_end_date
     end
 
@@ -92,6 +114,7 @@ FactoryGirl.define do
       later_end_date
     end
 
+    # FIXME: is this inactive?
     trait :inactive_and_deadlines_passed do
       earlier_start_date
       end_date { start_date + 9.weeks + 5.days }
@@ -102,21 +125,20 @@ FactoryGirl.define do
     end
   end
 
-  factory :project do
+  factory :course do
     sequence(:name) { |n| "Project #{n}" }
-    sequence(:advisor_id) { |n| n }
+    sequence(:faculty_id) { |n| n }
     sequence(:quarter_id) { |n| n }
-    status "pending"
+    status "pending" # FIXME
     description { "a"*500 }
-    expected_deliverables { "a"*500 }
+    expected_deliverables { "a"*500 } # FIXME
     prerequisites { "a"*500 }
-    related_work { "a"*500 }
+    related_work { "a"*500 } # FIXME
     # `user`s should _not_ be allowed to create projects!
-    association :advisor, factory: [:user, :advisor]
-    # quarter { Quarter.current_quarter }
+    association :faculty, factory: [:user, :faculty]
 
     trait :accepted do
-      status { "accepted" }
+      status { "accepted" } # FIXME
     end
 
     trait :published do
@@ -124,43 +146,27 @@ FactoryGirl.define do
     end
 
     trait :accepted_and_published do
-      accepted
+      accepted # FIXME
       published
     end
 
     trait :in_current_quarter do
-      quarter_id { Quarter.current_quarter.id }
+      quarter_id { Quarter.current_quarter.id } # FIXME
     end
   end
 
-  factory :submission do
-    sequence(:student_id) { |n| n }
-    sequence(:project_id) { |n| n }
-    status "pending"
-    information { "a"*500 }
-    qualifications { "a"*500 }
-    courses { "a"*500 }
-    project
-    # `user`s should _not_ be allowed to create submissions!
-    association :student, factory: [:user, :student]
-  end
+  factory :bid do # FIXME
 
-  factory :evaluation_template do
-    name "Midterm"
-    survey { { 1 => { "question_prompt"    => "How are you?",
-                      "question_type"      => "Text area",
-                      "question_mandatory" => "1" },
-               2 => { "question_prompt"    => "What's your name?",
-                      "question_type"      => "Text field",
-                      "question_mandatory" => "1" } } }
   end
-
-  factory :evaluation do
-    sequence(:advisor_id) { |n| n }
-    sequence(:project_id) { |n| n }
-    sequence(:student_id) { |n| n }
-    submission
-    survey { { "How are you?" => "Great!", "What's your name?" => "John Doe" } }
-  end
+  #   sequence(:student_id) { |n| n }
+  #   sequence(:project_id) { |n| n }
+  #   status "pending"
+  #   information { "a"*500 }
+  #   qualifications { "a"*500 }
+  #   courses { "a"*500 }
+  #   project
+  #   # `user`s should _not_ be allowed to create submissions!
+  #   association :student, factory: [:user, :student]
+  # end
 
 end

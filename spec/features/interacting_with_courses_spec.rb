@@ -6,6 +6,8 @@ describe "Interacting with courses", type: :feature do
 
   subject { page }
 
+  after(:each) { Warden.test_reset! }
+
   context "that have been published" do
     context "as a guest" do
 

@@ -10,11 +10,16 @@ describe "Viewing the homepage", type: :feature do
 
   context "when no quarters exist" do
     it "does not produce an error" do
-
+      visit root_path
+      expect(page).to have_content("MPCS")
     end
   end
 
   context "when quarters exist" do
+    before do
+
+    end
+
     context "and there is an active quarter" do
       context "that has courses" do
         it "should display its published courses" do

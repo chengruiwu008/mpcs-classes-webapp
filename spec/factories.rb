@@ -54,17 +54,13 @@ FactoryGirl.define do
                      "summer" => "4th Monday in June",
                      "autumn" => "4th Monday in September",
                      "winter" => "1st Monday in January" }
-    deadline_weeks = { "proposal" => 2, "submission" => 5, "decision" => 7,
-                       "admin" => 8 }
 
     year { Date.today.year }
     season { %w(spring summer autumn winter)[((Time.now.month - 1) / 3)-1] }
     start_date { Chronic.parse(season_dates[season.downcase],
                  now: Time.local(year, 1, 1, 12, 0, 0)).to_datetime }
-    course_submission_deadline { start_date +
-      deadline_weeks["course"].weeks + 4.days + 5.hours }
-    student_bidding_deadline { start_date +
-      deadline_weeks["bid"].weeks + 4.days + 5.hours }
+    course_submission_deadline { start_date + 2.weeks + 4.days + 5.hours }
+    student_bidding_deadline { start_date + 5.weeks + 4.days + 5.hours }
 
     trait :can_create_course do
       course_submission_deadline { DateTime.tomorrow }
@@ -158,15 +154,5 @@ FactoryGirl.define do
   factory :bid do # FIXME
 
   end
-  #   sequence(:student_id) { |n| n }
-  #   sequence(:project_id) { |n| n }
-  #   status "pending"
-  #   information { "a"*500 }
-  #   qualifications { "a"*500 }
-  #   courses { "a"*500 }
-  #   project
-  #   # `user`s should _not_ be allowed to create submissions!
-  #   association :student, factory: [:user, :student]
-  # end
 
 end

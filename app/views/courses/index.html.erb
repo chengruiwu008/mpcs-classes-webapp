@@ -7,6 +7,10 @@
   <%= link_to( "Create a course",
 	       new_course_path(year: @quarter.year, season: @quarter.season),
 	       { class: "btn btn-primary" } ) %>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+  <%= link_to( "#{formatted_quarter_by_params} course drafts",
+	       courses_drafts_path(year: @quarter.year,
+				  season: @quarter.season)) %>
 <% end %>
 
 <br />

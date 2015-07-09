@@ -52,7 +52,7 @@ group :test do
   gem 'selenium-webdriver', '2.42.0'
   gem 'capybara', '2.4.1'
   gem 'poltergeist'
-  gem 'factory_girl_rails', '4.4.0'
+  gem 'factory_girl_rails', '4.5.0'
   gem 'cucumber-rails', '1.4.0', require: false
   gem 'libnotify', '0.8.0'
 end

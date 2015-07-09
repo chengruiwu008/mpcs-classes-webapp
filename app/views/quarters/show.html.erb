@@ -1,6 +1,6 @@
-<h2><%= formatted_quarter(@quarter) %> Projects</h2>
+<h2><%= formatted_quarter(@quarter) %> Courses</h2>
 
-<% if @quarter_projects.present? %>
+<% if @quarter_courses.present? %>
   <table class="table table-bordered">
     <tr>
       <th>Title</th>
@@ -8,16 +8,17 @@
       <%# Summary column? %>
     </tr>
     <tbody>
-  <% @quarter_projects.each do |project| %>
+  <% @quarter_courses.each do |course| %>
     <tr>
-      <td><%= link_to(project.name, project_path(id: project.id)) %></td>
-      <td><%= display_name(project.advisor) %></td>
+      <td><%= link_to(course.name, course_path(id: course.id)) %></td>
+      <td><%= display_name(course.advisor) %></td>
     </tr>
   <% end %>
     </tbody>
   </table>
 <% else %>
-  There are no projects to show for this quarter.
+  There are no courses to show for this quarter.
 <% end %>
 
-<%# DRY up; almost identical to projects/index.html.erb %>
+<%# DRY up; almost identical to courses/index.html.erb %>
+<%# This file is currently not in use. %>

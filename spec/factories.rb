@@ -122,32 +122,21 @@ FactoryGirl.define do
   end
 
   factory :course do
-    sequence(:name) { |n| "Project #{n}" }
-    sequence(:faculty_id) { |n| n }
+    sequence(:title) { |n| "Course #{n}" }
+    sequence(:instructor_id) { |n| n }
     sequence(:quarter_id) { |n| n }
-    status "pending" # FIXME
-    description { "a"*500 }
-    expected_deliverables { "a"*500 } # FIXME
+    sequence(:number) { |n| 10000 + n }
+    syllabus { "a"*500 }
+    time { "a"*500 }
+    location { "a"*500 }
     prerequisites { "a"*500 }
-    related_work { "a"*500 } # FIXME
+    website { "w"*30 }
+    satisfies { "b"*30 }
     # `user`s should _not_ be allowed to create projects!
-    association :faculty, factory: [:user, :faculty]
+    association :instructor, factory: [:user, :faculty]
 
-    trait :accepted do
-      status { "accepted" } # FIXME
-    end
-
-    trait :published do
-      status_published { true }
-    end
-
-    trait :accepted_and_published do
-      accepted # FIXME
-      published
-    end
-
-    trait :in_current_quarter do
-      quarter_id { Quarter.current_quarter.id } # FIXME
+    trait :in_active_quarter do
+      quarter_id { Quarter.active_quarter.id } # FIXME
     end
   end
 

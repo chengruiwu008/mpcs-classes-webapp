@@ -43,7 +43,8 @@ FactoryGirl.define do
     end
 
     factory :student, traits: [:student]
-    factory :faculty, traits: [:faculty]
+    factory :faculty, traits: [:faculty], class: Faculty
+    #factory :instructor, traits: [:faculty], class: Faculty # `faculty` alias
     factory :admin,   traits: [:admin]
     factory :guest,   traits: [:guest]
   end
@@ -84,6 +85,13 @@ FactoryGirl.define do
 
     trait :earlier_start_date do
       start_date { DateTime.now - 11.weeks }
+    end
+
+    trait :upcoming do
+      start_date { DateTime.now + 11.weeks }
+      end_date   { DateTime.now + 22.weeks }
+      year { DateTime.now.year + 1 }
+      season { "winter" }
     end
 
     trait :active do

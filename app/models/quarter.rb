@@ -34,6 +34,18 @@ class Quarter < ActiveRecord::Base
 
   before_validation :downcase_season
 
+  def self.season_constants
+    ["summer", "autumn", "winter", "spring"]
+  end
+
+  def self.next_quarters_season
+    Quarter.quarters
+  end
+
+  def self.next_quarters_year
+
+  end
+
   # visible_quarters: All published quarters in the current academic year.
   def self.visible_quarters
     Quarter.where(published: true).

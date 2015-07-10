@@ -12,7 +12,7 @@ describe "Viewing the homepage", type: :feature do
     it "does not produce an error" do
       visit root_path
       expect(page).to have_content("MPCS")
-      # FIXME: This actually produces an error!
+      # FIXME: This actually produces an error, so fix it!
     end
   end
 

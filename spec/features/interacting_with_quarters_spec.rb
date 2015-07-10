@@ -20,26 +20,29 @@ describe "Interacting with quarters", type: :feature do
     @other_faculty = FactoryGirl.create(:faculty)
     @student       = FactoryGirl.create(:student)
     @other_student = FactoryGirl.create(:student)
+    @course_1 = FactoryGirl.create(:course, quarter: @active_q,
+                                   instructor: @faculty)
   end
 
   context "that are published" do
 
     # All users, including guests, can view published quarters.
     it "can be viewed by all users" do
-
+      visit root_path
+      expect(page).to have_content(@course_1.title)
     end
 
-    context "as a student" do
-      before { ldap_sign_in(@student) }
-    end
+    # context "as a student" do
+    #   before { ldap_sign_in(@student) }
+    # end
 
-    context "as an instructor" do
-      before { ldap_sign_in(@faculty) }
-    end
+    # context "as an instructor" do
+    #   before { ldap_sign_in(@faculty) }
+    # end
 
-    context "as an admin" do
-      before { ldap_sign_in(@admin) }
-    end
+    # context "as an admin" do
+    #   before { ldap_sign_in(@admin) }
+    # end
   end
 
   context "that are unpublished" do
@@ -52,7 +55,10 @@ describe "Interacting with quarters", type: :feature do
 
     context "as a guest" do
       it "cannot be viewed" do
-
+        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("Access denied")
+        expect(page).to have_selector("div.alert.alert-danger")
       end
     end
 

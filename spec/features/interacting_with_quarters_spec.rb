@@ -27,9 +27,25 @@ describe "Interacting with quarters", type: :feature do
   context "that are published" do
 
     # All users, including guests, can view published quarters.
-    it "can be viewed by all users" do
-      visit root_path
-      expect(page).to have_content(@course_1.title)
+    context "on their pages" do
+      it "can be viewed by all users" do
+        visit root_path
+        expect(page).to have_content(@course_1.title)
+      end
+    end
+
+    context "in the navbar" do
+      context "if in the current academic year" do
+        it "can be viewed by all users" do
+
+        end
+      end
+
+      context "if not in the current academic year" do
+        it "cannot be viewed by any users" do
+
+        end
+      end
     end
 
     # context "as a student" do
@@ -64,19 +80,30 @@ describe "Interacting with quarters", type: :feature do
 
     context "as a student" do
       it "cannot be viewed" do
-
+        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content("Access denied")
+        expect(page).to have_selector("div.alert.alert-danger")
       end
     end
 
     context "as an instructor" do
       it "can be viewed" do
-
+        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        expect(current_path).to eq(courses_path(season: @inactive_q.season,
+                                                year: @inactive_q.year))
+        expect(page).not_to have_content("Access denied")
+        expect(page).not_to have_selector("div.alert.alert-danger")
       end
     end
 
     context "as an admin" do
       it "can be viewed" do
-
+        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        expect(current_path).to eq(courses_path(season: @inactive_q.season,
+                                                year: @inactive_q.year))
+        expect(page).not_to have_content("Access denied")
+        expect(page).not_to have_selector("div.alert.alert-danger")
       end
     end
 

@@ -8,21 +8,83 @@ describe "Interacting with courses", type: :feature do
 
   after(:each) { Warden.test_reset! }
 
+  before do
+    @year          = FactoryGirl.create(:academic_year, :current)
+    # FIXME: need to specify deadlines for these quarters?
+    @active_q      = FactoryGirl.create(:quarter, :active, published: true,
+                                        year: @year.year, season: "winter")
+    @inactive_q    = FactoryGirl.create(:quarter, :inactive, published: false,
+                                        year: @year.year + 5)
+    @admin         = FactoryGirl.create(:admin)
+    @faculty       = FactoryGirl.create(:faculty)
+    @other_faculty = FactoryGirl.create(:faculty)
+    @student       = FactoryGirl.create(:student)
+    @other_student = FactoryGirl.create(:student)
+    @course_1 = FactoryGirl.create(:course, quarter: @active_q,
+                                   instructor: @faculty)
+  end
+
   context "that have been published" do
     context "as a guest" do
+      # We should see a link to them in the courses table, both by navigating
+      # navigating to the course page and by visiting the home page, and we
+      # should be able to visit the course page and view its information.
 
+      # We should not see a link to bid on the course.
+
+      # We should not see a link to edit the course information.
+
+      # We should be redirected if we navigate to the 'bid' path.
+
+      # We should be redirected if we navigate to the 'edit course' path.
     end
 
     context "as a student" do
+      # We should see a link to them in the courses table, both by navigating
+      # navigating to the course page and by visiting the home page, and we
+      # should be able to visit the course page and view its information.
 
+      # We should not see a link to bid on the course.
+
+      # We should not see a link to edit the course information.
+
+      # We should be redirected if we navigate to the 'bid' path.
+
+      # We should be redirected if we navigate to the 'edit course' path.
     end
 
     context "as an instructor" do
+      # We should see a link to them in the courses table, both by navigating
+      # navigating to the course page and by visiting the home page, and we
+      # should be able to visit the course page and view its information.
 
+      # We should not see a link to bid on the course.
+
+      # If we're the instructor teaching the course,
+      #   we should see a link to edit the course information.
+      # If we're not the instructor teaching the course,
+      #   we should not see a link to edit the course information.
+
+      # We should be redirected if we navigate to the 'bid' path.
+
+      # If we're the instructor teaching the course,
+      #   we should be redirected if we navigate to the 'edit course' path.
+      # If we're not the instructor teaching the course,
+      #   we should not be redirected if we navigate to the 'edit course' path.
     end
 
     context "as an admin" do
+      # We should see a link to them in the courses table, both by navigating
+      # navigating to the course page and by visiting the home page, and we
+      # should be able to visit the course page and view its information.
 
+      # We should not see a link to bid on the course. [Depends? Check.]
+
+      # We should see a link to edit the course information.
+
+      # We should be redirected if we navigate to the 'bid' path. [Depends?]
+
+      # We should not be redirected if we navigate to the 'edit course' path.
     end
   end
 

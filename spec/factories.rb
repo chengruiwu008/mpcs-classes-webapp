@@ -44,7 +44,7 @@ FactoryGirl.define do
 
     factory :student, traits: [:student]
     factory :faculty, traits: [:faculty], class: Faculty
-    #factory :instructor, traits: [:faculty], class: Faculty # `faculty` alias
+    # factory :instructor, traits: [:faculty], class: Faculty # `faculty` alias
     factory :admin,   traits: [:admin]
     factory :guest,   traits: [:guest]
   end

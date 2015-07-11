@@ -36,29 +36,76 @@ describe "Interacting with quarters", type: :feature do
 
     context "in the navbar" do
       context "if in the current academic year" do
-        it "can be viewed by all users" do
+
+        context "as any user" do
+          it "should have the courses link" do
+
+          end
+        end
+
+        context "as a student" do
+          context "before the bidding deadline" do
+            it "should have the bidding link" do
+
+            end
+
+            it "should succeed if the user tries to submit a bid" do
+
+            end
+          end
+
+          context "after the bidding deadline" do
+            it "should not have the bidding link" do
+
+            end
+
+            it "should redirect if the user tries to submit a bid" do
+              # Submit a POST request
+            end
+          end
+
+        end
+
+        context "as an admin" do
+          it "should have courses, drafts, and submission links" do
+
+          end
+
+          # TODO: Why does the course submission deadline exist?
+          # Instructors can't create courses, and admins can change the
+          # deadline whenever they want.
+
+          # context "before the course submission deadline" do
+          #   it "should have a course submission link" do
+
+          #   end
+          # end
+
+          # context "after the course submission deadline" do
+          #   it "should not have a course submission link" do
+
+          #   end
+          # end
 
         end
       end
 
-      context "if not in the current academic year" do
-        it "cannot be viewed by any users" do
+      # TODO: This will be changed.
 
-        end
-      end
+      # context "if not in the current academic year" do
+      #   it "cannot be viewed by any users" do
+
+      #   end
+
+      #   # TODO: But users should still be able to interact with the quarter;
+      #   # e.g., admins should be able to create courses, instructors should be
+      #   # able to edit those courses, and students should be able to bid for
+      #   # them.
+      #   # If it's currently spring of 20xx, users should be able to interact
+      #   # with courses in summer of 20xx.
+      #   # ...
+      # end
     end
-
-    # context "as a student" do
-    #   before { ldap_sign_in(@student) }
-    # end
-
-    # context "as an instructor" do
-    #   before { ldap_sign_in(@faculty) }
-    # end
-
-    # context "as an admin" do
-    #   before { ldap_sign_in(@admin) }
-    # end
   end
 
   context "that are unpublished" do

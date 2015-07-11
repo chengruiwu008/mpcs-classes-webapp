@@ -56,6 +56,14 @@ describe "Interacting with courses", type: :feature do
         it "should redirect if we navigate to the 'edit course' path" do
         end
 
+        it "should not have a link to publish the course" do
+
+        end
+
+        it "should redirect if we try to publish the course" do
+
+        end
+
       end
 
       context "as a student" do
@@ -88,6 +96,14 @@ describe "Interacting with courses", type: :feature do
         it "should redirect if we navigate to the 'edit course' path" do
         end
 
+        it "should not have a link to publish the course" do
+
+        end
+
+        it "should redirect if we try to publish the course" do
+
+        end
+
       end
 
       context "as the instructor teaching the course" do
@@ -107,6 +123,14 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should not redirect if we navigate to the 'edit course' path" do
+        end
+
+        it "should not have a link to publish the course" do
+
+        end
+
+        it "should redirect if we try to publish the course" do
+
         end
 
       end
@@ -130,6 +154,14 @@ describe "Interacting with courses", type: :feature do
         it "should redirect if we navigate to the 'edit course' path" do
         end
 
+        it "should not have a link to publish the course" do
+
+        end
+
+        it "should redirect if we try to publish the course" do
+
+        end
+
       end
 
       context "as an admin" do
@@ -149,6 +181,14 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should not redirect if we navigate to the 'edit course' path" do
+        end
+
+        it "should have a link to publish the course" do
+
+        end
+
+        it "should not redirect if we try to publish the course" do
+
         end
 
       end

@@ -32,6 +32,8 @@ gem 'autoprefixer-rails', '~> 3.0.1'
 gem 'jquery-turbolinks', '2.1.0'
 gem 'tinymce-rails', '4.1.6'
 gem 'font-awesome-rails', '~> 4.3.0'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'

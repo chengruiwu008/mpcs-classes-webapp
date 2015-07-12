@@ -47,4 +47,10 @@ class AcademicYear < ActiveRecord::Base
     start_date <= DateTime.now and DateTime.now <= end_date
   end
 
+  # next_year: Returns the next academic year, if it exists.
+  # If it does not exist, returns nil.
+  def next_year
+    AcademicYear.find_by(year: self.year + 1)
+  end
+
 end

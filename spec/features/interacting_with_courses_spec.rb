@@ -248,6 +248,7 @@ describe "Interacting with courses", type: :feature do
       end
 
       context "as an admin" do
+        # FIXME: Warden is not logging the user in.
         before { ldap_sign_in(@admin) }
 
         it "should have a link on the quarter's page" do

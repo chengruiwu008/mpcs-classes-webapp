@@ -16,6 +16,7 @@ class Quarter < ActiveRecord::Base
     Quarter.active_quarters.where("? <= student_bidding_deadline",
                                   DateTime.now) }
 
+  # Call #year to get the int and #academic_year to get the record.
   belongs_to :academic_year, primary_key: "year", foreign_key: "year"
   has_many   :courses
   has_many   :bids
@@ -83,6 +84,18 @@ class Quarter < ActiveRecord::Base
 
   def downcase_season
     self.season.downcase!
+  end
+
+  def next_year
+    self.academic_year.next_year
+  end
+
+  def Quarter.next_year
+    Quarter.active_quarter.try(:next_year)
+  end
+
+  def Quarter.can_view_next_year_tab?
+    Quarter.active_quarter.season == "spring" and Quarter.next_year
   end
 
 end

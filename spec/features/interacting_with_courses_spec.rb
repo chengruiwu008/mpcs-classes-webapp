@@ -12,7 +12,7 @@ describe "Interacting with courses", type: :feature do
     @year          = FactoryGirl.create(:academic_year, :current)
     # FIXME: need to specify deadlines for these quarters?
     @active_q      = FactoryGirl.create(:quarter, :active, published: true,
-                                        year: @year.year, season: "winter")
+                                        year: @year.year)
     @inactive_q    = FactoryGirl.create(:quarter, :inactive, published: false,
                                         year: @year.year + 5)
     @admin         = FactoryGirl.create(:admin)
@@ -51,6 +51,7 @@ describe "Interacting with courses", type: :feature do
           # exists).
 
           expect(current_path).to eq(courses_path(season: @aqs, year: @aqy))
+          save_and_open_page
           expect(page).to have_content(@course_1.title)
           expect(page).to have_link(@course_1.title)
 
@@ -64,8 +65,8 @@ describe "Interacting with courses", type: :feature do
 
         it "should not have a link to submit a bid" do
           # FIXME (content and link)
-          expect(page).not_to have_content("Bid")
-          expect(page).not_to have_link("Bid")
+          expect(page).not_to have_content("You can bid")
+          expect(page).not_to have_link("My Requests")
         end
 
         it "should not have a link to edit the course info" do
@@ -75,14 +76,14 @@ describe "Interacting with courses", type: :feature do
 
         it "should redirect if we visit the 'my requests' page" do
           visit my_requests_path(season: @aqs, year: @aqy)
-          expect current_path.to eq(root_path) # FIXME: check the root path
+          expect(current_path).to eq(root_path) # FIXME: check the root path
           expect(page).not_to have_content("Access denied")
           expect(page).not_to have_selector("div.alert.alert-danger")
         end
 
         it "should redirect if we navigate to the 'edit course' path" do
           visit q_path(@course_1, :edit_course)
-          expect current_path.to eq(root_path)
+          expect(current_path).to eq(root_path)
           expect(page).not_to have_content("Access denied")
           expect(page).not_to have_selector("div.alert.alert-danger")
         end
@@ -113,8 +114,8 @@ describe "Interacting with courses", type: :feature do
                                            DateTime.now + 3.days) }
 
           it "should have a link to submit a bid" do
-          expect(page).to have_content("Bid")
-          expect(page).to have_link("Bid")
+          expect(page).to have_content("You can bid")
+          expect(page).to have_link("My Requests")
           end
 
           it "should allow saving bids on the 'my requests' page" do
@@ -126,8 +127,8 @@ describe "Interacting with courses", type: :feature do
           before { @active_q.update_column(:student_bidding_deadline,
                                            DateTime.now + 3.days) }
           it "should not have a link to submit a bid" do
-            expect(page).not_to have_content("Bid")
-            expect(page).not_to have_link("Bid")
+            expect(page).not_to have_content("You can bid")
+            expect(page).not_to have_link("My Requests")
           end
 
           it "should allow visiting the 'my requests' page" do
@@ -174,8 +175,8 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should not have a link to the 'my requests' page" do
-          expect(page).not_to have_content("Bid")
-          expect(page).not_to have_link("Bid")
+          expect(page).not_to have_content("You can bid")
+          expect(page).not_to have_link("My Requests")
         end
 
         it "should redirect if we visit the 'my requests' page" do
@@ -219,8 +220,8 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should not have a link to the 'my requests' page" do
-          expect(page).not_to have_content("Bid")
-          expect(page).not_to have_link("Bid")
+          expect(page).not_to have_content("You can bid")
+          expect(page).not_to have_link("My Requests")
         end
 
         it "should redirect if we navigate to the 'my requests' path" do
@@ -266,8 +267,8 @@ describe "Interacting with courses", type: :feature do
        end
 
         it "should not have a link to submit a bid" do
-          expect(page).not_to have_content("Bid")
-          expect(page).not_to have_link("Bid")
+          expect(page).not_to have_content("You can bid")
+          expect(page).not_to have_link("My Requests")
         end
 
         it "should have a link to edit the course info" do

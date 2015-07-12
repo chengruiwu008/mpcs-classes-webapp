@@ -42,10 +42,10 @@ FactoryGirl.define do
       # Nothing, since they're not logged in
     end
 
-    factory :student, traits: [:student]
+    factory :student, traits: [:student], class: Student
     factory :faculty, traits: [:faculty], class: Faculty
     # factory :instructor, traits: [:faculty], class: Faculty # `faculty` alias
-    factory :admin,   traits: [:admin]
+    factory :admin,   traits: [:admin], class: Admin
     factory :guest,   traits: [:guest]
   end
 

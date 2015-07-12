@@ -30,6 +30,7 @@ describe "Interacting with quarters", type: :feature do
   end
 
   context "that are published" do
+    before { @course_1.update_column(:published, true) }
 
     # All users, including guests, can view published quarters.
     context "on their pages" do
@@ -75,8 +76,8 @@ describe "Interacting with quarters", type: :feature do
 
             it "should have the bidding link" do
               expect(current_path).to eq(q_path(@course_1))
-              expect(page).to have_content("bid")
-              expect(page).to have_link("bid")
+              expect(page).to have_content("You can bid")
+              expect(page).to have_link("My Requests")
               # FIXME:
               # There should be text with a link that specifies that students
               # can bid for and rank this course on their "my requests" page.
@@ -85,7 +86,7 @@ describe "Interacting with quarters", type: :feature do
             it "should succeed if the user bids for / ranks the course" do
               # Bids can't be made on the course page -- they're made on the
               # "my requests" page.
-              click_link("bid")
+              click_link("My Requests")
               expect(current_path).to eq(my_requests_path(season: @aqs,
                                                           year: @aqd))
               # Expect to see the dropdown; update it; hit the
@@ -103,8 +104,8 @@ describe "Interacting with quarters", type: :feature do
 
             it "should not have the bidding link" do
               expect(current_path).to eq(q_path(@course_1))
-              expect(page).not_to have_content("Bid")
-              expect(page).not_to have_link("Bid")
+              expect(page).not_to have_content("You can bid")
+              expect(page).not_to have_link("My Requests")
             end
 
             it "should redirect if the user tries to submit a bid" do

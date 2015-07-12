@@ -301,11 +301,14 @@ describe "Interacting with courses", type: :feature do
       context "as a guest" do
         it "should not be viewable" do
           expect(page).not_to have_content(@course_1.title)
-
         end
 
-        it "should not be able to be bid for" do
+        it "should redirect if we visit the course's page" do
+          visit q_path(@course_1)
 
+          expect(current_path).to eq(root_path)
+          expect(page).not_to have_content("Access denied")
+          expect(page).not_to have_selector("div.alert.alert-danger")
         end
       end
 
@@ -313,47 +316,102 @@ describe "Interacting with courses", type: :feature do
         before { ldap_sign_in(@student) }
 
         it "should not be viewable" do
-
+          expect(page).not_to have_content(@course_1.title)
         end
 
-        it "should not be able to be bid for" do
+        it "should redirect if we visit the course's page" do
+          visit q_path(@course_1)
 
+          expect(current_path).to eq(root_path)
+          expect(page).not_to have_content("Access denied")
+          expect(page).not_to have_selector("div.alert.alert-danger")
+        end
+
+        it "should not appear on the 'my requests' page" do
+          visit my_requests_path(season: @aqs, year: @aqy)
+          # FIXME (not urgent)
         end
       end
 
       context "as the instructor teaching it" do
         before { ldap_sign_in(@faculty) }
 
-        it "should be viewable" do
+        it "should not be viewable on the course index" do
+          expect(page).not_to have_content(@course_1.title)
+        end
 
+        it "should be viewable on the 'my courses' page" do
+          visit my_courses_path(season: @aqs, year: @aqy)
+          expect(page).to have_content(@course_1.title)
+        end
+
+        it "should not redirect if we visit the course's page" do
+          visit q_path(@course_1)
+          expect(page).to have_content(@course_1.title)
+          expect(page).not_to have_content("Access denied")
+          expect(page).to not_have_selector("div.alert.alert-danger")
         end
 
         it "should be editable" do
+          expect(page).to have_content("edit")
+          expect(page).to have_link("here")
 
+          click_link "here"
+          expect(current_path).to eq(edit_course_path(@course_1))
+          expect(page).not_to have_content("Access denied")
+          expect(page).to not_have_selector("div.alert.alert-danger")
         end
       end
 
       context "as an unrelated instructor" do
         before { ldap_sign_in(@other_faculty) }
 
-        it "should not be viewable" do
+        it "should not be viewable on the course index" do
+          expect(page).not_to have_content(@course_1.title)
+        end
 
+        it "should redirect if we visit the course's page" do
+          visit my_courses_path(season: @aqs, year: @aqy)
+
+          expect(current_path).to eq(root_path)
+          expect(page).to have_content("Access denied")
+          expect(page).to have_selector("div.alert.alert-danger")
         end
 
         it "should not be editable" do
+          expect(page).not_to have_content("edit")
+          expect(page).not_to have_link("here")
 
+          visit edit_course_path(@course_1)
+
+          expect(current_path).to eq(root_path)
+          expect(page).to have_content("Access denied")
+          expect(page).to have_selector("div.alert.alert-danger")
         end
       end
 
       context "as an admin" do
         before { ldap_sign_in(@admin) }
 
-        it "should be viewable" do
+        it "should be viewable on the course index" do
+          expect(page).to have_content(@course_1.title)
+        end
 
+        it "should not redirect if we visit the course's page" do
+          visit q_path(@course_1)
+          expect(page).to have_content(@course_1.title)
+          expect(page).not_to have_content("Access denied")
+          expect(page).to not_have_selector("div.alert.alert-danger")
         end
 
         it "should be editable" do
+          expect(page).to have_content("edit")
+          expect(page).to have_link("here")
 
+          click_link "here"
+          expect(current_path).to eq(edit_course_path(@course_1))
+          expect(page).not_to have_content("Access denied")
+          expect(page).to not_have_selector("div.alert.alert-danger")
         end
       end
     end

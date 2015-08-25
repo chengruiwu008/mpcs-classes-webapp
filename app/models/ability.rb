@@ -6,7 +6,9 @@ class Ability
     can :read, Quarter
     can :global_index, Course
     can :index, Course
-    can :read, Course, draft: false
+    can :read, Course do |course|
+      course.quarter.published? && course.published? && !course.draft?
+    end
 
     alias_action :edit, :update, to: :change
 

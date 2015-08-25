@@ -12,12 +12,14 @@ module CoursesHelper
   end
 
   def form_season
-    params[:season].try(:capitalize) || Quarter.active_quarter.
-     try(:season).capitalize
+    # FIXME: Make quarter pages use year as their slug
+    params[:season].try(:capitalize) || @season.try(:capitalize) ||
+     Quarter.active_quarter.try(:season).capitalize
   end
 
   def form_year
-    params[:year] || Quarter.active_quarter.try(:year)
+    # FIXME: Make quarter pages use year as their slug
+    params[:year] || @year || Quarter.active_quarter.try(:year)
   end
 
   def edit_change_type

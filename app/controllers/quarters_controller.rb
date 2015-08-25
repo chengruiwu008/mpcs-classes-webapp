@@ -1,5 +1,8 @@
 class QuartersController < ApplicationController
 
+    include CoursesHelper
+    include AcademicYearsHelper
+
   include QuarterPatterns
 
   load_and_authorize_resource
@@ -9,11 +12,11 @@ class QuartersController < ApplicationController
   before_action :quarter_has_courses?, only: :destroy
   before_action :all_fields_present?,  only: [:create, :update]
   before_action :get_year_and_season,  only: [:edit, :update]
-  # FIXME: it looks like the error is occuring because of the lack of the deadlines, not because
-  # of the year becoming nil (at least, not anymore; but i can try adding the binding.pry back
+  # FIXME [specs]: it looks like the error is occuring because of the lack of the deadlines, not because
+  # of the year becoming nil (at least, not anymore; but I can try adding the binding.pry back
   # in to see what's wrong).
 
-  # also, try starting from a fresh test database and creating the years and then the quarters.
+  # try starting from a fresh test database and creating the years and then the quarters.
 
   # we're getting stopped by the all_fields_present? before filter, but
   # this renders 'new', which renders the view without calling the

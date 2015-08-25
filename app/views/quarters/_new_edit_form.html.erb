@@ -8,7 +8,7 @@
   <br />
 
   <%= f.select :year, AcademicYear.form_select_hash,
-               selected: formatted_year_from_int(form_year) %>
+               selected: form_year.to_s %>
   <br />
 
   <%= f.text_field :start_date, class: "datetimepicker",

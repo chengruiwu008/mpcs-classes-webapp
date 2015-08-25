@@ -1,4 +1,4 @@
-<% if @published_courses.present? or can? :manage, :all %>
+<% if @published_courses.present? %>
   <table class="table table-bordered">
     <tr>
       <th>Number</th>
@@ -21,4 +21,6 @@
       <% end %>
     </tbody>
   </table>
+<% else %>
+  <p>There are currently no published courses.</p>
 <% end %>

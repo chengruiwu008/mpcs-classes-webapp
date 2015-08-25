@@ -32,10 +32,11 @@ gem 'autoprefixer-rails', '~> 3.0.1'
 gem 'jquery-turbolinks', '2.1.0'
 gem 'tinymce-rails', '4.1.6'
 gem 'font-awesome-rails', '~> 4.3.0'
+gem 'activerecord-session_store', github: 'rails/activerecord-session_store'
+
 
 group :development, :test do
-  gem 'rspec-rails', '3.0.0'
-  gem 'guard-rspec', '4.2.10'
+  gem 'rspec-rails', '~> 3.0.0'
   gem 'childprocess', '0.5.0'
   gem 'webrat', '0.7.3'
   gem 'database_cleaner', github: 'DatabaseCleaner/database_cleaner', tag: 'v1.3.0'
@@ -45,7 +46,6 @@ group :development, :test do
   gem 'spring-commands-rspec', '1.0.2'
   gem 'debugger', '1.6.8'
   gem 'rails_best_practices', '1.15.4'
-  gem 'rspec-its', '1.0.1'
   gem 'pry', '0.10.1'
   gem 'fivemat', '1.3.1'
 end
@@ -54,7 +54,7 @@ group :test do
   gem 'selenium-webdriver', '2.42.0'
   gem 'capybara', '2.4.1'
   gem 'poltergeist'
-  gem 'factory_girl_rails', '4.4.0'
+  gem 'factory_girl_rails', '4.5.0'
   gem 'cucumber-rails', '1.4.0', require: false
   gem 'libnotify', '0.8.0'
 end

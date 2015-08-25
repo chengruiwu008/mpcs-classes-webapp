@@ -21,4 +21,11 @@ class Course < ActiveRecord::Base
     number
   end
 
+  # biddable?: Returns true if this course can be ranked by students, and false
+  # if not. This course can be ranked if its quarter's bidding deadline has not
+  # passed and the course is published.
+  def biddable?
+    published and !draft and DateTime.now <= quarter.student_bidding_deadline
+  end
+
 end

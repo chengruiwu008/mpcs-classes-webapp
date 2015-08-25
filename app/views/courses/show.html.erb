@@ -13,3 +13,12 @@
 <%= render 'student_bidding_deadline' if signed_in? %>
 
 <%= render 'course_long', object: @course %>
+
+<% if (can? :save_bid, Course) and @course.biddable? %>
+  <p>
+    You can bid for this course on your
+    <%= link_to "My Requests", my_requests_path(year: @quarter.year,
+						season: @quarter.season) %>
+    page.
+  </p>
+<% end %>

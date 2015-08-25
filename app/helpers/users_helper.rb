@@ -5,8 +5,11 @@ module UsersHelper
   end
 
   def display_name(user)
-    if user.first_name and user.last_name
+    if user and user.first_name and user.last_name
       user.first_name + " " + user.last_name
+    elsif !user
+      # An admin created a course but hasn't yet chosen its instructor.
+      "TBD"
     else
       ""
     end

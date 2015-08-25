@@ -20,7 +20,7 @@
   <br/>
 
   <% if @courses.present? %>
-    <%= render 'courses' %>
+    <%= render 'courses', courses_present: @courses.present? %>
   <% else %>
     <p>
       There are no courses in this quarter.

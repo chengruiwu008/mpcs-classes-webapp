@@ -30,7 +30,7 @@
 <% end %>
 
 <% if @published_courses.present? or can? :manage, :all %>
-  <%= render 'courses' %>
+  <%= render 'courses', courses_present: @published_courses.present? %>
 <% else %>
   <p>
     The bidding period for the MPCS opens on Week 5 of the quarter. The list of

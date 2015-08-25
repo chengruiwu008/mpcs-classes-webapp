@@ -59,6 +59,9 @@ class CoursesController < ApplicationController
                                 instructor_id: @instructor.id)
     end
 
+    instructor = Faculty.find(params[:course][:instructor_id])
+    @selected_instructor_cnet = instructor ? instructor.cnet : nil
+
     save 'new'
   end
 

@@ -1,4 +1,8 @@
 module CoursesHelper
+  def selected_instructor_cnet
+    @selected_instructor_cnet || @db_instructor_cnet
+  end
+
   def course_instructor
     if ci = @course.instructor
       "#{formatted_info(ci)} (#{formatted_email(ci)})"

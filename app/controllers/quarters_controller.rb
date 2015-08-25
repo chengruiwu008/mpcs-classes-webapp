@@ -7,11 +7,12 @@ class QuartersController < ApplicationController
 
   load_and_authorize_resource
 
-  before_action :downcase_season,      only: :create
-  before_action :is_admin?,            only: [:new, :create]
-  before_action :quarter_has_courses?, only: :destroy
-  before_action :all_fields_present?,  only: [:create, :update]
-  before_action :get_year_and_season,  only: [:edit, :update]
+  before_action :downcase_season,          only: :create
+  before_action :is_admin?,                only: [:new, :create]
+  before_action :quarter_has_courses?,     only: :destroy
+  before_action :get_year_and_season,      only: [:edit, :update]
+  before_action :get_form_year_and_season, only: [:create, :update]
+  before_action :all_fields_present?,      only: [:create, :update]
   # FIXME [specs]: it looks like the error is occuring because of the lack of the deadlines, not because
   # of the year becoming nil (at least, not anymore; but I can try adding the binding.pry back
   # in to see what's wrong).
@@ -93,6 +94,11 @@ class QuartersController < ApplicationController
   def get_year_and_season
     @year   = @quarter.year
     @season = @quarter.season
+  end
+
+  def get_form_year_and_season
+    @selected_year = params[:quarter][:year].to_s
+    @selected_season = params[:quarter][:season].capitalize
   end
 
 end

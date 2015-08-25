@@ -19,6 +19,8 @@ module CoursesHelper
 
   def form_year
     # FIXME: Make quarter pages use year as their slug
+    # NOTE: This needs to be params[:quarter][:year] for the new / edit quarter
+    # form.
     params[:year] || @year || Quarter.active_quarter.try(:year)
   end
 

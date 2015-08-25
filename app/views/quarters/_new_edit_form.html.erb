@@ -4,11 +4,11 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.select :season, %w(Spring Summer Autumn Winter),
-               selected: form_season  %>
+               selected: @selected_season || form_season  %>
   <br />
 
   <%= f.select :year, AcademicYear.form_select_hash,
-               selected: form_year.to_s %>
+               selected: @selected_year || form_year.to_s %>
   <br />
 
   <%= f.text_field :start_date, class: "datetimepicker",

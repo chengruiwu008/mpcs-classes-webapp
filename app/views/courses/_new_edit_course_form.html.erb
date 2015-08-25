@@ -19,7 +19,7 @@
 	  <%= f.label :instructor_id, "Instructor", class: "table-col-name" %>
 	</th>
 	<td>
-	  <%= f.select :instructor_id, @instructors,
+	  <%= f.select :instructor_id, @instructors + ["TBD"],
 	      selected: @db_instructor_cnet, hide_label: true %>
 	</td>
       </tr>

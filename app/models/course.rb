@@ -14,7 +14,7 @@ class Course < ActiveRecord::Base
                               message: "must be a five-digit number not " \
                                "beginning with 0" }
   validates :syllabus, presence: true
-  validates :instructor, presence: true
+  # validates :instructor, presence: true
   validates :quarter, presence: true
 
   def to_param

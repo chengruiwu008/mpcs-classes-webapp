@@ -43,12 +43,20 @@ class CoursesController < ApplicationController
   end
 
   def create
-    # TODO: Use a symbol other than :instructor_id here and in #update?
-    params[:course][:instructor_id] = @instructor.id
-    @course = @instructor.courses.build(course_params)
+    # FIXME: Use a symbol other than :instructor_id here and in #update?
     @quarter = Quarter.find_by(year: params[:year], season: params[:season])
-    @course.assign_attributes(quarter_id: @quarter.id,
-                              instructor_id: @instructor.id)
+
+    if params[:course][:instructor_id] == "TBD"
+      params[:course][:instructor_id] = nil
+      @course = Course.new(course_params)
+      @course.assign_attributes(quarter_id: @quarter.id,
+                                instructor_id: nil)
+    else
+      params[:course][:instructor_id] = @instructor.id
+      @course = @instructor.courses.build(course_params)
+      @course.assign_attributes(quarter_id: @quarter.id,
+                                instructor_id: @instructor.id)
+    end
 
     save 'new'
   end

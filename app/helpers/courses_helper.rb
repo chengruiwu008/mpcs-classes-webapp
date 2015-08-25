@@ -1,4 +1,12 @@
 module CoursesHelper
+  def course_instructor
+    if ci = @course.instructor
+      "#{formatted_info(ci)} (#{formatted_email(ci)})"
+    else
+      "TBD"
+    end.html_safe
+  end
+
   def form_season
     params[:season].try(:capitalize) || Quarter.active_quarter.
      try(:season).capitalize

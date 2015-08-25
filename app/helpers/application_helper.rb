@@ -65,7 +65,7 @@ module ApplicationHelper
   end
 
   def course_submission_navbar_link(quarter)
-    if before_deadline?("course_submission") or current_user.admin?
+    if before_deadline?("course_submission", quarter) or current_user.admin?
       content_tag(:li, link_to("Submit a course",
                                new_course_path(year: quarter.year,
                                                season: quarter.season)))
@@ -74,14 +74,12 @@ module ApplicationHelper
     end
   end
 
-  def before_deadline?(deadline)
-    # TODO: change in new quarter workflow
-    DateTime.now <= Quarter.active_quarter.deadline(deadline)
+  def before_deadline?(deadline, quarter)
+    DateTime.now <= quarter.deadline(deadline)
   end
 
-  def formatted_deadline(deadline)
-    Quarter.active_quarter.deadline(deadline).
-      strftime("%I:%M %p on %D (%A, %B %d, %Y)")
+  def formatted_deadline(deadline, quarter)
+    quarter.deadline(deadline).strftime("%I:%M %p on %D (%A, %B %d, %Y)")
   end
 
 

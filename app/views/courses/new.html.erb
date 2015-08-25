@@ -4,7 +4,7 @@
 
 <div class="alert alert-info">
   <strong>Course submission deadline</strong>:
-  <%= formatted_deadline("course_submission") %>
+  <%= formatted_deadline("course_submission", @quarter) %>
 </div>
 
 <%= render 'new_edit_course_form', change: 'create',

@@ -6,7 +6,8 @@ class CoursesController < ApplicationController
 
   before_action :authenticate_user!, except: [:global_index, :index, :show]
 
-  before_action :get_quarter,            only: [:show, :index, :drafts]
+  before_action :get_quarter,            only: [:show, :index, :drafts, :new,
+                                                :create]
   before_action :get_year_and_season,    only: [:create, :update]
   before_action :get_courses_in_qrtr,    only: [:index, :drafts]
   before_action :get_num_courses_arr,    only: :show

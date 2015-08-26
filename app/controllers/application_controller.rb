@@ -57,11 +57,13 @@ class ApplicationController < ActionController::Base
   end
 
   def get_quarter
-    @quarter = Quarter.find_by(year: params[:year], season: params[:season])
+    @quarter = Quarter.find_by(year: year_unslug(params[:year]),
+                               season: params[:season])
   end
 
   def get_num_courses_arr
-    quarter = Quarter.find_by(year: params[:year], season: params[:season])
+    quarter = Quarter.find_by(year: year_unslug(params[:year]),
+                              season: params[:season])
     @num_courses_arr = ["No preference"]
     @num_courses_arr += (1..Course.where(quarter_id: quarter.id).count).to_a
   end

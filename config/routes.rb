@@ -23,7 +23,7 @@ CourseEnrollment::Application.routes.draw do
     delete "/signout" => "sessions/sessions#destroy", as: :destroy_user_session
   end
 
-  scope "/:year/:season", year: /\d{4}/,
+  scope "/:year/:season", year: /\d{4}-\d{2}/,
         season: /spring|summer|autumn|winter/ do
 
     get   "/courses/drafts" => "courses#drafts"

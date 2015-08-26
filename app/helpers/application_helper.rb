@@ -12,7 +12,7 @@ module ApplicationHelper
     #                              season: @project.quarter.season))
 
     # [Alternatively, try `polymorphic_path`?]
-    y = obj.quarter.year
+    y = year_slug(obj.quarter.year)
     s = obj.quarter.season
     # If path_type ends with _url, change nothing; otherwise, default to _path.
     # A path_type of :project will generate project_path, and a path_type
@@ -24,7 +24,7 @@ module ApplicationHelper
 
   # See /spec/support/utilities.rb
   def q_path(obj, path_type=obj.class.name.to_sym)
-    y = obj.quarter.year
+    y = year_slug(obj.quarter.year)
     s = obj.quarter.season
     path_type = (path_type.to_s + "_path").downcase
     h = { year: y, season: s }
@@ -35,7 +35,7 @@ module ApplicationHelper
     # Similar to q_link_to but for url helpers, and does not wrap the link in
     # a link_to.
 
-    y = obj.quarter.year
+    y = year_slug(obj.quarter.year)
     s = obj.quarter.season
     url_type = (url_type.to_s + "_url").downcase
     send(url_type, obj, {year: y, season: s})
@@ -67,7 +67,7 @@ module ApplicationHelper
   def course_submission_navbar_link(quarter)
     if before_deadline?("course_submission", quarter) or current_user.admin?
       content_tag(:li, link_to("Submit a course",
-                               new_course_path(year: quarter.year,
+                               new_course_path(year: year_slug(quarter.year),
                                                season: quarter.season)))
     else
       content_tag(:li, link_to("Submit a course", '#'), class: "disabled")
@@ -86,7 +86,8 @@ module ApplicationHelper
   def formatted_quarter_by_params
     if params[:year] and params[:season]
       # Specific quarter
-      quarter = Quarter.find_by(year: params[:year], season: params[:season])
+      quarter = Quarter.find_by(year: year_unslug(year),
+                                season: params[:season])
       if quarter
         [quarter.season.capitalize, display_year(quarter)].join(" ")
       else
@@ -96,6 +97,16 @@ module ApplicationHelper
       # Global page
       ""
     end
+  end
+
+  def year_slug(year)
+    # `year` must be an integer.
+    year ? "#{year}-#{(year % 100) + 1}" : nil
+  end
+
+  def year_unslug(year_slug)
+    # `year_slug` must be a string of the form `"2015-16"`.
+    year_slug ? year_slug.match(/\d{4}/)[0].to_i : nil
   end
 
 end

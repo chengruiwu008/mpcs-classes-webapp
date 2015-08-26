@@ -8,7 +8,7 @@
     <% @quarters.each do |quarter| %>
       <p>
 	<%= link_to formatted_quarter(quarter),
-	  courses_path({ year: quarter.year, season: quarter.season }) %>
+	  courses_path({ year: year_slug(quarter.year), season: quarter.season }) %>
 	<%= "(current)" if quarter.active? %>
       </p>
     <% end %>

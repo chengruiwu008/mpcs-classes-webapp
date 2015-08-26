@@ -10,7 +10,7 @@
     <%# Courses %>
     <li>
       <%= link_to "Courses",
-          courses_path(year: quarter.year, season: quarter.season) %>
+          courses_path(year: year_slug(quarter.year), season: quarter.season) %>
     </li>
     <% if (can? :view_my_courses, User) or can? :view_my_bids, User %>
       <li class="divider"></li>
@@ -20,7 +20,7 @@
     <% if can? :view_my_bids, User %>
       <li>
 	<%= link_to "My requests",
-	    my_requests_path(year: quarter.year,
+	    my_requests_path(year: year_slug(quarter.year),
 			     season: quarter.season) %>
       </li>
     <% end %>
@@ -29,11 +29,11 @@
     <% if can? :view_my_courses, User %>
       <li>
 	<%= link_to "My courses",
-	    my_courses_path(year: quarter.year, season: quarter.season) %>
+	    my_courses_path(year: year_slug(quarter.year), season: quarter.season) %>
       </li>
       <li>
 	<%= link_to "My students",
-	    my_students_path(year: quarter.year, season: quarter.season) %>
+	    my_students_path(year: year_slug(quarter.year), season: quarter.season) %>
       </li>
     <% end %>
 
@@ -41,7 +41,7 @@
     <% if can? :manage, :all %>
       <li>
 	<%= link_to "Course drafts",
-	    courses_drafts_path(year: quarter.year, season: quarter.season) %>
+	    courses_drafts_path(year: year_slug(quarter.year), season: quarter.season) %>
       </li>
       <%= course_submission_navbar_link(quarter) %>
     <% end %>

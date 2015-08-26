@@ -9,4 +9,4 @@
 
 <br />
 
-<p><%= link_to "Courses", courses_path(year: @year, season: @season) %></p>
+<p><%= link_to "Courses", courses_path(year: year_slug(@year), season: @season) %></p>

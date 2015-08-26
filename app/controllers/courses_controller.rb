@@ -24,7 +24,7 @@ class CoursesController < ApplicationController
   end
 
   def global_index
-    y = params[:year]
+    y = year_unslug(params[:year])
     s = params[:season].try(:downcase)
     active = Quarter.active_quarter
     @quarter = y && s ? Quarter.find_by(year: y, season: s) : active
@@ -45,7 +45,8 @@ class CoursesController < ApplicationController
 
   def create
     # FIXME: Use a symbol other than :instructor_id here and in #update?
-    @quarter = Quarter.find_by(year: params[:year], season: params[:season])
+    @quarter = Quarter.find_by(year: year_unslug(params[:year]),
+                               season: params[:season])
 
     if params[:course][:instructor_id] == "TBD"
       params[:course][:instructor_id] = nil
@@ -87,7 +88,7 @@ class CoursesController < ApplicationController
   def destroy
     if @course.destroy
       flash[:success] = "Course successfully deleted."
-      redirect_to courses_path(year: @quarter.year,
+      redirect_to courses_path(year: year_slug(@quarter.year),
                                season: @quarter.season) and return
     else
       flash[:error] = "Course could not be deleted."

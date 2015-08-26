@@ -10,7 +10,7 @@ class PagesController < ApplicationController
 
     y = Quarter.active_quarter.year
     s = Quarter.active_quarter.season
-    redirect_to controller: :courses, action: :index, year: y, season: s
+    redirect_to controller: :courses, action: :index, year: year_slug(y), season: s
   end
 
 end

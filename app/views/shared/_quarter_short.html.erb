@@ -1,7 +1,7 @@
 <tr>
 
   <td><%= link_to formatted_quarter(quarter),
-    courses_path({ year: quarter.year, season: quarter.season }) %></td>
+    courses_path({ year: year_slug(quarter.year), season: quarter.season }) %></td>
 
   <% if show_year %>
     <td>

@@ -88,7 +88,7 @@ module ApplicationHelper
       # Specific quarter
       quarter = Quarter.find_by(year: params[:year], season: params[:season])
       if quarter
-        [quarter.season.capitalize, quarter.year].join(" ")
+        [quarter.season.capitalize, display_year(quarter)].join(" ")
       else
         "this quarter" # Dummy text -- should never be returned
       end

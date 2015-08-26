@@ -30,7 +30,6 @@ class QuartersController < ApplicationController
   end
 
   def show
-
   end
 
   def new

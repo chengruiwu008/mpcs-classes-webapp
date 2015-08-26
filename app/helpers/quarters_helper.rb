@@ -5,8 +5,12 @@ module QuartersHelper
     "btn btn-#{btn_type}"
   end
 
+  def display_year(quarter)
+    (%w(winter spring).include? quarter.season) ? quarter.year+1 : quarter.year
+  end
+
   def formatted_quarter(quarter)
-    [quarter.season.capitalize, quarter.year].join(" ")
+    [quarter.season.capitalize, display_year(quarter)].join(" ")
   end
 
   def fmt_quarter_show_current(quarter)

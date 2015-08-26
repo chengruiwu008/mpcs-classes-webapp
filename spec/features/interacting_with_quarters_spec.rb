@@ -38,13 +38,13 @@ describe "Interacting with quarters", type: :feature do
         visit root_path
 
         expect(current_path).to eq(courses_path(season: @aqs,
-                                                year: @aqyd))
+                                                year: year_slug(@aqy)))
         expect(page).to have_content(@aqs.capitalize)
         expect(page).to have_content(@aqyd)
 
         visit courses_path(season: @aqs, year: @aqyd)
         expect(current_path).to eq(courses_path(season: @aqs,
-                                                year: @aqyd))
+                                                year: year_slug(@aqyd)))
         expect(page).to have_content(@aqs.capitalize)
         expect(page).to have_content(@aqyd)
       end
@@ -88,7 +88,7 @@ describe "Interacting with quarters", type: :feature do
               # "my requests" page.
               click_link("My Requests")
               expect(current_path).to eq(my_requests_path(season: @aqs,
-                                                          year: @aqd))
+                                                          year: year_slug(@aqy)))
               # Expect to see the dropdown; update it; hit the
               # "save preferences" button.
               # [NOTE: This isn't critical. We won't test it for now.]
@@ -177,7 +177,7 @@ describe "Interacting with quarters", type: :feature do
             expect(page).to have_selector('.nav') do |nav|
               expect(nav).to contain(/#next_academic_year/)
               click_link("Next academic year")
-              expect(current_path).to eq(academic_year_path(year: @year_goes_here)) # FIXME
+              expect(current_path).to eq(academic_year_path(year: year_slug(@year_goes_here))) # FIXME
             end
           end
         end
@@ -195,7 +195,7 @@ describe "Interacting with quarters", type: :feature do
 
     context "as a guest" do
       it "cannot be viewed" do
-        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        visit courses_path(season: @inactive_q.season, year: year_slug(@inactive_q.year))
         expect(current_path).to eq(root_path)
         expect(page).to have_content("Access denied")
         expect(page).to have_selector("div.alert.alert-danger")
@@ -204,7 +204,7 @@ describe "Interacting with quarters", type: :feature do
 
     context "as a student" do
       it "cannot be viewed" do
-        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        visit courses_path(season: @inactive_q.season, year: year_slug(@inactive_q.year))
         expect(current_path).to eq(root_path)
         expect(page).to have_content("Access denied")
         expect(page).to have_selector("div.alert.alert-danger")
@@ -213,9 +213,9 @@ describe "Interacting with quarters", type: :feature do
 
     context "as an instructor" do
       it "can be viewed" do
-        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        visit courses_path(season: @inactive_q.season, year: year_slug(@inactive_q.year))
         expect(current_path).to eq(courses_path(season: @inactive_q.season,
-                                                year: @inactive_q.year))
+                                                year: year_slug(@inactive_q.year)))
         expect(page).not_to have_content("Access denied")
         expect(page).not_to have_selector("div.alert.alert-danger")
       end
@@ -223,9 +223,9 @@ describe "Interacting with quarters", type: :feature do
 
     context "as an admin" do
       it "can be viewed" do
-        visit courses_path(season: @inactive_q.season, year: @inactive_q.year)
+        visit courses_path(season: @inactive_q.season, year: year_slug(@inactive_q.year))
         expect(current_path).to eq(courses_path(season: @inactive_q.season,
-                                                year: @inactive_q.year))
+                                                year: year_slug(@inactive_q.year)))
         expect(page).not_to have_content("Access denied")
         expect(page).not_to have_selector("div.alert.alert-danger")
       end

@@ -32,7 +32,7 @@ describe "Interacting with courses", type: :feature do
   # end
 
   context "in a published quarter" do
-    before { visit courses_path(season: @aqs, year: @aqy) }
+    before { visit courses_path(season: @aqs, year: year_slug(@aqy)) }
 
     context "that have been published" do
       before { @course_1.update_column(:published, true) }
@@ -50,7 +50,7 @@ describe "Interacting with courses", type: :feature do
           # it has no courses, show the next immediate quarter's courses (if it
           # exists).
 
-          expect(current_path).to eq(courses_path(season: @aqs, year: @aqy))
+          expect(current_path).to eq(courses_path(season: @aqs, year: year_slug(@aqy)))
           save_and_open_page
           expect(page).to have_content(@course_1.title)
           expect(page).to have_link(@course_1.title)
@@ -75,7 +75,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should redirect if we visit the 'my requests' page" do
-          visit my_requests_path(season: @aqs, year: @aqy)
+          visit my_requests_path(season: @aqs, year: year_slug(@aqy))
           expect(current_path).to eq(root_path) # FIXME: check the root path
           expect(page).not_to have_content("Access denied")
           expect(page).not_to have_selector("div.alert.alert-danger")
@@ -97,7 +97,7 @@ describe "Interacting with courses", type: :feature do
           # We should see a link to them in the courses table, both by navigating
           # navigating to the course page and by visiting the home page, and we
           # should be able to visit the course page and view its information.
-          expect(current_path).to eq(courses_path(season: @aqs, year: @aqy))
+          expect(current_path).to eq(courses_path(season: @aqs, year: year_slug(@aqy)))
           expect(page).to have_content(@course_1.title)
           expect(page).to have_link(@course_1.title)
 
@@ -136,7 +136,7 @@ describe "Interacting with courses", type: :feature do
               expect(nav).to have_selector("#dropdown-#{@aqy}-#{@aqs}") do |s|
                 click_link "My requests"
                 expect(current_path).to eq(my_requests_path(season: @aqs,
-                                                            year: @aqy))
+                                                            year: year_slug(@aqy)))
               end
             end
           end
@@ -162,7 +162,7 @@ describe "Interacting with courses", type: :feature do
           # We should see a link to them in the courses table, both by navigating
           # navigating to the course page and by visiting the home page, and we
           # should be able to visit the course page and view its information.
-          expect(current_path).to eq(courses_path(season: @aqs, year: @aqy))
+          expect(current_path).to eq(courses_path(season: @aqs, year: year_slug(@aqy)))
           expect(page).to have_content(@course_1.title)
           expect(page).to have_link(@course_1.title)
 
@@ -180,7 +180,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should redirect if we visit the 'my requests' page" do
-          visit my_requests_path(season: @aqs, year: @aqy)
+          visit my_requests_path(season: @aqs, year: year_slug(@aqy))
 
           expect(current_path).to eq(root_path)
           expect(page).to have_content("Access denied")
@@ -207,7 +207,7 @@ describe "Interacting with courses", type: :feature do
           # We should see a link to them in the courses table, both by navigating
           # navigating to the course page and by visiting the home page, and we
           # should be able to visit the course page and view its information.
-          expect(current_path).to eq(courses_path(season: @aqs, year: @aqy))
+          expect(current_path).to eq(courses_path(season: @aqs, year: year_slug(@aqy)))
           expect(page).to have_content(@course_1.title)
           expect(page).to have_link(@course_1.title)
 
@@ -225,7 +225,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should redirect if we navigate to the 'my requests' path" do
-          visit my_requests_path(season: @aqs, year: @aqy)
+          visit my_requests_path(season: @aqs, year: year_slug(@aqy))
 
           expect(current_path).to eq(root_path)
           expect(page).to have_content("Access denied")
@@ -255,7 +255,7 @@ describe "Interacting with courses", type: :feature do
           # We should see a link to them in the courses table, both by navigating
           # navigating to the course page and by visiting the home page, and we
           # should be able to visit the course page and view its information.
-          expect(current_path).to eq(courses_path(season: @aqs, year: @aqy))
+          expect(current_path).to eq(courses_path(season: @aqs, year: year_slug(@aqy)))
           expect(page).to have_content(@course_1.title)
           expect(page).to have_link(@course_1.title)
 
@@ -278,7 +278,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should redirect if we visit the 'my requests' path" do
-          visit my_requests_path(season: @aqs, year: @aqy)
+          visit my_requests_path(season: @aqs, year: year_slug(@aqy))
 
           expect(current_path).to eq(root_path)
           expect(page).to have_content("Access denied")
@@ -330,7 +330,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should not appear on the 'my requests' page" do
-          visit my_requests_path(season: @aqs, year: @aqy)
+          visit my_requests_path(season: @aqs, year: year_slug(@aqy))
           # FIXME (not urgent)
         end
       end
@@ -343,7 +343,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should be viewable on the 'my courses' page" do
-          visit my_courses_path(season: @aqs, year: @aqy)
+          visit my_courses_path(season: @aqs, year: year_slug(@aqy))
           expect(page).to have_content(@course_1.title)
         end
 
@@ -373,7 +373,7 @@ describe "Interacting with courses", type: :feature do
         end
 
         it "should redirect if we visit the course's page" do
-          visit my_courses_path(season: @aqs, year: @aqy)
+          visit my_courses_path(season: @aqs, year: year_slug(@aqy))
 
           expect(current_path).to eq(root_path)
           expect(page).to have_content("Access denied")

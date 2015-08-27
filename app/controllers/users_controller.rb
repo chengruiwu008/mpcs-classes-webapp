@@ -119,12 +119,30 @@ class UsersController < ApplicationController
     if current_user
       case current_user.type
       when "Admin"
-        flash[:error] = "You cannot access the instructor dashboard."
-        redirect_to root_path and return
+        if params[:id]
+          # URI matches /users/:id/dashboard
+          # Navigate to the indicated user's dashboard via the logic below.
+
+          user_type = User.find(params[:id]).type
+
+          case user_type
+          when "Faculty"
+            render 'instructor_dashboard'
+          when "Student"
+            flash[:error] = "The student dashboard is not yet available."
+            redirect_to root_path and return
+          end
+        else
+          # URI matches /dashboard
+          # Navigate to the admin dashboard.
+
+          flash[:error] = "The admin dashboard is not yet available."
+          redirect_to root_path and return
+        end
       when "Faculty"
         render 'instructor_dashboard'
       when "Student"
-        flash[:error] = "Access denied."
+        flash[:error] = "The student dashboard is not yet available."
         redirect_to root_path and return
       end
     else

@@ -31,10 +31,6 @@ module UsersHelper
     user.email
   end
 
-  def formatted_status(course)
-    course.draft ? "Draft" : "Published"
-  end
-
   def preference(bid)
     bid.try(:preference) || "No preference"
   end

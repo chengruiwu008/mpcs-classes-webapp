@@ -11,7 +11,8 @@ class UsersController < ApplicationController
                                                :update_number_of_courses,
                                                :update_requests]
   before_action :get_my_courses,        only: :my_courses
-  before_action :get_all_my_courses,    only: :my_courses_all
+  # TODO: Remove :my_courses_all and :my_requests_all?
+  before_action :get_all_my_courses,    only: [:my_courses_all, :dashboard]
   before_action :get_my_bids,           only: :my_requests
   before_action :get_all_my_bids,       only: :my_requests_all
   before_action :get_courses_bids,      only: :my_requests
@@ -114,6 +115,24 @@ class UsersController < ApplicationController
                                  season: params[:season]) and return
   end
 
+  def dashboard
+    if current_user
+      case current_user.type
+      when "Admin"
+        flash[:error] = "You cannot access the instructor dashboard."
+        redirect_to root_path and return
+      when "Faculty"
+        render 'instructor_dashboard'
+      when "Student"
+        flash[:error] = "Access denied."
+        redirect_to root_path and return
+      end
+    else
+      flash[:error] = "Access denied."
+      redirect_to root_path and return
+    end
+  end
+
   private
 
   def user_params
@@ -149,7 +168,8 @@ class UsersController < ApplicationController
   end
 
   def get_all_my_courses
-    @courses = Course.where(instructor_id: @user.id)
+    user = @user || current_user
+    @courses = Course.where(instructor_id: user.id)
   end
 
   def get_my_bids

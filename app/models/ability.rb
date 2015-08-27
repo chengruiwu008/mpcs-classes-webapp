@@ -14,7 +14,7 @@ class Ability
 
     unless user.new_record? # new_record => not signed in
 
-      can :read, User, id: user.id
+      can :read, User,   id: user.id
       can :read, Course, draft: false
 
       if user.admin?
@@ -25,6 +25,8 @@ class Ability
       end
 
       if user.faculty?
+        # TODO: Add dashboard ability to all user types (later)
+        can :dashboard,             User, id: user.id
         can :view_my_courses,       User, id: user.id
         can :my_courses,            User, id: user.id
         can :update_affiliation_of, User, id: user.id

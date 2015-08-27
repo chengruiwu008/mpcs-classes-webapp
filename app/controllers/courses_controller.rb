@@ -53,15 +53,16 @@ class CoursesController < ApplicationController
       @course = Course.new(course_params)
       @course.assign_attributes(quarter_id: @quarter.id,
                                 instructor_id: nil)
+      instructor = nil
     else
       params[:course][:instructor_id] = @instructor.id
       @course = @instructor.courses.build(course_params)
       @course.assign_attributes(quarter_id: @quarter.id,
                                 instructor_id: @instructor.id)
+      instructor = Faculty.find(params[:course][:instructor_id])
     end
 
-    instructor = Faculty.find(params[:course][:instructor_id])
-    @selected_instructor_cnet = instructor ? instructor.cnet : nil
+    @selected_instructor_cnet = instructor ? instructor.cnet : "TBD"
 
     save 'new'
   end

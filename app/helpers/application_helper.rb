@@ -101,6 +101,7 @@ module ApplicationHelper
 
   def year_slug(year)
     # `year` must be an integer.
+    year = year.to_i
     year ? "#{year}-#{(year % 100) + 1}" : nil
   end
 

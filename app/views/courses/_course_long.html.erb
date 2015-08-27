@@ -42,7 +42,12 @@
 
     <% if current_user %>
       <tr>
-	<th>Prerequisites</th>
+	<th>Prerequisites (Courses)</th>
+	<td><%= simple_format(@course.course_prerequisites) %></td>
+      </tr>
+
+      <tr>
+	<th>Prerequisites (Other)</th>
 	<td><%= simple_format(@course.prerequisites) %></td>
       </tr>
 

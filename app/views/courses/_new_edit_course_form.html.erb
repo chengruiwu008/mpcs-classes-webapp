@@ -65,7 +65,17 @@
 
       <tr>
 	<th>
-	  <%= f.label :prerequisites, "Prerequisites",
+	  <%= f.label :course_prerequisites, "Prerequisites (Courses)",
+	  class: "table-col-name" %>
+	</th>
+	<td>
+	  <%= f.text_area :course_prerequisites, hide_label: true %>
+	</td>
+      </tr>
+
+      <tr>
+	<th>
+	  <%= f.label :prerequisites, "Prerequisites (Other)",
 	  class: "table-col-name" %>
 	</th>
 	<td>

@@ -5,7 +5,7 @@ class Course < ActiveRecord::Base
   belongs_to :quarter
   belongs_to :instructor, class_name: "Faculty", foreign_key: "instructor_id"
   has_many :bids, dependent: :destroy
-  accepts_nested_attributes_for :bids # Necessary?
+  accepts_nested_attributes_for :bids # TODO: Necessary?
 
   validates :title, uniqueness: { scope: :quarter_id,
                                   case_sensitive: false }

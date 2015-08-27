@@ -122,7 +122,6 @@ class UsersController < ApplicationController
         if params[:id]
           # URI matches /users/:id/dashboard
           # Navigate to the indicated user's dashboard via the logic below.
-
           user_type = User.find(params[:id]).type
 
           case user_type

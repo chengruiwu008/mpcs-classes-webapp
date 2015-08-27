@@ -1,23 +1,23 @@
 <h2><%= display_name(@user) %>'s Instructor Dashboard</h2>
 
 <% if @courses.present? %>
-<table class="table table-bordered">
-  <thead>
-    <th>Course Code and Name</th>
-    <th>Quarter</th>
-    <th>Edit</th>
-  </thead>
+  <table class="table table-bordered">
+    <thead>
+      <th>Course Code and Name</th>
+      <th>Quarter</th>
+      <th>Edit</th>
+    </thead>
 
-  <tbody>
-    <% @courses.each do |course| %>
-      <tr>
-	<td><%= q_link_to "#{course.number}: #{course.title}", course %></td>
-	<td><%= formatted_quarter(course.quarter)%></td>
-	<td><%= q_link_to "Edit", course, :edit_course %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <tbody>
+      <% @courses.each do |course| %>
+	<tr>
+	  <td><%= q_link_to "#{course.number}: #{course.title}", course %></td>
+	  <td><%= formatted_quarter(course.quarter)%></td>
+	  <td><%= q_link_to "Edit", course, :edit_course %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
 <% else %>
-<p>No courses currently belong to you.</p>
+  <p>No courses currently belong to you.</p>
 <% end %>

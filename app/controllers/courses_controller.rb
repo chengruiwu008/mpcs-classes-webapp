@@ -2,6 +2,9 @@ class CoursesController < ApplicationController
 
   include CoursePatterns
 
+  before_action :find_course, only: [:show, :create, :edit, :update, :destroy]
+  # before_action :find_courses, only: [:global_index, :index, :drafts]
+
   load_and_authorize_resource find_by: :number
 
   before_action :authenticate_user!, except: [:global_index, :index, :show]
@@ -141,6 +144,22 @@ class CoursesController < ApplicationController
   def get_instructor
     # @instructor is nil if a faculty member is editing their course
     @instructor = Faculty.find_by(cnet: params[:course][:instructor_id])
+  end
+
+  def find_course
+    n = params[:id]
+    y = year_unslug(params[:year])
+    s = params[:season]
+
+    @course =
+    if n && y && s
+      q = Quarter.find_by(year: y, season: s)
+      q ? Course.find_by(number: n, quarter: q) : nil
+    elsif n
+      Course.find_by(number: n)
+    else
+      nil
+    end
   end
 
 end

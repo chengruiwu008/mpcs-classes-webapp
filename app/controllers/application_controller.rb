@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
   def redirect_if_wrong_quarter_params(obj)
     y = obj.quarter.year
     s = obj.quarter.season
-    if params[:year].to_i != y or params[:season] != s
+
+    if year_unslug(params[:year]).to_i != y or params[:season] != s
       redirect_to q_path(obj) and return
     end
   end

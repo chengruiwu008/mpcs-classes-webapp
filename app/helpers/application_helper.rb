@@ -86,7 +86,7 @@ module ApplicationHelper
   def formatted_quarter_by_params
     if params[:year] and params[:season]
       # Specific quarter
-      quarter = Quarter.find_by(year: year_unslug(year),
+      quarter = Quarter.find_by(year: year_unslug(params[:year]),
                                 season: params[:season])
       if quarter
         [quarter.season.capitalize, display_year(quarter)].join(" ")

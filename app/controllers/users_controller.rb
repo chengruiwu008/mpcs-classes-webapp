@@ -12,7 +12,8 @@ class UsersController < ApplicationController
                                                :update_requests]
   before_action :get_my_courses,        only: :my_courses
   # TODO: Remove :my_courses_all and :my_requests_all?
-  before_action :get_all_my_courses,    only: [:my_courses_all, :dashboard]
+  before_action :get_all_my_courses,    only: :my_courses_all
+  before_action :get_all_my_courses_this_year, only: :dashboard
   before_action :get_my_bids,           only: :my_requests
   before_action :get_all_my_bids,       only: :my_requests_all
   before_action :get_courses_bids,      only: :my_requests
@@ -187,6 +188,12 @@ class UsersController < ApplicationController
   def get_all_my_courses
     user = @user || current_user
     @courses = Course.where(instructor_id: user.id)
+  end
+
+  def get_all_my_courses_this_year
+    user = @user || current_user
+    @courses = Course.where(instructor_id: user.id).joins(:quarter).
+     where(quarters: { year: AcademicYear.current_year.year })
   end
 
   def get_my_bids

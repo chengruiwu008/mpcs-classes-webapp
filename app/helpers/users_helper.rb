@@ -4,6 +4,15 @@ module UsersHelper
     user.cnet
   end
 
+  # We have a special method for the dashboard view since `@user` is `nil` for
+  # the dashboard path that does not specify an ID param (`/dashboard`).
+  # We don't modify `display_name`, because there are cases in which we want
+  # to view the display name of a user who is different from the current user.
+  #
+  def dashboard_display_name
+    display_name(@user || current_user)
+  end
+
   def display_name(user)
     if user and user.first_name and user.last_name
       user.first_name + " " + user.last_name

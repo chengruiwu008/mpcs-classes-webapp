@@ -22,6 +22,14 @@ class ApplicationController < ActionController::Base
   helper_method :authenticate_user!
   helper_method :current_user
 
+  def after_sign_in_path_for(user)
+    case user.type
+    when "Admin"   then super
+    when "Faculty" then dashboard_path
+    when "Student" then super
+    end
+  end
+
   def redirect_if_wrong_quarter_params(obj)
     y = obj.quarter.year
     s = obj.quarter.season

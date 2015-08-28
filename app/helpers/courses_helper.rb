@@ -1,4 +1,11 @@
 module CoursesHelper
+
+  # disabled input for faculty
+  def course_field(form, type, tag, options)
+    options[:disabled] = true if current_user.faculty?
+    form.send(type, tag, options).html_safe
+  end
+
   def selected_instructor_cnet
     @selected_instructor_cnet || @db_instructor_cnet
   end

@@ -154,15 +154,12 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    as = []
-
-    if current_user.admin?
-      as = [:type, :affiliation, :department, :number_of_courses, :faculty_cnet]
-    elsif current_user.faculty?
-      as = [:affiliation, :department]
-    elsif current_user.student?
-      as = [:number_of_courses]
-    end
+    as =
+     case current_user.type
+     when "Admin"   then [:type, :affiliation, :department, :number_of_courses, :faculty_cnet]
+     when "Faculty" then [:affiliation, :department]
+     when "Student" then [:number_of_courses]
+     end
 
     params.require(:user).permit(as)
   end

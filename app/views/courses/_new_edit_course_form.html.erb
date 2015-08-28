@@ -9,7 +9,7 @@
 	  <%= f.label :title, "Title", class: "table-col-name" %>
 	</th>
 	<td>
-	  <%= f.text_field :title, hide_label: true %>
+	  <%= course_field(f, :text_field, :title, hide_label: true) %>
 	</td>
       </tr>
 
@@ -40,7 +40,7 @@
 	  <%= f.label :number, "Course Number", class: "table-col-name" %>
 	</th>
 	<td>
-	  <%= f.text_field :number, hide_label: true %>
+	  <%= course_field(f, :text_field, :number, hide_label: true) %>
 	</td>
       </tr>
 
@@ -99,7 +99,7 @@
 	  class: "table-col-name" %>
 	</th>
 	<td>
-	  <%= f.text_field :time, hide_label: true %>
+	  <%= course_field(f, :text_field, :time, hide_label: true) %>
 	</td>
       </tr>
 
@@ -109,7 +109,7 @@
 	  class: "table-col-name" %>
 	</th>
 	<td>
-	  <%= f.text_field :location, hide_label: true %>
+	  <%= course_field(f, :text_field, :location, hide_label: true) %>
 	</td>
       </tr>
 

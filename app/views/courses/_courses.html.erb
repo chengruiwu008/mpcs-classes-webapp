@@ -4,7 +4,10 @@
       <th>Number</th>
       <th>Title</th>
       <th>Instructor</th>
-      <% if can? :manage, :all %> <th>Published?</th> <% end %>
+      <% if can? :manage, :all %>
+	<th>Published?</th>
+	<th>Student Summary</th>
+      <% end %>
     </tr>
     <tbody>
       <% @courses.each do |course| %>
@@ -15,6 +18,7 @@
 	  <td><%= display_name(course.instructor) %></td>
 	  <% if can? :manage, :all %>
 	    <td><%= course.published? ? "Yes" : "No" %></td>
+	    <td><%= course.total_top_picks %></td>
 	  <% end %>
 	</tr>
 	<% end %>

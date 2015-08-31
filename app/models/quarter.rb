@@ -95,7 +95,7 @@ class Quarter < ActiveRecord::Base
   end
 
   def Quarter.can_view_next_year_tab?
-    Quarter.active_quarter.season == "spring" and Quarter.next_year
+    Quarter.active_quarter.try(:season) == "spring" and Quarter.next_year
   end
 
 end

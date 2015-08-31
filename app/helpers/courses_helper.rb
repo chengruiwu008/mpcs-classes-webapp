@@ -21,7 +21,7 @@ module CoursesHelper
   def form_season
     # FIXME: Make quarter pages use year as their slug
     params[:season].try(:capitalize) || @season.try(:capitalize) ||
-     Quarter.active_quarter.try(:season).capitalize
+     Quarter.active_quarter.try(:season).try(:capitalize)
   end
 
   def form_year

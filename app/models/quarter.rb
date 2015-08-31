@@ -71,7 +71,17 @@ class Quarter < ActiveRecord::Base
   end
 
   def Quarter.active_quarter
-    Quarter.active_quarters.take
+    # We `#take` from `Quarter.active_quarters`, because we expect there to be
+    # at most one quarter in that scope at any given time.
+    #
+    # `future_quarter` is the upcoming quarter with the nearest `start_date`.
+
+    future_quarter = Quarter.unscoped.all.
+     where("start_date > ?", DateTime.now).
+     order("start_date ASC").
+     first
+
+    Quarter.active_quarters.take || future_quarter
   end
 
   def deadline(deadline)

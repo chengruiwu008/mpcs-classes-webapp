@@ -71,6 +71,7 @@ class CoursesController < ApplicationController
   end
 
   def edit
+    @selected_instructor_cnet = "TBD" if !@course.instructor
   end
 
   def update
@@ -140,7 +141,12 @@ class CoursesController < ApplicationController
   end
 
   def get_db_instructor_cnet
-    @db_instructor_cnet = Faculty.find(@course.instructor_id).cnet
+    @db_instructor_cnet =
+     if @course.instructor_id
+       Faculty.find(@course.instructor_id).try(:cnet)
+     else
+       nil
+     end
   end
 
   def get_instructors

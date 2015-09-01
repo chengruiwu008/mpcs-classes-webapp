@@ -5,8 +5,8 @@
     <% @ranked_courses_bids.each do |c, b| %>
       <li>
 	<%= f.select "preferences[#{c.id}]", @num_courses_arr,
-	    selected: preference(b), label: "#{c.number} (#{c.title})",
-	    inline: true %>
+	    selected: preference(b), label: "MPCS #{c.number} - #{c.title}",
+	    inline: true, label_col: "col-sm-3" %>
       </li>
     <% end %>
   </ul>
@@ -17,8 +17,8 @@
     <% @unranked_courses_bids.each do |c, b| %>
       <li>
 	<%= f.select "preferences[#{c.id}]", @num_courses_arr,
-	    selected: preference(b), label: "#{c.number} (#{c.title})",
-	    inline: true %>
+	    selected: preference(b), label: "MPCS #{c.number} - #{c.title}",
+	    inline: true, label_col: "col-sm-3" %>
       </li>
     <% end %>
   </ul>

@@ -37,7 +37,7 @@ class Student < User
       if quarter
         # Include this student in this .csv if they bid for a course in this
         # quarter.
-        s.bids.each { |b| include = true && break if b.quarter == quarter }
+        s.bids.each { |b| include = true and break if b.quarter == quarter }
       else
         include = true
       end

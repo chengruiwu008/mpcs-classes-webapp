@@ -32,10 +32,6 @@
 	  </li>
 	<% end %>
 
-	<% if can? :global_index, Course %>
-	  <li><%= link_to "Past Courses", global_courses_path %></li>
-	<% end %>
-
 	<% if can? :read, Course %>
 	  <%# For each published quarter in the current academic year, show a
 	      tab with links to pages about that users' resources within that

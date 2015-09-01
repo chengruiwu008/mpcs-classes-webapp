@@ -40,32 +40,29 @@
       <%#= simple_format(@course.syllabus, {}, sanitize: false) %>
     </tr>
 
-    <% if current_user %>
-      <tr>
-	<th>Prerequisites (Courses)</th>
-	<td><%= simple_format(@course.course_prerequisites) %></td>
-      </tr>
+    <tr>
+      <th>Prerequisites (Courses)</th>
+      <td><%= simple_format(@course.course_prerequisites) %></td>
+    </tr>
 
-      <tr>
-	<th>Prerequisites (Other)</th>
-	<td><%= simple_format(@course.prerequisites) %></td>
-      </tr>
+    <tr>
+      <th>Prerequisites (Other)</th>
+      <td><%= simple_format(@course.prerequisites) %></td>
+    </tr>
 
-      <tr>
-	<th>Satisfies</th>
-	<td><%= simple_format(@course.satisfies) %></td>
-      </tr>
+    <tr>
+      <th>Satisfies</th>
+      <td><%= simple_format(@course.satisfies) %></td>
+    </tr>
 
-      <tr>
-	<th>Time</th>
-	<td><%= simple_format(@course.time) %></td>
-      </tr>
+    <tr>
+      <th>Time</th>
+      <td><%= simple_format(course_time) %></td>
+    </tr>
 
-      <tr>
-	<th>Location</th>
-	<td><%= simple_format(@course.location) %></td>
-      </tr>
-    <% end %>
-
+    <tr>
+      <th>Location</th>
+      <td><%= simple_format(course_location) %></td>
+    </tr>
   </tbody>
 </table>

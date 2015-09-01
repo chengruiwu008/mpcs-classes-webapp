@@ -1,5 +1,13 @@
 module CoursesHelper
 
+  def course_time
+    @course.time || "TBD"
+  end
+
+  def course_location
+    @course.location || "TBD"
+  end
+
   # disabled input for faculty
   def course_field(form, type, tag, options)
     options[:disabled] = true if current_user.faculty?

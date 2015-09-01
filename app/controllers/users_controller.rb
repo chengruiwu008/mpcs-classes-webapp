@@ -29,8 +29,16 @@ class UsersController < ApplicationController
   end
 
   def students
+    year = nil
+    season = nil
+
+    if params[:year] && params[:season]
+      year = year_unslug(params[:year])
+      season = params[:season]
+    end
+
     respond_to do |format|
-      format.csv { render text: Student.to_csv }
+      format.csv { render text: Student.to_csv(year, season) }
     end
   end
 

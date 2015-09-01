@@ -32,6 +32,7 @@ CourseEnrollment::Application.routes.draw do
     get   "/my_schedule"    => "users#my_schedule"
     get   "/my_requests"    => "users#my_requests"
     get   "/my_courses"     => "users#my_courses"
+    get   "/students"       => "users#students"
 
     resources :courses
   end

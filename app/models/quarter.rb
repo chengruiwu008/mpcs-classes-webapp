@@ -50,7 +50,7 @@ class Quarter < ActiveRecord::Base
   # visible_quarters: All published quarters in the current academic year.
   def self.visible_quarters
     Quarter.where(published: true).
-     where(year: AcademicYear.current_year.year).to_a
+     where(year: AcademicYear.current_year.year).to_a.reverse
   end
 
   def Quarter.years

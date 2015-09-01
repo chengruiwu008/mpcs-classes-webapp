@@ -1,11 +1,11 @@
 module CoursesHelper
 
-  def course_time
-    @course.time || "TBD"
+  def course_time(course = @course)
+    course.time.empty? ? "TBD" : course.time
   end
 
-  def course_location
-    @course.location || "TBD"
+  def course_location(course = @course)
+    course.location.empty? ? "TBD" : course.location
   end
 
   # disabled input for faculty

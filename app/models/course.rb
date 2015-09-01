@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
 
-  default_scope { order('courses.created_at DESC') }
+  default_scope { order('title asc, courses.created_at DESC') }
 
   belongs_to :quarter
   belongs_to :instructor, class_name: "Faculty", foreign_key: "instructor_id"

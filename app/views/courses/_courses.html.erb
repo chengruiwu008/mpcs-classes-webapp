@@ -4,6 +4,8 @@
       <th>Number</th>
       <th>Title</th>
       <th>Instructor</th>
+      <th>Time</th>
+      <th>Location</th>
       <% if can? :manage, :all %>
 	<th>Published?</th>
 	<th>Student Summary</th>
@@ -16,6 +18,8 @@
 	  <td><%= course.number %></td>
 	  <td><%= q_link_to course.title, course %></td>
 	  <td><%= display_name(course.instructor) %></td>
+	  <td><%= course_time(course) %></td>
+	  <td><%= course_location(course) %></td>
 	  <% if can? :manage, :all %>
 	    <td><%= course.published? ? "Yes" : "No" %></td>
 	    <td><%= course.total_top_picks %></td>

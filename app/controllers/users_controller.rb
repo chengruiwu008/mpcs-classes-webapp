@@ -113,11 +113,18 @@ class UsersController < ApplicationController
   def update_requests
     @prefs = params[:preferences].values.reject { |p| p == "No preference" }
 
-    if @prefs == @prefs.uniq # No duplicate ranks
+    if @prefs == @prefs.uniq && @prefs.count >= @user.number_of_courses
+      # No duplicate ranks allowed
       @user.update_bids(params[:preferences], @quarter)
       flash[:success] = "Updated preferences."
-    else
+    elsif @prefs != @prefs.uniq && @prefs.count >= @user.number_of_courses
       flash[:error] = "Each course must have a unique rank."
+    elsif @prefs.count < @user.number_of_courses && @prefs == @prefs.uniq
+      flash[:error] = "You must rank at least as many courses as you " +
+       "intend to take."
+    else
+      flash[:error] = "Each course must have a unique rank, and you must " +
+       "rank at least as many courses as you intend to take."
     end
 
     redirect_to my_requests_path(year: params[:year],

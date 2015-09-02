@@ -142,7 +142,7 @@ class CoursesController < ApplicationController
 
   def get_db_instructor_cnet
     @db_instructor_cnet =
-     if @course.instructor_id
+     if @course.instructor_id && @course.instructor_id > 0
        Faculty.find(@course.instructor_id).try(:cnet)
      else
        nil

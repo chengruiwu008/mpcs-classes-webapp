@@ -28,7 +28,7 @@ class Course < ActiveRecord::Base
     published and !draft and DateTime.now <= quarter.student_bidding_deadline
   end
 
-  # total_top_picks: Returns the number of students who ranked this course
+  # student_summary_info: Returns the number of students who ranked this course
   # among their top N choices, where N is the number of courses they're taking
   # in this course's quarter.
   #
@@ -38,28 +38,33 @@ class Course < ActiveRecord::Base
   # The total number of students (denominator) is the number who have submitted
   # submitted bids for courses in this course's quarter.
   #
-  def total_top_picks
-    total_top_picks = 0
-    total_students = 0
+  def student_summary_info
+    tp = 0
+    ts = 0
 
-    Student.all.each do |student|
-      top_courses = student.number_of_courses
+    Student.all.each do |s|
+      top_courses = s.number_of_courses
       count_student = false
 
-      student.bids.each do |bid|
-        if bid.quarter_id == self.quarter_id
+      s.bids.each do |b|
+        if b.quarter_id == self.quarter_id
           count_student = true
-
-          if bid.course_id == self.id && bid.preference <= top_courses
-            total_top_picks += 1
-          end
+          tp += 1 if (b.course_id == self.id && b.preference <= top_courses)
         end
       end
 
-      total_students += 1 if count_student
+      ts += 1 if count_student
     end
 
-    "#{total_top_picks} / #{total_students}"
+    { :picks => tp, :students => ts }
+  end
+
+  def total_top_picks
+    student_summary_info[:picks]
+  end
+
+  def number_of_students
+    student_summary_info[:students]
   end
 
 end

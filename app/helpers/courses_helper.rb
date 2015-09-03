@@ -1,5 +1,9 @@
 module CoursesHelper
 
+  def number_of_enrollments(courses)
+    courses.inject(0) { |sum, course| sum + course.total_top_picks }
+  end
+
   def course_time(course = @course)
     course.time.empty? ? "TBD" : course.time
   end

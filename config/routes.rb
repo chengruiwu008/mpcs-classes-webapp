@@ -34,7 +34,9 @@ CourseEnrollment::Application.routes.draw do
     get   "/my_courses"     => "users#my_courses"
     get   "/students"       => "users#students"
 
-    resources :courses
+    resources :courses do
+      member { get "/student_requests" => "courses#student_requests" }
+    end
   end
 
   resources :academic_years

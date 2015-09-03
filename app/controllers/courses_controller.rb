@@ -10,7 +10,8 @@ class CoursesController < ApplicationController
   before_action :authenticate_user!, except: [:global_index, :index, :show]
 
   before_action :get_quarter,            only: [:show, :index, :drafts, :new,
-                                                :create, :destroy]
+                                                :create, :destroy,
+                                                :student_requests]
   before_action :get_year_and_season,    only: [:create, :update]
   before_action :get_courses_in_qrtr,    only: [:index, :drafts]
   before_action :get_num_courses_arr,    only: :show
@@ -24,6 +25,25 @@ class CoursesController < ApplicationController
     c.redirect_if_wrong_quarter_params(@course) }
 
   def show
+  end
+
+  def student_requests
+    top_requesters   = []
+    other_requesters = []
+    id               = @course.id
+
+    Student.all.each do |s|
+      top_courses = s.number_of_courses
+      s.bids.each do |b|
+        if b.course_id == id
+          (b.preference > top_courses ? other_requesters : top_requesters) << s
+          break
+        end
+      end
+    end
+
+    @top_requesters   = Student.where(id: top_requesters.map(&:id))
+    @other_requesters = Student.where(id: other_requesters.map(&:id))
   end
 
   def global_index

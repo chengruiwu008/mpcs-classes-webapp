@@ -1,16 +1,18 @@
 <% if :courses_present %>
   <table class="table table-bordered">
-    <tr>
-      <th>Number</th>
-      <th>Title</th>
-      <th>Instructor</th>
-      <th>Time</th>
-      <th>Location</th>
-      <% if can? :manage, :all %>
-	<th>Published?</th>
-	<th>Student Summary</th>
-      <% end %>
-    </tr>
+    <thead>
+      <tr>
+	<th>Number</th>
+	<th>Title</th>
+	<th>Instructor</th>
+	<th>Time</th>
+	<th>Location</th>
+	<% if can? :manage, :all %>
+	  <th>Published?</th>
+	  <th>Student Summary</th>
+        <% end %>
+      </tr>
+    </thead>
     <tbody>
       <% @courses.each do |course| %>
 	<% if course.published? or (can? :manage, :all) %>
@@ -22,7 +24,8 @@
 	  <td><%= course_location(course) %></td>
 	  <% if can? :manage, :all %>
 	    <td><%= course.published? ? "Yes" : "No" %></td>
-	    <td><%= course.total_top_picks %></td>
+	    <td><%= q_link_to course.total_top_picks, course,
+	            :student_requests_course %></td>
 	  <% end %>
 	</tr>
 	<% end %>

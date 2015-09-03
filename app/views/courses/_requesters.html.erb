@@ -1,0 +1,24 @@
+<p>Students who selected the course as a <%= choice_type %> choice:</p>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>CNetID</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>E-mail</th>
+      <th>Rank of course</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% requesters.each do |student| %>
+      <tr>
+	<td><%= student.cnet %></td>
+	<td><%= student.first_name %></td>
+	<td><%= student.last_name %></td>
+	<td><%= student.email %></td>
+	<td><%= student.course_rank(@course) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+<h2>Student Requests for <%= formatted_title(@course) %></h2>
+
+<br />
+<br />
+
+<%= render 'requesters', requesters: @top_requesters, choice_type: "top" %>
+
+<br />
+<br />
+
+<%= render 'requesters', requesters: @other_requesters, choice_type: "non-top" %>

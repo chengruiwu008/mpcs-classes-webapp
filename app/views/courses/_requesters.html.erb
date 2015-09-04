@@ -17,7 +17,7 @@
 	<td><%= student.first_name %></td>
 	<td><%= student.last_name %></td>
 	<td><%= student.email %></td>
-	<td><%= student.course_rank(@course) %></td>
+	<td><%= student.course_rank(@course) %> (out of <%= student.number_of_courses %>)</td>
       </tr>
     <% end %>
   </tbody>

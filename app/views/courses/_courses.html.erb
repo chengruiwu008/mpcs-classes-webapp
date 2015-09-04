@@ -33,9 +33,9 @@
     </tbody>
   </table>
 
-  <% if can? :manage, :all %>
-    <p>Total number of students: <%= @courses.first.number_of_students %></p>
-    <p>Total number of enrollments: <%= number_of_enrollments(@courses) %></p>
+  <% if @courses.present? and can? :manage, :all %>
+    <p align="right">Total number of students: <%= @courses.first.number_of_students %></p>
+    <p align="right">Total number of enrollments: <%= number_of_enrollments(@courses) %></p>
   <% end %>
 
 <% else %>

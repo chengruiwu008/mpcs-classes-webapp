@@ -2,7 +2,8 @@ class CoursesController < ApplicationController
 
   include CoursePatterns
 
-  before_action :find_course, only: [:show, :create, :edit, :update, :destroy]
+  before_action :find_course, only: [:show, :create, :edit, :update, :destroy,
+                                     :student_requests]
   # before_action :find_courses, only: [:global_index, :index, :drafts]
 
   load_and_authorize_resource find_by: :number

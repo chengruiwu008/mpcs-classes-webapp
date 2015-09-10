@@ -13,7 +13,7 @@
   <tbody>
     <% requesters.each do |student| %>
       <tr>
-	<td><%= student.cnet %></td>
+	<td><%= link_to student.cnet, all_requests_user_path(student) %></td>
 	<td><%= student.first_name %></td>
 	<td><%= student.last_name %></td>
 	<td><%= student.email %></td>

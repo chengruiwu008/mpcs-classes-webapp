@@ -9,10 +9,9 @@ class UsersController < ApplicationController
   before_action :get_user,              only: [:my_courses, :my_bids,
                                                :my_students, :my_requests,
                                                :update_number_of_courses,
-                                               :update_requests]
+                                               :update_requests, :requests]
   before_action :get_my_courses,        only: :my_courses
-  # TODO: Remove :my_courses_all and :my_requests_all?
-  before_action :get_all_my_courses,    only: :my_courses_all
+  before_action :get_all_requests,      only: :all_requests
   before_action :get_all_my_courses_this_year, only: :dashboard
   before_action :get_my_bids,           only: :my_requests
   before_action :get_all_my_bids,       only: :my_requests_all
@@ -26,6 +25,9 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all.page(params[:page])
+  end
+
+  def all_requests
   end
 
   def students
@@ -234,6 +236,16 @@ class UsersController < ApplicationController
 
   def get_number_of_courses
     @possible_num_courses = (1..User::MAX_COURSES)
+  end
+
+  def get_all_requests
+    @all_requests = {}
+
+    Quarter.all.each do |q|
+      k = "#{q.year}-#{q.season}"
+      v = @user.bids.where(quarter_id: q.id)
+      @all_requests[k] = v
+    end
   end
 
 end

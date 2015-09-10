@@ -44,6 +44,8 @@ CourseEnrollment::Application.routes.draw do
   resources :quarters
 
   resources :users do
+    member { get "/all_requests" => "users#all_requests"}
+
     collection do
       get "faculty"
     end

@@ -1,4 +1,30 @@
 <h2><%= display_name(@user) %>'s Requests</h2>
 
-<br />
-<br />
+<% @all_requests.each do |quarter, bids| %>
+  <br />
+  <br />
+
+  <h3><%= formatted_quarter(quarter) %> Requests</h3>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+	<th>Course Number</th>
+	<th>Course Title</th>
+	<th>Instructor</th>
+	<th>Ranking</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% bids.each do |b| %>
+	<tr>
+	  <td><%= b.course.number %></td>
+	  <td><%= b.course.title %></td>
+	  <td><%= display_name(b.course.instructor) %></td>
+	  <td><%= b.preference %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

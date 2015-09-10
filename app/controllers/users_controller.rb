@@ -242,9 +242,8 @@ class UsersController < ApplicationController
     @all_requests = {}
 
     Quarter.all.each do |q|
-      k = "#{q.year}-#{q.season}"
-      v = @user.bids.where(quarter_id: q.id)
-      @all_requests[k] = v
+      bids = @user.bids.where(quarter_id: q.id)
+      @all_requests[q] = bids if bids.present?
     end
   end
 

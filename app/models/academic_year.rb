@@ -53,4 +53,8 @@ class AcademicYear < ActiveRecord::Base
     AcademicYear.find_by(year: self.year + 1)
   end
 
+  def to_param
+    ApplicationController.helpers.year_slug(self.year)
+  end
+
 end

@@ -1,5 +1,6 @@
 class AcademicYearsController < ApplicationController
 
+  before_action :find_year, except: :index
   load_and_authorize_resource
 
   def index
@@ -58,6 +59,10 @@ class AcademicYearsController < ApplicationController
 
   def academic_year_params
     params.require(:academic_year).permit(:year)
+  end
+
+  def find_year
+    @academic_year = AcademicYear.find_by(year: year_unslug(params[:id]).to_i)
   end
 
 end

@@ -21,7 +21,7 @@ class AcademicYear < ActiveRecord::Base
       h[ApplicationController.helpers.formatted_year(y)] = y.year
     end
 
-    h
+    Hash[h.sort]
   end
 
   # self.form_select_hash_possible: for creating a new academic_year.
@@ -33,7 +33,7 @@ class AcademicYear < ActiveRecord::Base
       h[ApplicationController.helpers.formatted_year_from_int(y)] = y
     end
 
-    h
+    Hash[h.sort]
   end
 
   # current?: an academic_year is current if the current date is between

@@ -98,4 +98,8 @@ class User < ActiveRecord::Base
     self.affiliation.blank? or self.department.blank?
   end
 
+  def to_param
+    self.cnet
+  end
+
 end

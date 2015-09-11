@@ -1,5 +1,11 @@
 class UsersController < ApplicationController
 
+  before_action :find_user, except: [:index, :my_courses, :my_bids,
+                                     :my_students, :my_requests,
+                                     :update_number_of_courses,
+                                     :requests, :update_requests,
+                                     :faculty, :students]
+
   load_and_authorize_resource
 
   before_action :get_quarter,           only: [:my_courses, :my_requests,
@@ -138,9 +144,9 @@ class UsersController < ApplicationController
       case current_user.type
       when "Admin"
         if params[:id]
-          # URI matches /users/:id/dashboard
+          # URI matches /users/:cnet/dashboard
           # Navigate to the indicated user's dashboard via the logic below.
-          user_type = User.find(params[:id]).type
+          user_type = User.find_by(cnet: params[:id]).type
 
           case user_type
           when "Faculty"
@@ -182,9 +188,10 @@ class UsersController < ApplicationController
   end
 
   def prevent_self_demotion
-    if params[:id].to_i == current_user.id and
-        params[:user][:admin]              and
-        params[:user][:admin].to_i == 0    and
+    if User.find_by(cnet: params[:id])                             and
+        User.find_by(cnet: params[:id]).id.to_i == current_user.id and
+        params[:user][:admin]                                      and
+        params[:user][:admin].to_i == 0                            and
         current_user.admin?
       message = "You cannot demote yourself."
       redirect_to @user, flash: { error: message }
@@ -244,6 +251,12 @@ class UsersController < ApplicationController
     Quarter.all.each do |q|
       bids = @user.bids.where(quarter_id: q.id)
       @all_requests[q] = bids if bids.present?
+    end
+  end
+
+  def find_user
+    if params[:id]
+      @user = User.find_by(cnet: params[:id])
     end
   end
 

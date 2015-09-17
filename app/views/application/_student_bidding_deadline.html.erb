@@ -5,7 +5,7 @@
       <%= formatted_deadline("student_bidding", quarter) %>
     </p>
   </div>
-<% else %>
+<% elsif current_user %>
   <div class="alert alert-warning">
     <p>
       <strong>The course request deadline for this quarter has passed</strong>.

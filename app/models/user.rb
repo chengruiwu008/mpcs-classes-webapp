@@ -10,7 +10,6 @@ class User < ActiveRecord::Base
          authentication_keys: [:cnet]
 
   before_create :get_ldap_info
-  after_update :send_roles_changed
 
   # Current user, passed in from ApplicationController.
   attr_accessor :this_user

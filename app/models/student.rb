@@ -21,14 +21,15 @@ class Student < User
 
     # Set up headers.
     col_headers = ['firstname', 'lastname', 'cnetid', 'numcourses']
-    active_courses = Quarter.active_quarter.courses
-    active_courses.each { |ac| col_headers << ac.number.to_s }
 
     csv << col_headers.join(',')
     csv << "\n"
 
     quarter = nil
     quarter = Quarter.find_by(year: year, season: season) if year && season
+
+    active_courses = (quarter || Quarter.active_quarter).courses
+    active_courses.each { |ac| col_headers << ac.number.to_s }
 
     # Grab data for each student.
     all.each do |s|

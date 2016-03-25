@@ -106,8 +106,16 @@ module ApplicationHelper
   end
 
   def year_unslug(year_slug)
-    # `year_slug` must be a string of the form `"2015-16"`.
-    year_slug ? year_slug.match(/\d{4}/)[0].to_i : nil
+
+    if year_slug
+      if (res = year_slug.match(/\d{4}-\d{2}/))
+        return res[0].to_i
+      elsif (res =year_slug.match(/\d{1}/))
+        return AcademicYear.find(res[0].to_i).year
+      end
+    end
+
+    return nil
   end
 
 end

@@ -3,6 +3,8 @@
   <td><%= link_to formatted_year(year),
     academic_year_path(year.id) %></td>
 
+  <td><%= year.published? ? "Yes" : "No" %></td>
+
   <td><%= year.current? ? "Yes" : "No" %></td>
 
   <td><%= link_to "Edit", edit_academic_year_path(year.id) %></td>

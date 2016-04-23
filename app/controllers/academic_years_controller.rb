@@ -58,7 +58,7 @@ class AcademicYearsController < ApplicationController
   private
 
   def academic_year_params
-    params.require(:academic_year).permit(:year)
+    params.require(:academic_year).permit(:year, :published)
   end
 
   def find_year

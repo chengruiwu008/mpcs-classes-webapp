@@ -8,6 +8,11 @@
   <br />
 
   <%= f.form_group do %>
+    <%= f.check_box :published %>
+  <% end %>
+  <br />
+
+  <%= f.form_group do %>
     <%= f.submit "#{change.capitalize} year",
     class: new_year_btn_class(change), data: { confirm: "Are you sure?" } %>
   <% end %>

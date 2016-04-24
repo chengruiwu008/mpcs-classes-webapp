@@ -40,7 +40,7 @@ CourseEnrollment::Application.routes.draw do
   end
 
   scope "/:year", year: /\d{4}-\d{2}/ do
-    get "/courses" => "academic_years#year_courses"
+    get "/courses" => "academic_years#year_courses", as: :year_courses
   end
 
   resources :academic_years

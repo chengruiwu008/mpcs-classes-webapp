@@ -33,6 +33,7 @@
 	<% end %>
 
 	<% if can? :read, Course %>
+
 	  <%# For each published quarter in the current academic year, show a
 	      tab with links to pages about that users' resources within that
 	      quarter. %>
@@ -40,19 +41,38 @@
 	    <%= render 'layouts/quarter_tab', quarter: q %>
           <% end %>
 
-	  <% if Quarter.can_view_next_year_tab? %>
+	  <!--
+	  <#% if Quarter.can_view_next_year_tab? %>
 	    <%# FIXME: Quarter.active_quarter may not exist. %>
-	    <li class="dropdown" id="dropdown-<%= Quarter.active_quarter.year + 1 %>">
+	    <li class="dropdown" id="dropdown-<%#= Quarter.active_quarter.year + 1 %>">
 	      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 	      </a>
 	      <ul class="dropdown-menu" role="menu">
 		<li>
-		  <%= link_to formatted_year_from_int(Quarter.active_quarter.year+1),
+		  <%#= link_to formatted_year_from_int(Quarter.active_quarter.year+1),
 		    academic_year_path(Quarter.active_quarter.next_year) %>
 		</li>
 	      </ul>
 	    </li>
-  	  <% end %>
+          <%# end %>
+	  -->
+
+          <%# "Academic Years" pulldown menu %>
+          <li class="dropdown" id="dropdown-years">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	      Academic Years
+	      <span class="caret"></span>
+	    </a>
+	    <ul class="dropdown-menu" role="menu">
+	      <% AcademicYear.where(published: true).each do |y| %>
+		<li>
+		  <%= link_to formatted_year_from_int(y.year),
+		    year_courses_path(y) %>
+		</li>
+	      <% end %>
+	    </ul>
+	  </li>
+
 	<% end %>
 
 	<% if can? :manage, :all %>

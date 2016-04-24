@@ -1,0 +1,26 @@
+<h2><%= formatted_year(@academic_year) %> Courses</h2>
+
+<br>
+
+<% @these_quarters.each do |quarter| %>
+  <% if quarter.courses.present? %>
+    <table class="table table-bordered">
+      <tr>
+	<th>Title</th>
+	<th>Advisor</th>
+      </tr>
+      <tbody>
+    <% quarter.courses.each do |course| %>
+      <tr>
+	<td><%= link_to(course.name, course_path(id: course.id)) %></td>
+	<td><%= display_name(course.advisor) %></td>
+      </tr>
+    <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    There are no courses to show for this quarter.
+  <% end %>
+  <br>
+  <br>
+<% end %>

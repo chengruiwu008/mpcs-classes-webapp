@@ -6,6 +6,10 @@ class AcademicYearsController < ApplicationController
   def index
   end
 
+  def year_courses
+    @these_quarters = Quarter.all.where(year: AcademicYear.current_year.id)
+  end
+
   def show
   end
 
@@ -62,7 +66,8 @@ class AcademicYearsController < ApplicationController
   end
 
   def find_year
-    @academic_year = AcademicYear.find_by(year: year_unslug(params[:id]).to_i)
+    id = params[:id] ? params[:id] : params[:year]
+    @academic_year = AcademicYear.find_by(year: year_unslug(id).to_i)
   end
 
 end

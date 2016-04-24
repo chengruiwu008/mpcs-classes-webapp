@@ -3,17 +3,21 @@
 <br>
 
 <% @these_quarters.each do |quarter| %>
+  <h3><%= formatted_quarter(quarter) %></h3>
+
+  <br>
+
   <% if quarter.courses.present? %>
     <table class="table table-bordered">
       <tr>
 	<th>Title</th>
-	<th>Advisor</th>
+	<th>Instructor</th>
       </tr>
       <tbody>
     <% quarter.courses.each do |course| %>
       <tr>
-	<td><%= link_to(course.name, course_path(id: course.id)) %></td>
-	<td><%= display_name(course.advisor) %></td>
+	<td><%= link_to(course.title, q_path(course)) %></td>
+	<td><%= display_name(course.instructor) %></td>
       </tr>
     <% end %>
       </tbody>

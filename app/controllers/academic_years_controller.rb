@@ -7,7 +7,7 @@ class AcademicYearsController < ApplicationController
   end
 
   def year_courses
-    @these_quarters = Quarter.all.where(year: AcademicYear.current_year.id)
+    @these_quarters = Quarter.all.where(year: AcademicYear.current_year.year)
   end
 
   def show

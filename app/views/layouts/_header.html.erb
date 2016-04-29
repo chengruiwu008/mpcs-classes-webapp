@@ -40,7 +40,7 @@
 	  <% Quarter.visible_quarters.each do |q| %>
 	    <%= render 'layouts/quarter_tab', quarter: q %>
           <% end %>
-
+	<% end %>
 	  <!--
 	  <#% if Quarter.can_view_next_year_tab? %>
 	    <%# FIXME: Quarter.active_quarter may not exist. %>
@@ -57,23 +57,21 @@
           <%# end %>
 	  -->
 
-          <%# "Academic Years" pulldown menu %>
-          <li class="dropdown" id="dropdown-years">
-	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-	      Academic Years
-	      <span class="caret"></span>
-	    </a>
-	    <ul class="dropdown-menu" role="menu">
-	      <% AcademicYear.where(published: true).each do |y| %>
-		<li>
-		  <%= link_to formatted_year_from_int(y.year),
-		    year_courses_path(y) %>
-		</li>
-	      <% end %>
-	    </ul>
-	  </li>
-
+        <%# "Academic Years" pulldown menu %>
+        <li class="dropdown" id="dropdown-years">
+	  <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+	    Academic Years
+	    <span class="caret"></span>
+	  </a>
+	  <ul class="dropdown-menu" role="menu">
+	    <% AcademicYear.where(published: true).each do |y| %>
+	      <li>
+		<%= link_to formatted_year_from_int(y.year),
+		  year_courses_path(y) %>
+	      </li>
 	<% end %>
+	  </ul>
+	</li>
 
 	<% if can? :manage, :all %>
 	  <li class="dropdown" id="dropdown-administrative">

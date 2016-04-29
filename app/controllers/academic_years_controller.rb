@@ -1,6 +1,7 @@
 class AcademicYearsController < ApplicationController
 
   before_action :find_year, except: :index
+  before_action :authenticate_user!, except: :year_courses
   load_and_authorize_resource
 
   def index

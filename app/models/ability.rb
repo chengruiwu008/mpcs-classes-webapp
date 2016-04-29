@@ -5,6 +5,7 @@ class Ability
     user ||= User.new # If not signed in
     can :read, Quarter
     can :global_index, Course
+    can :year_courses, AcademicYear
     can :index, Course
     can :read, Course do |course|
       course.quarter.published? && course.published? && !course.draft?
